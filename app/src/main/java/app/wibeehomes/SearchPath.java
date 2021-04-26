@@ -11,6 +11,7 @@ public class SearchPath {
         this.info=info;
         this.subPaths=subPaths;
     }
+
     private int pathType; //결과 종류 1-지하철, 2-버스, 3-버스+지하철 1개
     private ExtendNode info; // 요약 정보 확장 노드 1개
     private ArrayList<SubPath> subPaths; //1-9-3 이동 교통 수단 정보 확장 노드
