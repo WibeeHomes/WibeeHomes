@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">우리WON하는부동산</string>
+    <string name="main_menu1">🔍 부동산 검색</string>
+    <string name="main_menu2">🏡 공공주택사업</string>
 </resources>

@@ -13,4 +13,60 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+
+    <style name="SEARCH_BAR">
+        <item name="android:background">@drawable/search_bar_blue</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColorHint">@color/colorLightBlue</item>
+        <item name="android:textColor">@color/colorMainBlue</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DIALOG_EDITTEXT">
+        <item name="android:background">@drawable/dialog_edittext_round</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textColorHint">@color/colorLightBlue</item>
+        <item name="android:textColor">@color/colorMainBlue</item>
+        <item name="android:textSize">11dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--BUTTON-->
+    <style name="BUTTON">
+        <item name="android:background">@drawable/button_blue</item>
+        <item name="android:textColor">@drawable/button_text_color</item>
+        <item name="android:textSize">11dp</item>
+    </style>
+
+    <style name="BUTTON_MAIN_SCROLL">
+        <item name="android:textColor">@drawable/button_text_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <!--TEXTVIEW-->
+    <style name="DIALOG_TITLE_TEXTVIEW">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="DIALOG_SUB_TITLE_TEXTVIEW" parent="DIALOG_TITLE_TEXTVIEW">
+        <item name="android:textSize">11dp</item>
+    </style>
+
+
+
+
+
+
+
 </resources>

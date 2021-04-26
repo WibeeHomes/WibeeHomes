@@ -5,6 +5,14 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#222222</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorMainBlue">#536AEC</color>
+    <color name="colorLightBlue">#C2C8F8</color>
+    <color name="colorButtonGreen">#96EE87</color>
+    <color name="colorButtonBlue">#A3CDFF</color>
+    <color name="colorButtonSky">#9FF3FF</color>
+    <color name="colorButtonOrange">#FFD089</color>
+    <color name="colorButonGrey">#E2E2E2</color>
 </resources>
