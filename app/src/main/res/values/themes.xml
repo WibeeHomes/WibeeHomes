@@ -48,7 +48,7 @@
     </style>
 
     <style name="BUTTON_MAIN_SCROLL">
-        <item name="android:textColor">@drawable/button_text_color</item>
+        <item name="android:textColor">@drawable/button_text_click_color</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">13dp</item>
     </style>
@@ -62,11 +62,5 @@
     <style name="DIALOG_SUB_TITLE_TEXTVIEW" parent="DIALOG_TITLE_TEXTVIEW">
         <item name="android:textSize">11dp</item>
     </style>
-
-
-
-
-
-
 
 </resources>
