@@ -20,5 +20,7 @@
         <activity android:name=".AuthActivity" />
         <activity android:name=".IntroActivity" />
     </application>
-
+    <uses-sdk android:minSdkVersion='21'
+    android:targetSdkVetsion='30' />
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
