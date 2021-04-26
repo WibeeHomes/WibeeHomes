@@ -6,4 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".PublicHousingActivity">
 
+    <LinearLayout
+        android:id="@+id/public_housing_ll_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <LinearLayout
+            android:id="@+id/public_housing_ll_menu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:alpha="0.4"
+            android:clickable="true">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/emoji_magnifying_glass" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_menu1"
+                style="@style/TITLE_TEXTVIEW"/>
+        </LinearLayout>
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorMainBlue"/>
+        <LinearLayout
+            android:id="@+id/public_housing_ll_menu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/home_ll_menu1">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/emoji_house_with_garden" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_menu2"
+                style="@style/TITLE_TEXTVIEW"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/public_housing_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/local_list"
+        android:background="@drawable/search_bar_blue"
+        style="@style/BOTTOM_TITLE"
+        app:layout_constraintTop_toBottomOf="@id/public_housing_ll_title"/>
+
+    <HorizontalScrollView
+        android:id="@+id/public_housing_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/public_housing_spinner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/public_housing_tv_cate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BUTTON_MAIN_SCROLL"
+                android:text="분양주택" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                style="@style/VIEW_MAIN_SCROLL"/>
+            <TextView
+                android:id="@+id/public_housing_tv_cate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BUTTON_MAIN_SCROLL"
+                android:text="신혼 희망타운" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                style="@style/VIEW_MAIN_SCROLL"/>
+            <TextView
+                android:id="@+id/public_housing_tv_cate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BUTTON_MAIN_SCROLL"
+                android:text="임대주택" />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                style="@style/VIEW_MAIN_SCROLL"/>
+            <TextView
+                android:id="@+id/public_housing_tv_cate4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BUTTON_MAIN_SCROLL"
+                android:text="매입임대·전세임대" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/public_housing_rc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/public_housing_scroll"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
