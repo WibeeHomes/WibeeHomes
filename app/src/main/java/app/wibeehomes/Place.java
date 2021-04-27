@@ -13,6 +13,9 @@ public class Place implements Serializable {
     private double placeX;//경도
     private double placeY;//위도
 
+    private String phoneNumber;// 전화번호
+    private String distance; // 중심 좌표와의 거리
+
     //Constructor
     public Place(String place_address, double placeX, double placeY ) {
         this.placeAddress=place_address;
@@ -28,6 +31,15 @@ public class Place implements Serializable {
         this.placeY=placeY;
     }
 
+    public Place(String place_address, String detail_address, double placeX, double placeY, String phoneNumber, String distance ) {
+        this.placeAddress=place_address;
+        this.placeDetailAddress = detail_address;
+        this.placeX=placeX;
+        this.placeY=placeY;
+        this.phoneNumber = phoneNumber;
+        this.distance =distance;
+    }
+
     // get -------------------------
     public double get_placeX(){
         return this.placeX;
@@ -39,6 +51,8 @@ public class Place implements Serializable {
         return this.placeAddress;
     }
     public String get_placeDetailAddress() {return this.placeDetailAddress;}
+    public String getPhoneNumber() { return phoneNumber; }
+    public String getDistance() { return distance; }
     //----------------------------
 
     // set -------------------------
@@ -52,5 +66,7 @@ public class Place implements Serializable {
         this.placeAddress = placeAddress;
     }
     public void set_placeDetailAddress(String placeDetailAddress) {this.placeDetailAddress = placeDetailAddress;}
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setDistance(String distance) { this.distance = distance; }
     //--------------------------------
 }
