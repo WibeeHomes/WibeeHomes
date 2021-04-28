@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.wibeehomes">
 
+    <uses-permission android:name="android.permission.INTERNET">
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
+    </uses-permission>
+
+    <meta-data android:name="com.kakao.sdk.AppKey" android:value="53ca4577f9f05632fb0c1065ceb46440"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +27,9 @@
         <activity android:name=".AuthActivity" />
         <activity android:name=".IntroActivity" />
     </application>
+
     <uses-sdk android:minSdkVersion='21'
-    android:targetSdkVetsion='30' />
+    android:targetSdkVersion='30' />
+
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
