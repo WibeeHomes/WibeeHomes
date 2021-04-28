@@ -22,37 +22,65 @@ public class HomeActivity extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
 
+
         publicHousingLinearLayout = findViewById(R.id.home_ll_menu2);
         searchBarLinearLayout = findViewById(R.id.home_ll_search_bar);
         conditionLinearLayout = findViewById(R.id.home_ll_condition);
 
-        // 메뉴전환 : 공공주택사업
-        publicHousingLinearLayout.setOnClickListener(new View.OnClickListener() {
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, PublicHousingActivity.class);
-                startActivity(intent);
-            }
-        });
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 메뉴전환 : 공공주택사업
+                        publicHousingLinearLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(HomeActivity.this, PublicHousingActivity.class);
+                                startActivity(intent);
+                            }
+                        });
 
-        // 서치바 다이얼로그 연결
-        searchBarLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    }
+                });
+            }
+        }).start();
+
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View view) {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 서치바 다이얼로그 연결
+                        searchBarLinearLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
+                            }
+                        });
+                    }
+                });
             }
-        });
+        }).start();
 
-        // 조건 다이얼로그 연결
-        conditionLinearLayout.setOnClickListener(new View.OnClickListener() {
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View view) {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 조건 다이얼로그 연결
+                        conditionLinearLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
+                            }
+                        });
+                    }
+                });
             }
-        });
+        }).start();
     }
-
-
-
-
 }
