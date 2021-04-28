@@ -8,11 +8,22 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.json.JSONException;
+
+import app.wibeehomes.dialog.SearchDialog;
 
 
 public class HomeActivity extends AppCompatActivity {
 
-    private LinearLayout publicHousingLinearLayout, searchBarLinearLayout, conditionLinearLayout;
+    private LinearLayout publicHousingLinearLayout, conditionLinearLayout;
+
+    /* 장소 검색 관련 컴포넌트 */
+    private LinearLayout searchBarLinearLayout;
+    private TextView searchBarTextView;
+    private SearchDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +43,25 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //------------------------------------------------------------------------------------------
+        /* 서치바 연결 */
+        searchBarTextView = findViewById(R.id.home_tv_search_bar);
+
         // 서치바 다이얼로그 연결
         searchBarLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog = new SearchDialog(HomeActivity.this);
+                dialog.setSearchDialogListener(new SearchDialog.SearchDialogListener() {
+                    @Override
+                    public void onSearchResultClick(Place place) throws JSONException {
+                        // 매개변수 : 다이얼로그에서 선택한 place 객체
+                        searchBarTextView.setText(place.get_placeAddress());
 
+                        // place 객체로 위치 설정
+                        
+                    }
+                });
             }
         });
 

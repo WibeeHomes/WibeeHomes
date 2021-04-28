@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 import app.wibeehomes.Place;
@@ -21,7 +23,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private ArrayList<Place> datalist;
 
     public interface OnSearchClickListener{
-        void onSearchItemClick(View v, int pos);
+        void onSearchItemClick(View v, int pos) throws JSONException;
     }
     private SearchAdapter.OnSearchClickListener searchClickListener = null;
     public void setOnSearchClickListener(SearchAdapter.OnSearchClickListener listener){

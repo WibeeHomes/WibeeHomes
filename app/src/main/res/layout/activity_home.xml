@@ -69,7 +69,7 @@
         style="@style/BOTTOM_TITLE"
         android:background="@drawable/search_bar_blue">
         <TextView
-            android:id="@+id/home_et_search_bar"
+            android:id="@+id/home_tv_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="지역 검색"
