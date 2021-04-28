@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="public_housing_list">
+        <item>분양주택</item>
+        <item>신혼 희망타운</item>
+        <item>임대주택</item>
+        <item>매입임대·전세임대</item>
+    </string-array>
+</resources>

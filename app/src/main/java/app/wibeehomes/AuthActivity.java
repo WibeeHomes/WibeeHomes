@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import app.wibeehomes.R;
+
 public class AuthActivity extends AppCompatActivity {
 
     @Override

@@ -11,8 +11,10 @@
         </shape>
     </item>
     <item android:state_pressed="true">
-        <solid android:color="@color/colorMainBlue"/>
-        <corners
-            android:radius="50dp"/>
+        <shape>
+            <solid android:color="@color/colorMainBlue"/>
+            <corners
+                android:radius="50dp"/>
+        </shape>
     </item>
 </selector>
