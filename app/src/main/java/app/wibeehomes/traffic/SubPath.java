@@ -1,6 +1,9 @@
-package app.wibeehomes;
+package app.wibeehomes.traffic;
 
 import java.util.ArrayList;
+
+import app.wibeehomes.Place;
+import app.wibeehomes.traffic.Lane;
 
 public class SubPath {
     SubPath(){

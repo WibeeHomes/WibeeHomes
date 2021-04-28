@@ -1,6 +1,4 @@
-package app.wibeehomes;
-
-import android.widget.Toast;
+package app.wibeehomes.traffic;
 
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
@@ -11,6 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import app.wibeehomes.Place;
+import app.wibeehomes.traffic.ExtendNode;
+import app.wibeehomes.traffic.Lane;
+import app.wibeehomes.traffic.SearchPath;
+import app.wibeehomes.traffic.SubPath;
 
 /**
  * 경로 검색을 수행하는 오딧세이 api의 결과를 콜백하는 비동기식 class

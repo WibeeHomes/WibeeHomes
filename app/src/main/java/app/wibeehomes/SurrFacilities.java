@@ -2,6 +2,7 @@ package app.wibeehomes;
 
 import java.util.ArrayList;
 
+import app.wibeehomes.Kakao.KakaoCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

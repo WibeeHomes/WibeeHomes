@@ -1,5 +1,6 @@
-package app.wibeehomes;
+package app.wibeehomes.Kakao;
 
+import app.wibeehomes.Kakao.KakaoCategory;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
