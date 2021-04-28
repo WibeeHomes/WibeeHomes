@@ -55,6 +55,7 @@ public class Place implements Serializable {
     public String get_placeDetailAddress() {return this.placeDetailAddress;}
     public String getPhoneNumber() { return phoneNumber; }
     public String getDistance() { return distance; }
+    public SurrFacilities getSurrPlace() {return surrPlace;}
     //----------------------------
 
     // set -------------------------
@@ -70,5 +71,6 @@ public class Place implements Serializable {
     public void set_placeDetailAddress(String placeDetailAddress) {this.placeDetailAddress = placeDetailAddress;}
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public void setDistance(String distance) { this.distance = distance; }
+    public void setSurrPlace(SurrFacilities surrPlace) {this.surrPlace=surrPlace;}
     //--------------------------------
 }
