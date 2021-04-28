@@ -15,6 +15,7 @@ public class Place implements Serializable {
 
     private String phoneNumber;// 전화번호
     private String distance; // 중심 좌표와의 거리
+    private SurrFacilities surrPlace; // 주변 장소들
 
     //Constructor
     public Place(String place_address, double placeX, double placeY ) {
@@ -38,6 +39,7 @@ public class Place implements Serializable {
         this.placeY=placeY;
         this.phoneNumber = phoneNumber;
         this.distance =distance;
+        surrPlace = new SurrFacilities(this);
     }
 
     // get -------------------------
