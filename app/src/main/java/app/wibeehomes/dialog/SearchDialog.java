@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,9 +27,10 @@ import app.wibeehomes.adapter.SearchAdapter;
 public class SearchDialog extends Dialog {
 
     private Context context;
-    EditText searchEditText;
-    ImageButton searchButton, dismissButton;
+    private EditText searchEditText;
+    private ImageButton searchButton, dismissButton;
 
+    // RecyclerView 컴포넌트
     RecyclerView searchRecyclerView;
     SearchAdapter adapter;
     ArrayList<Place> resultPlaces;
@@ -55,6 +57,7 @@ public class SearchDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_search_map);
 
         Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 

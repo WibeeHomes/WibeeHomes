@@ -44,7 +44,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION){
                         if(searchClickListener != null){
-                            searchClickListener.onSearchItemClick(view, pos);
+                            try {
+                                searchClickListener.onSearchItemClick(view, pos);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }

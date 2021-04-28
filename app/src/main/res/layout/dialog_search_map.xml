@@ -20,7 +20,7 @@
         android:textSize="17dp"
         android:text="장소 검색"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="15dp"/>
 
     <ImageButton
         android:id="@+id/dialog_search_dismiss_Button"
@@ -50,6 +50,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="35dp"
             android:hint="장소 검색"
+            android:textSize="15dp"
             android:textColorHint="@color/colorLightBlue"
             android:textColor="@color/colorMainBlue"
             android:background="@drawable/search_bar_blue"/>
