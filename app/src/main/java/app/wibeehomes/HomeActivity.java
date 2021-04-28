@@ -2,22 +2,29 @@ package app.wibeehomes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
-
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import net.daum.mf.map.api.MapView;
 
 
 public class HomeActivity extends AppCompatActivity {
 
     private LinearLayout publicHousingLinearLayout, searchBarLinearLayout, conditionLinearLayout;
-
+    MapView mapView = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mapView = new MapView(this);
+
+        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
 
         publicHousingLinearLayout = findViewById(R.id.home_ll_menu2);
         searchBarLinearLayout = findViewById(R.id.home_ll_search_bar);
