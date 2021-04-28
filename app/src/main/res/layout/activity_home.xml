@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@id/home_ll_search_bar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/home_view_map"
+        app:layout_constraintBottom_toTopOf="@id/map_view"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/home_tv_condition"
@@ -120,13 +120,11 @@
             android:src="@drawable/ic_setting"/>
     </LinearLayout>
 
-
-    <View
-        android:id="@+id/home_view_map"
+    <RelativeLayout
+        android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        android:background="@color/colorWhiteBlue"
         app:layout_constraintTop_toBottomOf="@id/home_ll_condition"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

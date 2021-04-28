@@ -34,7 +34,7 @@ public class SearchDialog extends Dialog {
     LinearLayoutManager layoutManager;
     SearchDialogListener searchDialogListener;
     Place selectedRow;
-    // private FindPlace fp;
+    //private FindPlace fp;
 
 
     interface SearchDialogListener {
