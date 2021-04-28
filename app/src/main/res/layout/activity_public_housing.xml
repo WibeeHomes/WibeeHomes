@@ -89,6 +89,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/public_housing_imgbtn_search"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="0"

@@ -34,7 +34,7 @@ public class SearchDialog extends Dialog {
     LinearLayoutManager layoutManager;
     SearchDialogListener searchDialogListener;
     Place selectedRow;
-    //private FindPlace fp;
+    // private FindPlace fp;
 
 
     interface SearchDialogListener {
@@ -64,6 +64,7 @@ public class SearchDialog extends Dialog {
         layoutManager = new LinearLayoutManager(getContext());
         searchRecyclerView.setLayoutManager(layoutManager);
         searchRecyclerView.setHasFixedSize(true);
+
 
 
         dismissButton.setOnClickListener(new View.OnClickListener() {
