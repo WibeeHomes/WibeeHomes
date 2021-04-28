@@ -16,4 +16,13 @@ public class RetrofitAction {
         KakaoRetrofitAPI retrofitAPI = kakaoAPIIns.create(KakaoRetrofitAPI.class);
         return retrofitAPI;
     }// 카카오 API 실행 함수
+
+    public static SearchPlaceAPI SearchPlaceAction (){
+        Retrofit searchAPIIns = new Retrofit.Builder()
+                .baseUrl("http://api.vworld.kr")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        SearchPlaceAPI retrofitAPI = searchAPIIns.create(SearchPlaceAPI.class);
+        return retrofitAPI;
+    }
 }
