@@ -1,4 +1,4 @@
-package app.wibeehomes;
+package app.wibeehomes.Kakao;
 
 import com.google.gson.annotations.SerializedName;
 

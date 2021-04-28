@@ -1,4 +1,4 @@
-package app.wibeehomes;
+package app.wibeehomes.traffic;
 
 /**
  * 교통 수단 정보 확장 노드

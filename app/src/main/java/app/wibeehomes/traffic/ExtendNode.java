@@ -1,4 +1,4 @@
-package app.wibeehomes;
+package app.wibeehomes.traffic;
 
 public class ExtendNode {
     private double trafficDistance; //도보를 제외한 총 이동 거리

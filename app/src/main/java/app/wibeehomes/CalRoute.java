@@ -3,7 +3,8 @@ package app.wibeehomes;
 import android.content.Context;
 
 import com.odsay.odsayandroidsdk.ODsayService;
-import java.util.ArrayList;
+
+import app.wibeehomes.traffic.ResultCallbackListener;
 
 /**
  * 루트 계산을 하는 class
