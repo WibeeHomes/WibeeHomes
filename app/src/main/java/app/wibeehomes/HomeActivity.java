@@ -10,13 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import net.daum.mf.map.api.MapView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import app.wibeehomes.Map.KakaoMapAPI;
 
 public class HomeActivity extends AppCompatActivity {
