@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 
 import net.daum.mf.map.api.MapView;
 
+import app.wibeehomes.Map.KakaoMapAPI;
+
 public class HomeActivity extends AppCompatActivity {
 
     private LinearLayout publicHousingLinearLayout, searchBarLinearLayout, conditionLinearLayout;
@@ -18,10 +20,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        MapView mapView = new MapView(this);
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-        mapViewContainer.addView(mapView);
-
+        KakaoMapAPI kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),37.55835087570901,126.99937335768597 );
 
         publicHousingLinearLayout = findViewById(R.id.home_ll_menu2);
         searchBarLinearLayout = findViewById(R.id.home_ll_search_bar);
