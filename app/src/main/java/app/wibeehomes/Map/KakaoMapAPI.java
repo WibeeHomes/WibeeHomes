@@ -1,6 +1,9 @@
 package app.wibeehomes.Map;
 
 import android.app.Activity;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
 import android.view.ViewGroup;
 
 import net.daum.mf.map.api.MapPoint;
@@ -30,4 +33,5 @@ public class KakaoMapAPI {
     public ViewGroup getMapViewContainer() {
         return mapViewContainer;
     }
+
 }
