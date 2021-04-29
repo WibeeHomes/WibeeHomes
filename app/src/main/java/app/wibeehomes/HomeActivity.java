@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-
         GPSListener gpsListener = new GPSListener();
         UserLoc.LocBy_gps(this,gpsListener);
         KakaoMapAPI kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),UserLoc.getUserPlace().get_placeX(),UserLoc.getUserPlace().get_placeY() );
