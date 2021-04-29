@@ -10,6 +10,11 @@ public class PagePojo {
     @SerializedName("size")
     private String size;
 
+    public PagePojo(){
+        total = "-1";
+        current = "-1";
+        size = "-1";
+    }
     public String getTotal () {
         return total;
     }

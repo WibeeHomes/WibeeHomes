@@ -8,6 +8,11 @@ public class RecordPojo {
     @SerializedName("current")
     private String current;
 
+    public  RecordPojo(){
+        total = "-1";
+        current = "-1";
+    }
+
     public String getTotal () {
         return total;
     }

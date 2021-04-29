@@ -19,7 +19,7 @@ public class RetrofitAction {
 
     public static SearchPlaceAPI SearchPlaceAction (){
         Retrofit searchAPIIns = new Retrofit.Builder()
-                .baseUrl("http://api.vworld.kr")
+                .baseUrl("https://api.vworld.kr")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SearchPlaceAPI retrofitAPI = searchAPIIns.create(SearchPlaceAPI.class);

@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import app.wibeehomes.Place;
 import app.wibeehomes.R;
+import app.wibeehomes.SearchPlace;
 import app.wibeehomes.adapter.SearchAdapter;
 
 public class SearchDialog extends Dialog {
@@ -84,7 +86,11 @@ public class SearchDialog extends Dialog {
                     // 검색 결과는 resultPlaces 배열에 넣으면 됩니다
                     // HomeActivity.java -> '서치바 다이얼로그 연결' 주석 아래 onSearchResultClick() 매개변수로 지도 위치 설정
 
-
+                    try {
+                        resultPlaces= SearchPlace.searchPlaceAction(searchPlaceInput);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     adapter = new SearchAdapter(resultPlaces);
                     searchRecyclerView.setAdapter(adapter);

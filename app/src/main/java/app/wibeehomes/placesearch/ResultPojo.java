@@ -13,6 +13,12 @@ public class ResultPojo {
     @SerializedName("items")
     private ArrayList<ItemPojo> items;
 
+    public ResultPojo(){
+        crs = "";
+        type = "";
+        items = new ArrayList<ItemPojo>();
+    }
+
     public String getCrs ()
     {
         return crs;

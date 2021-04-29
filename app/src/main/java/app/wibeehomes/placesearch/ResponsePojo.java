@@ -14,6 +14,14 @@ public class ResponsePojo {
     @SerializedName("status")
     private String status;
 
+    public ResponsePojo(){
+        status = "";
+        page = new PagePojo();
+        record = new RecordPojo();
+        service = new ServicePojo();
+        result = new ResultPojo();
+    }
+
     public ResultPojo getResult () {
         return result;
     }

@@ -27,6 +27,10 @@ public class KakaoMapAPI {
         mapView.zoomOut(true);
     }
 
+    public void changeLoc(double x, double y){
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(x, y), true);
+    }
+
     public MapView getMapView() {
         return mapView;
     }

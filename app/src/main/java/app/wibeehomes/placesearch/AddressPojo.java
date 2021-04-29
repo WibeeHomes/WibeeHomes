@@ -8,6 +8,11 @@ public class AddressPojo {
     @SerializedName("road")
     private String road;
 
+    public AddressPojo(){
+        parcel = "";
+        road = "";
+    }
+
     public String getParcel () {
         return parcel;
     }

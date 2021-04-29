@@ -1,5 +1,6 @@
 package app.wibeehomes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import app.wibeehomes.placesearch.ItemPojo;
@@ -57,42 +58,21 @@ import retrofit2.Response;
 * */
 
 public class SearchPlace {
-    private static String nameTemp;
-    private ArrayList<Place> result;
-    public ArrayList<Place> getResult() {
+    private static ArrayList<Place> result = new ArrayList<Place>();
+    private static placeSearchPoJo data = new placeSearchPoJo();
+    private static int pageNum;
+    public static ArrayList<Place> searchPlaceAction(String name) throws IOException {
+        result.clear();
+        pageNum = 1;
+        do {
+            data = RetrofitAction.SearchPlaceAction().getData("search","100",Integer.toString(pageNum),
+                    name,"place","json","340FCCC5-C1C9-31D4-B7D8-56BC7558298A").execute().body();
+            for (int i = 0; i < Integer.parseInt(data.getResponse().getRecord().getCurrent()); i++) {
+                ItemPojo rePojo = data.getResponse().getResult().getItems().get(i);
+                result.add(new Place(rePojo.getTitle(), rePojo.getAddress().getRoad(), Double.parseDouble(rePojo.getPoint().getX()), Double.parseDouble(rePojo.getPoint().getY())));
+            }
+            pageNum++;
+        }while(Integer.parseInt(data.getResponse().getPage().getTotal()) != Integer.parseInt(data.getResponse().getPage().getCurrent()));
         return result;
-    }
-
-    public void setResult(ArrayList<Place> result) {
-        this.result = result;
-    }
-
-    public static void searchPlaceAction(String name){
-        nameTemp=name;
-        RetrofitAction.SearchPlaceAction().getData("search","search","200","2.0",
-                name,"place","xml","xml","340FCCC5-C1C9-31D4-B7D8-56BC7558298A").enqueue(new Callback<placeSearchPoJo>() {
-            @Override
-            public void onResponse(Call<placeSearchPoJo> call, Response<placeSearchPoJo> response) {
-                if(response.isSuccessful()){
-                    placeSearchPoJo data = response.body();
-                    ArrayList<Place> temp = new ArrayList<Place>();
-
-                    for(int i =0; i < Integer.parseInt(data.getResponse().getRecord().getCurrent()); i++){
-                        ItemPojo rePojo = data.getResponse().getResult().getItems().get(i);
-                        temp.add(new Place(rePojo.getTitle(),rePojo.getAddress().getRoad(),Double.parseDouble(rePojo.getPoint().getX()) , Double.parseDouble(rePojo.getPoint().getY())));
-                    }
-
-                    if( Integer.parseInt(data.getResponse().getPage().getTotal()) !=  Integer.parseInt(data.getResponse().getPage().getCurrent())){
-                        searchPlaceAction(nameTemp);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<placeSearchPoJo> call, Throwable t) {
-
-            }
-        });
-
     }
 }

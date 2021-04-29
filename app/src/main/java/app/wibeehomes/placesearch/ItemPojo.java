@@ -14,6 +14,14 @@ public class ItemPojo {
     @SerializedName("point")
     private PointPojo point;
 
+    public ItemPojo (){
+        address = new AddressPojo();
+        id = "" ;
+        title = "";
+        category = "";
+        point = new PointPojo();
+    }
+
     public AddressPojo getAddress () {
         return address;
     }

@@ -3,9 +3,11 @@ package app.wibeehomes.placesearch;
 import com.google.gson.annotations.SerializedName;
 
 public class placeSearchPoJo {
-    @SerializedName("responsePojo")
+    @SerializedName("response")
     private ResponsePojo responsePojo;
-
+    public placeSearchPoJo(){
+        responsePojo= new ResponsePojo();
+    }
     public ResponsePojo getResponse () {
         return responsePojo;
     }

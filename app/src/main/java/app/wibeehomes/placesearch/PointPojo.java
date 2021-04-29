@@ -8,6 +8,11 @@ public class PointPojo {
     @SerializedName("y")
     private String y;
 
+    public PointPojo(){
+        x ="0";
+        y="0";
+    }
+
     public String getX () {
         return x;
     }

@@ -12,6 +12,13 @@ public class ServicePojo {
     @SerializedName("operation")
     private String operation;
 
+    public ServicePojo(){
+        name = "";
+        time = "";
+        version = "";
+        operation = "";
+    }
+
     public String getName () {
         return name;
     }
