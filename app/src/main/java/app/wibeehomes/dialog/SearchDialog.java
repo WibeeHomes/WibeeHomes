@@ -51,6 +51,7 @@ public class SearchDialog extends Dialog {
         this.resultPlaces = new ArrayList<Place>();
     }
 
+
     public SearchDialog(@NonNull Context context) {
         super(context);
         this.context = context;
