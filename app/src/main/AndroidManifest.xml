@@ -2,42 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.wibeehomes">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_main"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_main_round"
-        android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/Theme.우리WON하는부동산">
-        <activity android:name=".HomeDetailActivity">
-
-        </activity>
-        <activity android:name=".PublicHousingActivity" />
-        <activity android:name=".HomeActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".HomeConditionActivity">
-        </activity>
-        <activity android:name=".AuthActivity" />
-        <activity android:name=".IntroActivity" />
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="53ca4577f9f05632fb0c1065ceb46440"/>
-    </application>
-
-    <uses-sdk android:minSdkVersion='21'
-    android:targetSdkVersion='30' />
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="30" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_main"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_main_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.우리WON하는부동산">
+        <activity android:name=".LoanDetailActivity">
+        </activity>
+        <activity android:name=".HomeDetailActivity"></activity>
+        <activity android:name=".PublicHousingActivity" />
+        <activity android:name=".HomeActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HomeConditionActivity"></activity>
+        <activity android:name=".AuthActivity" />
+        <activity android:name=".IntroActivity" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="53ca4577f9f05632fb0c1065ceb46440" />
+    </application>
 
 </manifest>
