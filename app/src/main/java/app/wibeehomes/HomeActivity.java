@@ -3,12 +3,20 @@ package app.wibeehomes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import app.wibeehomes.Map.KakaoMapAPI;
 
@@ -19,6 +27,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
 
         GPSListener gpsListener = new GPSListener();
         UserLoc.LocBy_gps(this,gpsListener);
@@ -101,4 +111,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
     //GPS가 업데이트 되면서 장소가 변경되었을때 실행되는 리스너 함수
+
+
 }
