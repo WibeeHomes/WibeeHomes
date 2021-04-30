@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/Theme.우리WON하는부동산">
+        android:theme="@style/Theme.우리WON하는부동산"
+        android:usesCleartextTraffic="true">
         <activity android:name=".LoanDetailActivity">
         </activity>
         <activity android:name=".HomeDetailActivity"></activity>

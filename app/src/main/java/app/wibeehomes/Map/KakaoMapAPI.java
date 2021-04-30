@@ -22,15 +22,12 @@ public class KakaoMapAPI {
     private ViewGroup mapViewContainer;
     private SurrFacilities surrFacilities;
     private Place centerLoc;
+    private int makerNumber =0;
 
-    private ArrayList<MapPOIItem> subwayMarkers;
-    private ArrayList<MapPOIItem> busMarkers;
-    private ArrayList<MapPOIItem> conviMarkers;
-    private ArrayList<MapPOIItem> MartMarkers;
-
-    public KakaoMapAPI(Activity activity, ViewGroup viewGroup,Place centerLoc) throws IOException {
-        this.surrFacilities = new SurrFacilities(centerLoc);
+    public KakaoMapAPI(Activity activity, ViewGroup viewGroup,Place centerLoc) throws IOException, InterruptedException {
         this.centerLoc = centerLoc;
+
+        this.surrFacilities = new SurrFacilities(centerLoc);
 
         mapView = new MapView(activity);
         mapViewContainer = viewGroup;
@@ -48,91 +45,81 @@ public class KakaoMapAPI {
         marker.setMapPoint(MapPoint.mapPointWithGeoCoord(centerLoc.get_placeX(),centerLoc.get_placeY())); //좌표
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-        mapView.addPOIItem(marker);
+        makerNumber++;
+        this.mapView.addPOIItem(marker);
+
+        this.conviMarker();
+        this.subwayMarker();
+        this.busMarker();
+        this.MartMarker();
     }
 
     public void changeLoc(Place centerLoc){
         this.centerLoc = centerLoc;
         mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(this.centerLoc.get_placeX(), this.centerLoc.get_placeY()), 3, true);
-        changeMarker();
-    }
-
-    public void changeMarker(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                MartMarker();
-            }
-        }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                busMarker();
-            }
-        }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                conviMarker();
-            }
-        }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                subwayMarker();
-            }
-        }).start();
+        conviMarker();
+        subwayMarker();
+        busMarker();
+        MartMarker();
     }
 
     public void subwayMarker(){
         for(int i =0; i <this.surrFacilities.getSubwayStation().size();i++){
+            Place temp =this.surrFacilities.getSubwayStation().get(i);
             MapPOIItem marker = new MapPOIItem();
-            marker.setItemName(this.surrFacilities.getSubwayStation().get(i).get_placeAddress());
-            marker.setTag(0);
-            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(centerLoc.get_placeX(),centerLoc.get_placeY())); //좌표
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            marker.setItemName(temp.get_placeAddress());
+            marker.setTag(makerNumber);
+            marker.setMapPoint(mapPoint); //좌표
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-            mapView.addPOIItem(marker);
-            this.subwayMarkers.add(marker);
+            this.mapView.addPOIItem(marker);
+            makerNumber++;
         }
     }
 
     public void conviMarker(){
         for(int i =0; i <this.surrFacilities.getConvenience().size();i++){
+            Place temp =this.surrFacilities.getConvenience().get(i);
             MapPOIItem marker = new MapPOIItem();
-            marker.setItemName(this.surrFacilities.getConvenience().get(i).get_placeAddress());
-            marker.setTag(0);
-            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(centerLoc.get_placeX(),centerLoc.get_placeY())); //좌표
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            marker.setItemName(temp.get_placeAddress());
+            marker.setTag(makerNumber);
+            marker.setMapPoint(mapPoint); //좌표
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-            mapView.addPOIItem(marker);
-            this.conviMarkers.add(marker);
+            this.mapView.addPOIItem(marker);
+            makerNumber++;
         }
     }
 
     public void busMarker(){
         for(int i =0; i <this.surrFacilities.getBusStation().size();i++){
+            Place temp =this.surrFacilities.getBusStation().get(i);
             MapPOIItem marker = new MapPOIItem();
-            marker.setItemName(this.surrFacilities.getBusStation().get(i).get_placeAddress());
-            marker.setTag(0);
-            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(centerLoc.get_placeX(),centerLoc.get_placeY())); //좌표
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            marker.setItemName(temp.get_placeAddress());
+            marker.setTag(makerNumber);
+            marker.setMapPoint(mapPoint); //좌표
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-            mapView.addPOIItem(marker);
-            this.busMarkers.add(marker);
+            this.mapView.addPOIItem(marker);
+            makerNumber++;
         }
     }
 
     public void MartMarker(){
         for(int i =0; i <this.surrFacilities.getSupermarket().size();i++){
+            Place temp =this.surrFacilities.getSupermarket().get(i);
             MapPOIItem marker = new MapPOIItem();
-            marker.setItemName(this.surrFacilities.getSupermarket().get(i).get_placeAddress());
-            marker.setTag(0);
-            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(centerLoc.get_placeX(),centerLoc.get_placeY())); //좌표
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            marker.setItemName(temp.get_placeAddress());
+            marker.setTag(makerNumber);
+            marker.setMapPoint(mapPoint); //좌표
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-            mapView.addPOIItem(marker);
-            this.MartMarkers.add(marker);
+            this.mapView.addPOIItem(marker);
+            makerNumber++;
         }
     }
 
