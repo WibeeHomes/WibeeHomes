@@ -7,4 +7,13 @@ public class CityCode {
         this.cityCode = cityCode;
         this.cityName = cityName;
     }
+    
+    public String getCode() {
+    	return Integer.toString(cityCode);
+    }
+    
+    public String getName() {
+    	return cityName;
+    }
+
 }
