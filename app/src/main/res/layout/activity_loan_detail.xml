@@ -6,183 +6,293 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:id="@+id/lonedetail_sv_1"
+    android:id="@+id/loandetail_sv_1"
 
     android:layout_width="match_parent"
 
     android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".LoanDetailActivity">
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoanDetailActivity"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:id="@+id/loanedetail_ll_all"
-    >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="비상자금대출·직장인대출 "
-        android:layout_marginTop="15dp"
-        android:textSize="17dp"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lonedetail_tv_1"
-        android:text="고객한글명"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="23dp"
-        android:id="@+id/lonedetail_et_name"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/edittext_light_blue"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lonedetail_tv_2"
-        android:text="사업자법인등록번호"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="23dp"
-        android:id="@+id/loandetail_et_businessnum"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/edittext_light_blue"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lonedetail_tv_3"
-        android:text="입사일자"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="23dp"
-        android:id="@+id/loandetail_et_date"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/edittext_light_blue"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lonedetail_tv_4"
-        android:text="연소득 금액"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="23dp"
-        android:id="@+id/loandetail_et_money"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/edittext_light_blue"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/lonedetail_view_1"
-        android:background="@color/colorLightBlue"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/loandetail_ll_year"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="전세자금대출 "
-            android:layout_marginTop="15dp"
-            android:textSize="17dp"
-            android:textColor="@color/black"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lonedetail_tv_5"
-            android:text="연간소득금액"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/black"
-            />
-        <EditText
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/loandetail_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="23dp"
-            android:id="@+id/lonedetail_et_yearmoney"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edittext_light_blue"
-            />
-
-        <!--동의 버튼-->
-        <CheckBox
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/loandetail_check_allagree"
-            android:layout_marginTop="15dp"
-            android:text="전체 동의"
-            android:textSize="15dp"
-            android:buttonTint="@color/colorMainBlue"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loandetail_check_first"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:text="신용정보조회 동의"
-            android:textSize="15dp"
-            android:buttonTint="@color/colorMainBlue"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loandetail_check_second"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:text="개인정보제공 동의"
-            android:textSize="15dp"
-            android:buttonTint="@color/colorMainBlue"/>
-        <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loandetail_check_third"
-        android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-        android:text="개인신용정보이용 동의"
-        android:textSize="15dp"
-        android:buttonTint="@color/colorMainBlue"
-        android:layout_marginBottom="30dp"/>
+            style="@style/TOOL_BAR"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/emoji_money_bag"/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="대출 정보 입력"
+                    android:layout_weight="1"
+                    style="@style/TITLE_TEXTVIEW" />
+                <TextView
+                    android:id="@+id/loandetail_tv_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="조회"
+                    android:textColor="@color/colorMainBlue"
+                    android:textStyle="bold"
+                    android:textSize="17dp"/>
+            </LinearLayout>
 
+        </androidx.appcompat.widget.Toolbar>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/loanedetail_ll_loan1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/loandetail_toolbar"
+            tools:context=".LoanDetailActivity"
+            tools:layout_editor_absoluteX="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="비상자금대출"
+                android:textColor="@color/black"
+                android:textSize="19dp" />
+
+            <TextView
+                android:id="@+id/loandetail_tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="고객한글명"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/loandetail_et_name_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_light_blue"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+            <View
+                android:id="@+id/loandetail_view_1"
+                android:layout_width="match_parent"
+                style="@style/VIEW_LINE"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/loanedetail_ll_loan1"
+                app:layout_constraintBottom_toTopOf="@+id/loanedetail_ll_loan2"
+                />
+
+        <LinearLayout
+            android:id="@+id/loanedetail_ll_loan2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/loandetail_view_1"
+            tools:context=".LoanDetailActivity"
+            tools:layout_editor_absoluteX="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="직장인대출"
+                android:textColor="@color/black"
+                android:textSize="19dp" />
+
+            <TextView
+                android:id="@+id/loandetail_tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="고객한글명"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/loandetail_et_name_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_light_blue"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/loandetail_tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="사업자법인등록번호"
+                android:textColor="@color/black"
+                android:textSize="17dp"/>
+
+            <EditText
+                android:id="@+id/loandetail_et_businessnum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_light_blue"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/loandetail_tv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="입사일자"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/loandetail_et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_light_blue"
+                android:inputType="date"
+                android:maxLength="10"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/loandetail_tv_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="연소득 금액(원)"
+                android:textColor="@color/black"
+                android:textSize="17dp"/>
+
+            <EditText
+                android:id="@+id/loandetail_et_yearmoney_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_light_blue"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:inputType="number"/>
+        </LinearLayout>
+
+            <View
+                android:id="@+id/loandetail_view_2"
+                android:layout_width="match_parent"
+                style="@style/VIEW_LINE"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/loanedetail_ll_loan2"
+                app:layout_constraintBottom_toTopOf="@+id/loandetail_ll_year"
+        />
+
+            <LinearLayout
+                android:id="@+id/loandetail_ll_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/loandetail_view_2"
+                tools:context=".LoanDetailActivity"
+                tools:layout_editor_absoluteX="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="전세자금대출 "
+                    android:textColor="@color/black"
+                    android:textSize="19dp" />
+
+                <TextView
+                    android:id="@+id/loandetail_tv_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="연간소득금액(원)"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/loandetail_et_yearmoney_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_light_blue"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:inputType="number"/>
+
+                <!--동의 버튼-->
+                <CheckBox
+                    android:id="@+id/loandetail_check_allagree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:buttonTint="@color/colorMainBlue"
+                    android:text="전체 동의"
+                    android:textSize="19dp" />
+
+                <CheckBox
+                    android:id="@+id/loandetail_check_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/colorMainBlue"
+                    android:text="신용정보조회 동의"
+                    android:textSize="17dp" />
+
+                <CheckBox
+                    android:id="@+id/loandetail_check_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/colorMainBlue"
+                    android:text="개인정보제공 동의"
+                    android:textSize="17dp" />
+
+                <CheckBox
+                    android:id="@+id/loandetail_check_third"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:buttonTint="@color/colorMainBlue"
+                    android:text="개인신용정보이용 동의"
+                    android:textSize="17dp" />
+            </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
