@@ -1,5 +1,6 @@
 package app.wibeehomes;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -15,7 +16,6 @@ public class Place implements Serializable {
 
     private String phoneNumber;// 전화번호
     private String distance; // 중심 좌표와의 거리
-    private SurrFacilities surrPlace; // 주변 장소들
 
     //Constructor
     public Place(String place_address, double placeX, double placeY ) {
@@ -32,14 +32,13 @@ public class Place implements Serializable {
         this.placeY=placeY;
     }
 
-    public Place(String place_address, String detail_address, double placeX, double placeY, String phoneNumber, String distance ) {
+    public Place(String place_address, String detail_address, double placeX, double placeY, String phoneNumber, String distance ) throws IOException {
         this.placeAddress=place_address;
         this.placeDetailAddress = detail_address;
         this.placeX=placeX;
         this.placeY=placeY;
         this.phoneNumber = phoneNumber;
         this.distance =distance;
-        surrPlace = new SurrFacilities(this);
     }
 
     // get -------------------------
@@ -55,7 +54,6 @@ public class Place implements Serializable {
     public String get_placeDetailAddress() {return this.placeDetailAddress;}
     public String getPhoneNumber() { return phoneNumber; }
     public String getDistance() { return distance; }
-    public SurrFacilities getSurrPlace() {return surrPlace;}
     //----------------------------
 
     // set -------------------------
@@ -71,6 +69,5 @@ public class Place implements Serializable {
     public void set_placeDetailAddress(String placeDetailAddress) {this.placeDetailAddress = placeDetailAddress;}
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public void setDistance(String distance) { this.distance = distance; }
-    public void setSurrPlace(SurrFacilities surrPlace) {this.surrPlace=surrPlace;}
     //--------------------------------
 }
