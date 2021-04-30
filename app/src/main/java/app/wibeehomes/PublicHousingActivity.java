@@ -59,11 +59,11 @@ public class PublicHousingActivity extends AppCompatActivity {
         localSpinner = findViewById(R.id.public_housing_spinner_local);
         categorySpinner = findViewById(R.id.public_housing_spinner_category);
 
-        localAdapter = ArrayAdapter.createFromResource(this, R.array.local_list, R.layout.support_simple_spinner_dropdown_item);
+        localAdapter = ArrayAdapter.createFromResource(this, R.array.local_list, R.layout.item_spinner);
         localAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         localSpinner.setAdapter(localAdapter);
 
-        categoryAdapter = ArrayAdapter.createFromResource(this, R.array.public_housing_list, R.layout.support_simple_spinner_dropdown_item);
+        categoryAdapter = ArrayAdapter.createFromResource(this, R.array.public_housing_list, R.layout.item_spinner);
         categoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
 
