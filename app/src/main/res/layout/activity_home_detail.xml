@@ -1,196 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/ScrollView1"
-
     android:layout_width="match_parent"
-
     android:layout_height="match_parent">
 
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    tools:context=".HomeDetailActivity"
-    android:orientation="vertical"
-
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:gravity="center_vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="left">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:src="@drawable/emoji_house"/>
-
-
-        <TextView
-            android:id="@+id/tv_homedetail_address"
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:layout_gravity="center"
-
-            android:layout_marginLeft="10dp"
-            android:gravity="fill_vertical"
-            android:text="상세 주소"
-            android:textSize="23dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <!--여기는 나중에 상세 주소에 대한 지도 넣을 예정-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/imgv_homedetail_map"
-
-            android:background="@color/colorButtonGreen"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        tools:context=".HomeDetailActivity">
 
-        <TextView
+        <androidx.appcompat.widget.Toolbar
+            style="@style/TOOL_BAR"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:textSize="18dp"
-            android:text="교통·편의시설"
-            android:textColor="@color/black"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/emoji_house" />
+
+            <TextView
+                android:id="@+id/tv_homedetail_address"
+                style="@style/TITLE_TEXTVIEW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="상세 주소" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--여기는 나중에 상세 주소에 대한 지도 넣을 예정-->
+            <ImageView
+                android:id="@+id/imgv_homedetail_map"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/colorButtonGrey"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/view_bus_color" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/view_subway_color" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/view_convenience_color" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/view_mart_color" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_homedetail_bus"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_marker_bus"
+            <TextView
+                style="@style/CON_TITLE_TEXTVIEW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="상세 정보" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="카테고리" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="건축년도" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="면적/층수" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="보증금/월세" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="주소" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="카테고리"
+                        android:textColor="@color/colorMainBlue" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="건축년도"
+                        android:textColor="@color/colorMainBlue" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="면적/층수"
+                        android:textColor="@color/colorMainBlue" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="보증금/월세"
+                        android:textColor="@color/colorMainBlue" />
+
+                    <TextView
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="주소"
+                        android:textColor="@color/colorMainBlue" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            style="@style/VIEW_LINE"
+            android:layout_width="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/CON_TITLE_TEXTVIEW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="교통·편의시설" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_homedetail_bus"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_marker_bus" />
+
+                <Button
+                    android:id="@+id/btn_homedetail_subway"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/button_marker_subway" />
+
+                <Button
+                    android:id="@+id/btn_homedetail_convenience_store"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/button_marker_convenience_store" />
+
+                <Button
+                    android:id="@+id/btn_homedetail_cart"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/button_marker_cart" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            style="@style/VIEW_LINE"
+            android:layout_width="match_parent" />
 
-            <Button
-                android:id="@+id/btn_homedetail_subway"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_marker_subway"
-                android:layout_marginLeft="30dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="직장과의 거리"
+                style="@style/CON_TITLE_TEXTVIEW"/>
 
-            <Button
-                android:id="@+id/btn_homedetail_convenience_store"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_marker_convenience_store"
-                android:layout_marginLeft="30dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <Button
+                    android:id="@+id/btn_homedetail_work"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/button_work" />
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/view_bus_color"
+                            android:layout_marginRight="10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="버스까지의 거리"
+                            style="@style/CON_SUB_TITLE_TEXTVIEW"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/view_subway_color"
+                            android:layout_marginRight="10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="지하철까지의 거리"
+                            style="@style/CON_SUB_TITLE_TEXTVIEW"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_homedetail_cart"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_marker_cart"
-                android:layout_marginLeft="30dp"
+                </LinearLayout>
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            style="@style/VIEW_LINE"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="대출 조회"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <!--여기는 대출 조회 목록 넣을 예정-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:textSize="18dp"
-            android:text="직장과의 거리"
-            android:textColor="@color/black"
-            />
-
-        <!--여기는 나중에 거리 계산한 값 넣기-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:textSize="18dp"
-            android:text="대출 조회"
-            android:textColor="@color/black"
-            />
-
-        <!--여기는 대출 조회 목록 넣을 예정-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            />
-
-    </LinearLayout>
-
-</LinearLayout>
 
 </ScrollView>

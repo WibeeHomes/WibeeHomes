@@ -1,328 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeConditionActivity">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/condition_toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TOOL_BAR"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-        <LinearLayout
+        android:layout_height="match_parent"
+        tools:context=".HomeConditionActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/condition_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/emoji_setting"/>
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+            style="@style/TOOL_BAR"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="부동산 조건"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/emoji_setting"/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="부동산 조건"
+                    android:layout_weight="1"
+                    style="@style/TITLE_TEXTVIEW" />
+                <TextView
+                    android:id="@+id/condition_tv_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="조회"
+                    android:textColor="@color/colorMainBlue"
+                    android:textStyle="bold"
+                    android:textSize="17dp"/>
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/condition_tv_local_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/condition_toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/condition_ll_spinners"/>
+
+        <LinearLayout
+            android:id="@+id/condition_ll_spinners"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintTop_toBottomOf="@id/condition_tv_local_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/condition_view">
+
+            <Spinner
+                android:id="@+id/condition_spinner_big_local"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                style="@style/TITLE_TEXTVIEW" />
-            <TextView
-                android:id="@+id/condition_tv_submit"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:paddingLeft="10dp"
+                android:entries="@array/big_location_array"
+                android:background="@drawable/spinner_round_blue"/>
+
+            <Spinner
+                android:id="@+id/condition_spinner_small_local"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:text="조회"
-                android:textColor="@color/colorMainBlue"
-                android:textStyle="bold"
-                android:textSize="17dp"/>
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="10dp"
+                android:entries="@array/array_0"
+                android:background="@drawable/spinner_round_blue"/>
+
+
         </LinearLayout>
 
-    </androidx.appcompat.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/condition_tv_local_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="지역"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="15dp"
-        android:textSize="17dp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/condition_toolbar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/condition_ll_spinners"/>
-
-    <LinearLayout
-        android:id="@+id/condition_ll_spinners"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintTop_toBottomOf="@id/condition_tv_local_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/condition_view">
-
-        <Spinner
-            android:id="@+id/condition_spinner_big_local"
+        <View
+            android:id="@+id/condition_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="5dp"
-            android:paddingLeft="10dp"
-            android:entries="@array/big_location_array"
-            android:background="@drawable/spinner_round_blue"/>
-
-        <Spinner
-            android:id="@+id/condition_spinner_small_local"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:paddingLeft="10dp"
-            android:entries="@array/array_0"
-            android:background="@drawable/spinner_round_blue"/>
-
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/condition_view"
-        android:layout_width="match_parent"
-        style="@style/VIEW_LINE"
-        app:layout_constraintTop_toBottomOf="@id/condition_ll_spinners"
-        app:layout_constraintBottom_toTopOf="@id/textView2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:text="전·월세"
-        android:textColor="@color/black"
-        android:textSize="17dp"
-        app:layout_constraintTop_toBottomOf="@+id/condition_toolbar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout"/>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintLeft_toLeftOf="parent">
-
-        <RadioGroup
-            android:id="@+id/rg_lease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_lease_year"
-                android:layout_width="95dp"
-                android:layout_height="40dp"
-                android:background="@drawable/radiobutton_selector"
-                android:button="@android:color/transparent"
-                android:checked="false"
-                android:gravity="center"
-                android:text="전세"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_text_selector"
-                android:textSize="17dp" />
-
-            <RadioButton
-                android:id="@+id/rb_lease_month"
-                android:layout_width="95dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/radiobutton_selector"
-                android:button="@android:color/transparent"
-                android:checked="false"
-                android:gravity="center"
-                android:text="월세"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_text_selector"
-                android:textSize="17dp" />
-
-        </RadioGroup>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/condition_view1"
-        android:layout_width="match_parent"
-        style="@style/VIEW_LINE"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="15dp"
-        android:text="예산 금액"
-        android:textColor="@color/black"
-        android:textSize="17dp"
-        app:layout_constraintTop_toBottomOf="@+id/condition_view1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/condition_ll_range_title"/>
-
-    <LinearLayout
-        android:id="@+id/condition_ll_range_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/rangeSeekbar">
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="보증금(전세금)"
-            style="@style/SUB_TITLE_TEXTVIEW" />
+            style="@style/VIEW_LINE"
+            app:layout_constraintTop_toBottomOf="@id/condition_ll_spinners"
+            app:layout_constraintBottom_toTopOf="@id/textView2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_homecondition_budget"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right|bottom"
-            android:layout_marginEnd="30dp"
-            android:layout_weight="1"
-            android:text="무제한"
-            android:textColor="@color/colorMainBlue"
-            android:textSize="13dp" />
-    </LinearLayout>
-
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-        android:id="@+id/rangeSeekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="15dp"
-        app:barHeight="4dp"
-        app:internalPadding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/condition_ll_range_title"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout2"
-        app:thumbDisabled="@drawable/custom_slider_thumb"
-        app:thumbNormal="@drawable/custom_slider_thumb_active"
-        app:thumbPressed="@drawable/custom_slider_thumb_active" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/rangeSeekbar"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/condition_img_loan">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:text="전·월세"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:layout_constraintTop_toBottomOf="@+id/condition_toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/textView9"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <RadioGroup
+                android:id="@+id/rg_lease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:text="월세"
-                style="@style/SUB_TITLE_TEXTVIEW"/>
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_lease_year"
+                    android:layout_width="95dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/radiobutton_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="전세"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_text_selector"
+                    android:textSize="17dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_lease_month"
+                    android:layout_width="95dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/radiobutton_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="월세"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_text_selector"
+                    android:textSize="17dp" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/condition_view1"
+            android:layout_width="match_parent"
+            style="@style/VIEW_LINE"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="15dp"
+            android:text="예산 금액"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:layout_constraintTop_toBottomOf="@+id/condition_view1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/condition_ll_range_title"/>
+
+        <LinearLayout
+            android:id="@+id/condition_ll_range_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rangeSeekbar">
             <TextView
-                android:id="@+id/tv_homecondition_monthly"
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="보증금(전세금)"
+                style="@style/SUB_TITLE_TEXTVIEW" />
+
+            <TextView
+                android:id="@+id/tv_homecondition_budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|bottom"
-                android:layout_weight="1"
                 android:layout_marginEnd="30dp"
+                android:layout_weight="1"
                 android:text="무제한"
                 android:textColor="@color/colorMainBlue"
-                android:textSize="13dp"/>
+                android:textSize="13dp" />
         </LinearLayout>
 
         <org.florescu.android.rangeseekbar.RangeSeekBar
-            android:id="@+id/rangeSeekbar_monthly"
+            android:id="@+id/rangeSeekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginTop="15dp"
             app:barHeight="4dp"
             app:internalPadding="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/condition_ll_range_title"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout2"
             app:thumbDisabled="@drawable/custom_slider_thumb"
             app:thumbNormal="@drawable/custom_slider_thumb_active"
-            app:thumbPressed="@drawable/custom_slider_thumb_active"/>
+            app:thumbPressed="@drawable/custom_slider_thumb_active" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/rangeSeekbar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/condition_img_loan">
 
-    <ImageView
-        android:id="@+id/condition_img_loan"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/emoji_thinking"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/condition_tv_loan"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="월세"
+                    style="@style/SUB_TITLE_TEXTVIEW"/>
+                <TextView
+                    android:id="@+id/tv_homecondition_monthly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|bottom"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="30dp"
+                    android:text="무제한"
+                    android:textColor="@color/colorMainBlue"
+                    android:textSize="13dp"/>
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/condition_tv_loan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="대출 한도를 같이 조회할까요?"
-        android:textSize="16dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/condition_img_loan"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_homecondition_search"/>
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/rangeSeekbar_monthly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                app:barHeight="4dp"
+                app:internalPadding="4dp"
+                app:thumbDisabled="@drawable/custom_slider_thumb"
+                app:thumbNormal="@drawable/custom_slider_thumb_active"
+                app:thumbPressed="@drawable/custom_slider_thumb_active"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/condition_img_loan"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/emoji_thinking"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/condition_tv_loan"/>
+
+        <TextView
+            android:id="@+id/condition_tv_loan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="대출 한도를 같이 조회할까요?"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/condition_img_loan"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_homecondition_search"/>
 
 
-    <Button
-        android:id="@+id/btn_homecondition_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:background="@drawable/button_search"
-        android:text="대출 조건 입력하기"
-        android:textColor="@color/colorMainBlue"
-        android:textSize="18dp"
-        app:layout_constraintTop_toBottomOf="@id/condition_tv_loan"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        <Button
+            android:id="@+id/btn_homecondition_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:background="@drawable/button_search"
+            android:text="대출 조건 입력하기"
+            android:textColor="@color/colorMainBlue"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@id/condition_tv_loan"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
