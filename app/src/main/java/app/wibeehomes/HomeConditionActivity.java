@@ -39,6 +39,14 @@ public class HomeConditionActivity extends AppCompatActivity {
     private int bigLocal = 0, smallLocal = 0;
 
     private TextView submitButton;
+    private Button btn_loan_info;//대출 정보 입력 버튼
+
+    //전세 최소,최대값
+    Number min_value_jeonse;
+    Number max_value_jeonse;
+    //월세 최소,최대값
+    Number min_value_wolse;
+    Number max_value_wolse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +120,11 @@ public class HomeConditionActivity extends AppCompatActivity {
         rangeSeekBar_budget.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number min_value=bar.getSelectedMinValue();
-                Number max_value=bar.getSelectedMaxValue();
+                min_value_jeonse=bar.getSelectedMinValue();
+                max_value_jeonse=bar.getSelectedMaxValue();
 
-                int min=(int)min_value;
-                int max=(int)max_value;
+                int min=(int)min_value_jeonse;
+                int max=(int)max_value_jeonse;
                 String min_budget,max_budget;
 
                 if(min>=10000){//1억 이상
@@ -154,11 +162,11 @@ public class HomeConditionActivity extends AppCompatActivity {
         rangeSeekBar_monthly.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                Number min_value=bar.getSelectedMinValue();
-                Number max_value=bar.getSelectedMaxValue();
+                min_value_wolse=bar.getSelectedMinValue();
+                max_value_wolse=bar.getSelectedMaxValue();
 
-                int min=(int)min_value;
-                int max=(int)max_value;
+                int min=(int)min_value_wolse;
+                int max=(int)max_value_wolse;
                 String min_budget=formatter.format(min)+"만원";
                 String max_budget=formatter.format(max)+"만원";
 
@@ -195,9 +203,39 @@ public class HomeConditionActivity extends AppCompatActivity {
                 homeIntent.putExtra("con_big_local", bigLocal);
                 homeIntent.putExtra("con_small_local", smallLocal);
                 homeIntent.putExtra("con_rent_type", rentType);
+                //전세(보증금)은 무조건 보내고,, 월세는 선택해야 보내기,,
+                homeIntent.putExtra("con_min_jeonse",min_value_jeonse);
+                homeIntent.putExtra("con_max_jeonse",max_value_jeonse);
+                //월세
+                if(rentType==RENTTYPE.WOLSE){
+                    homeIntent.putExtra("con_min_wolse",min_value_wolse);
+                    homeIntent.putExtra("con_max_wolse",max_value_wolse);
+                }
                 startActivity(homeIntent);
             }
         });
+
+        btn_loan_info=(Button) findViewById(R.id.btn_homecondition_search);//대출 정보 입력 버튼
+        btn_loan_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //부동산 검색 조건을 서버로 보내고 LoanDetailActivity로 이동
+                Intent loanIntent=new Intent(HomeConditionActivity.this,LoanDetailActivity.class);
+                loanIntent.putExtra("con_big_local",bigLocal);
+                loanIntent.putExtra("con_small_local",smallLocal);
+                loanIntent.putExtra("con_rent_type",rentType);
+                //전세(보증금)은 무조건 보내고,, 월세는 선택해야 보내기,,
+                loanIntent.putExtra("con_min_jeonse",min_value_jeonse);
+                loanIntent.putExtra("con_max_jeonse",max_value_jeonse);
+                //월세
+                if(rentType==RENTTYPE.WOLSE) {
+                    loanIntent.putExtra("con_min_wolse", min_value_wolse);
+                    loanIntent.putExtra("con_max_wolse", max_value_wolse);
+                }
+                startActivity(loanIntent);
+            }
+        });
+
 
 
     }
