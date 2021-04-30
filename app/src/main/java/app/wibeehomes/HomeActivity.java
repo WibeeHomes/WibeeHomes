@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -37,7 +38,12 @@ public class HomeActivity extends AppCompatActivity {
 
         GPSListener gpsListener = new GPSListener();
         UserLoc.LocBy_gps(this,gpsListener);
-        KakaoMapAPI kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),UserLoc.getUserPlace().get_placeX(),UserLoc.getUserPlace().get_placeY() );
+        
+        try {
+            KakaoMapAPI kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),UserLoc.getUserPlace());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         publicHousingLinearLayout = findViewById(R.id.home_ll_menu2);
         conditionLinearLayout = findViewById(R.id.home_ll_condition);

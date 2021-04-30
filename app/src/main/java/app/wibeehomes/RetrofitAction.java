@@ -25,4 +25,4 @@ public class RetrofitAction {
         SearchPlaceAPI retrofitAPI = searchAPIIns.create(SearchPlaceAPI.class);
         return retrofitAPI;
     }
-}
+ }

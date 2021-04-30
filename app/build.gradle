@@ -52,7 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.emoji:emoji:1.1.0'
     implementation 'com.google.code.findbugs:jsr305:2.0.1'
-    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+    implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 
 
 }

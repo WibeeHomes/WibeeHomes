@@ -1,6 +1,19 @@
 package app.wibeehomes;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import app.wibeehomes.Kakao.KakaoCategory;
 import retrofit2.Call;
@@ -16,19 +29,70 @@ public class SurrFacilities {
     private int subwayIndex;
     private int conviIndex;
 
+    private boolean marketBool;
+    private boolean subwayBool;
+    private boolean conviBool;
+
+
     private ArrayList<Place> supermarket =new ArrayList<Place>(); // 대형 마트
     private ArrayList<Place> convenience = new ArrayList<Place>(); // 편의점
     private ArrayList<Place> subwayStation = new ArrayList<Place>(); // 지하철역
     private ArrayList<Place> busStation = new ArrayList<Place>(); // 버스 정류장
 
-    SurrFacilities(Place loc){
-        this.loc = loc;
+    public SurrFacilities(Place loc1) throws IOException {
+        this.loc = loc1;
         this.marketIndex =0;
         this.subwayIndex=0;
         this.conviIndex =0;
-        searchSuperMarket();
-        searchSubwayStation();
-        searchConvenience();
+        this.conviBool = true;
+        this.marketBool =true;
+        this.subwayBool =true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(marketBool){
+                    try {
+                        searchSuperMarket();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(subwayBool){
+                    try {
+                        searchSubwayStation();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(conviBool){
+                    try {
+                        searchConvenience();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    busAPI(loc.get_placeX(),loc.get_placeY());
+                } catch (IOException | ParserConfigurationException | SAXException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     // get
@@ -50,98 +114,83 @@ public class SurrFacilities {
     public void addSetSubwayStation(ArrayList<Place> subwayStation) { this.subwayStation.addAll(subwayStation); }
     public void addSetConvenience (ArrayList<Place> convenience) { this.convenience = convenience;}
 
-    public void searchSuperMarket(){
-        RetrofitAction.KaKaoAPIAction().getData("MT1",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
-                "2000",marketIndex).enqueue(new Callback<KakaoCategory>() {
-            @Override
-            public void onResponse(Call<KakaoCategory> call, Response<KakaoCategory> response) {
-                if(response.isSuccessful()){
-                    KakaoCategory data = response.body();
-                    ArrayList<Place> temp = new ArrayList<Place>();
-                    int tempInd = Integer.parseInt(data.getMeta().getPageable_count());
-                    for(int i = 0;i < tempInd ;i++){
-                        temp.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
-                                Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
-                                ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
-                    }
-                    addSetSupermarket(temp);
-                    marketIndex++;
-                    if(data.getMeta().getIs_end().equals("false")){
-                        searchSuperMarket();
-                    }
-                    System.out.println("성공");
-                    System.out.println(data.getDocuments().get(0).getPlace_name());
-                }
-                else{
-                    System.out.println("실패");
-                }
+    public synchronized void searchSuperMarket() throws IOException {
+        KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("MT1",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
+                "2000",marketIndex).execute().body();
+        if(data != null) {
+            marketBool=Boolean.parseBoolean(data.getMeta().getIs_end());
+            for (int i = 0; i < Integer.parseInt(data.getMeta().getPageable_count()); i++) {
+                supermarket.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
+                        Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
+                        , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
             }
-            @Override
-            public void onFailure(Call<KakaoCategory> call, Throwable t) {
-            }
-        }); // 대형 마트
+            marketIndex++;
+        }
     }
 
-    public void searchSubwayStation(){
-        RetrofitAction.KaKaoAPIAction().getData("SW8",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
-                "2000",subwayIndex).enqueue(new Callback<KakaoCategory>() {
-            @Override
-            public void onResponse(Call<KakaoCategory> call, Response<KakaoCategory> response) {
-                if(response.isSuccessful()){
-                    KakaoCategory data = response.body();
-                    ArrayList<Place> temp = new ArrayList<Place>();
-                    int tempInd = Integer.parseInt(data.getMeta().getPageable_count());
-                    for(int i = 0;i < tempInd ;i++){
-                        temp.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
-                                Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
-                                ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
-                    }
-                    addSetSubwayStation(temp);
-                    subwayIndex++;
-                    if(data.getMeta().getIs_end().equals("false")){
-                        searchSubwayStation();
-                    }
-                    System.out.println("성공");
-                }
-                else{
-                    System.out.println("실패");
-                }
+    public synchronized void searchSubwayStation() throws IOException {
+        KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("SW8",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
+                "2000",subwayIndex).execute().body();
+        if(data != null){
+            subwayBool=Boolean.parseBoolean(data.getMeta().getIs_end());
+            for(int i = 0;i < Integer.parseInt(data.getMeta().getPageable_count()) ;i++){
+                subwayStation.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
+                        Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
+                        ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
             }
-            @Override
-            public void onFailure(Call<KakaoCategory> call, Throwable t) {
-            }
-        }); // 대형 마트
+            subwayIndex++;
+        }
     }
 
-    public void searchConvenience(){
-        RetrofitAction.KaKaoAPIAction().getData("CS2",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
-                "2000",conviIndex).enqueue(new Callback<KakaoCategory>() {
-            @Override
-            public void onResponse(Call<KakaoCategory> call, Response<KakaoCategory> response) {
-                if(response.isSuccessful()){
-                    KakaoCategory data = response.body();
-                    ArrayList<Place> temp = new ArrayList<Place>();
-                    int tempInd = Integer.parseInt(data.getMeta().getPageable_count());
-                    for(int i = 0;i < tempInd ;i++){
-                        temp.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
-                                Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
-                                ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
-                    }
-                    addSetConvenience(temp);
-                    conviIndex++;
-                    if(data.getMeta().getIs_end().equals("false")){
-                        searchConvenience();
-                    }
-                    System.out.println("성공");
-                    System.out.println(data.getDocuments().get(0).getPlace_name());
-                }
-                else{
-                    System.out.println("실패");
-                }
+    public synchronized void searchConvenience() throws IOException {
+        KakaoCategory data=RetrofitAction.KaKaoAPIAction().getData("CS2",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
+                "2000",conviIndex).execute().body();
+        if(data!=null){
+            conviBool=Boolean.parseBoolean(data.getMeta().getIs_end());
+            for(int i = 0;i < Integer.parseInt(data.getMeta().getPageable_count()) ;i++){
+                convenience.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
+                        Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
+                        ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
             }
-            @Override
-            public void onFailure(Call<KakaoCategory> call, Throwable t) {
-            }
-        }); // 대형 마트
+            addSetConvenience(convenience);
+            conviIndex++;
+        }
     }
+
+    public synchronized ArrayList<Place> busAPI(double x, double y) throws IOException, ParserConfigurationException, SAXException {
+        String parsingUrl="";
+        String apiKey = "0eMMHHcbnpAK1eXmexxzB4pMr9lfDCq4Tl6P4wh2DrYWPkvQfiB0u9Vr5mMh39H6x63xk%2FesCnLgUfMbHBQV8g%3D%3D";
+        StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/BusSttnInfoInqireService/getCrdntPrxmtSttnList"); /*URL*/
+        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + URLEncoder.encode(apiKey, "UTF-8")); /*Service Key*/
+        urlBuilder.append("&" + URLEncoder.encode("gpsLati","UTF-8") + "=" + URLEncoder.encode(Double.toString(x), "UTF-8")); /*WGS84 위도 좌표*/
+        urlBuilder.append("&" + URLEncoder.encode("gpsLong","UTF-8") + "=" + URLEncoder.encode(Double.toString(y), "UTF-8")); /*WGS84 경도 좌표*/
+
+        URL url = new URL(urlBuilder.toString());
+        parsingUrl = url.toString();
+
+        DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder=dbFactory.newDocumentBuilder();
+        Document doc=dBuilder.parse(parsingUrl);
+        doc.getDocumentElement().normalize();
+
+        NodeList nList = doc.getElementsByTagName("item");
+        for(int i =0; i < nList.getLength();i++){
+            Node nNode = nList.item(i);
+            if(nNode.getNodeType()==Node.ELEMENT_NODE){
+                Element eElement = (Element)nNode;
+                String name = getTagValue("nodenm",eElement);
+                double xLoc = Double.parseDouble(getTagValue("gpslati",eElement));
+                double yLoc = Double.parseDouble(getTagValue("gpslong",eElement));
+                busStation.add(new Place( name,xLoc,yLoc));
+            }
+        }
+        return busStation;
+    }
+    private String getTagValue(String tag, Element eElement) {
+        NodeList nlList=eElement.getElementsByTagName(tag).item(0).getChildNodes();
+        Node nValue=(Node)nlList.item(0);
+        if(nValue==null) return null;
+        return nValue.getNodeValue();
+    }// 태그 밸류 얻어오는 함수
+
 }
