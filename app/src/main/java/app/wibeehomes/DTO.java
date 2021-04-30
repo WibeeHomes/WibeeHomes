@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class DTO {
     private static ArrayList<CityCode> cityArr = new ArrayList<CityCode>();
     public DTO(){
-        cityArr.add(new CityCode("서울특별시",11000));
         cityArr.add(new CityCode("서울특별시 종로구",11110));
         cityArr.add(new CityCode("서울특별시 중구",11140));
         cityArr.add(new CityCode("서울특별시 용산구",11170));
@@ -32,7 +31,6 @@ public class DTO {
         cityArr.add(new CityCode("서울특별시 송파구",11710));
         cityArr.add(new CityCode("서울특별시 강동구",11740));
 
-        cityArr.add(new CityCode("부산광역시 ",26000));
         cityArr.add(new CityCode("부산광역시 중구",26110));
         cityArr.add(new CityCode("부산광역시 서구",26140));
         cityArr.add(new CityCode("부산광역시 동구",26170));
@@ -50,7 +48,6 @@ public class DTO {
         cityArr.add(new CityCode("부산광역시 사상구",26530));
         cityArr.add(new CityCode("부산광역시 기장군",26710));
 
-        cityArr.add(new CityCode("대구광역시",27000));
         cityArr.add(new CityCode("대구광역시 중구",27110));
         cityArr.add(new CityCode("대구광역시 동구",27140));
         cityArr.add(new CityCode("대구광역시 서구",27170));
@@ -60,7 +57,7 @@ public class DTO {
         cityArr.add(new CityCode("대구광역시 달서구",27290));
         cityArr.add(new CityCode("대구광역시 달성군",27710));
 
-        cityArr.add(new CityCode("인천광역시",28000));
+
         cityArr.add(new CityCode("인천광역시 중구",28110));
         cityArr.add(new CityCode("인천광역시 동구",28140));
         cityArr.add(new CityCode("인천광역시 미추홀구",28177));
@@ -71,22 +68,19 @@ public class DTO {
         cityArr.add(new CityCode("인천광역시 서구",28260));
         cityArr.add(new CityCode("인천광역시 강화군",28710));
         cityArr.add(new CityCode("인천광역시 옹진군",28720));
-
-        cityArr.add(new CityCode("광주광역시",29000));
+       
         cityArr.add(new CityCode("광주광역시 동구",29110));
         cityArr.add(new CityCode("광주광역시 서구",29140));
         cityArr.add(new CityCode("광주광역시 남구",29155));
         cityArr.add(new CityCode("광주광역시 북구",29170));
         cityArr.add(new CityCode("광주광역시 광산구",29200));
 
-        cityArr.add(new CityCode("대전광역시",30000));
         cityArr.add(new CityCode("대전광역시 동구",30110));
         cityArr.add(new CityCode("대전광역시 중구",30140));
         cityArr.add(new CityCode("대전광역시 서구",30170));
         cityArr.add(new CityCode("대전광역시 유성구",30200));
         cityArr.add(new CityCode("대전광역시 대덕구",30230));
 
-        cityArr.add(new CityCode("울산광역시",31000));
         cityArr.add(new CityCode("울산광역시 중구",31110));
         cityArr.add(new CityCode("울산광역시 남구",31140));
         cityArr.add(new CityCode("울산광역시 동구",31170));
@@ -95,29 +89,22 @@ public class DTO {
 
         cityArr.add(new CityCode("세종특별자치시",36110));
 
-        cityArr.add(new CityCode("경기도",41000));
-        cityArr.add(new CityCode("경기도 수원시",41110));
         cityArr.add(new CityCode("경기도 수원시 정자동",41111));
         cityArr.add(new CityCode("경기도 수원시 권선구",41113));
         cityArr.add(new CityCode("경기도 수원시 영통구",41117));
         cityArr.add(new CityCode("경기도 수원시 팔달구",41115));
-        cityArr.add(new CityCode("경기도 성남시",41130));
         cityArr.add(new CityCode("경기도 성남시 수정구",41131));
         cityArr.add(new CityCode("경기도 성남시 중원구",41133));
-        cityArr.add(new CityCode("경기도 성남시 분당구",41135));
-        cityArr.add(new CityCode("경기도 고양시",41280));
+        cityArr.add(new CityCode("경기도 성남시 분당구",41135));  
         cityArr.add(new CityCode("경기도 고양시 일산동구",41285));
         cityArr.add(new CityCode("경기도 고양시 일산서구",41287));
         cityArr.add(new CityCode("경기도 고양시 덕양구",41281));
-        cityArr.add(new CityCode("경기도 용인시",41460));
         cityArr.add(new CityCode("경기도 용인시 처인구",41461));
         cityArr.add(new CityCode("경기도 용인시 기흥구",41463));
         cityArr.add(new CityCode("경기도 용인시 수지구",41465));
         cityArr.add(new CityCode("경기도 부천시",41190));
-        cityArr.add(new CityCode("경기도 안산시",41270));
         cityArr.add(new CityCode("경기도 안산시 단원구",41273));
         cityArr.add(new CityCode("경기도 안산시 상록구",41271));
-        cityArr.add(new CityCode("경기도 안양시",41170));
         cityArr.add(new CityCode("경기도 안양시 동안구",41173));
         cityArr.add(new CityCode("경기도 안양시 만안구",41171));
         cityArr.add(new CityCode("경기도 남양주시",41360));
@@ -145,7 +132,6 @@ public class DTO {
         cityArr.add(new CityCode("경기도 가평군",41820));
         cityArr.add(new CityCode("경기도 연천군",41800));
 
-        cityArr.add(new CityCode("강원도",42000));
         cityArr.add(new CityCode("강원도 춘천시",42110));
         cityArr.add(new CityCode("강원도 원주시",42130));
         cityArr.add(new CityCode("강원도 강릉시",42150));
@@ -165,8 +151,6 @@ public class DTO {
         cityArr.add(new CityCode("강원도 고성군",42820));
         cityArr.add(new CityCode("강원도 양양군",42830));
 
-        cityArr.add(new CityCode("충청북도",43000));
-        cityArr.add(new CityCode("충청북도 청주시",43110));
         cityArr.add(new CityCode("충청북도 청주시 상당구",43111));
         cityArr.add(new CityCode("충청북도 청주시 서원구",43112));
         cityArr.add(new CityCode("충청북도 청주시 청원구",43114));
@@ -183,8 +167,6 @@ public class DTO {
         cityArr.add(new CityCode("충청북도 증평군",43745));
 
 
-        cityArr.add(new CityCode("충청남도",44000));
-        cityArr.add(new CityCode("충청남도 천안시",44130));
         cityArr.add(new CityCode("충청남도 천안시 동남구",44131));
         cityArr.add(new CityCode("충청남도 천안시 서북구",44133));
         cityArr.add(new CityCode("충청남도 공주시",44150));
@@ -202,10 +184,8 @@ public class DTO {
         cityArr.add(new CityCode("충청남도 예산군",44810));
         cityArr.add(new CityCode("충청남도 태안군",44825));
 
-        cityArr.add(new CityCode("전라북도",45000));
         cityArr.add(new CityCode("전라북도 전주시 덕진구",45113));
         cityArr.add(new CityCode("전라북도 전주시 완산구",45111));
-        cityArr.add(new CityCode("전라북도 전주시",45110));
         cityArr.add(new CityCode("전라북도 군산시",45130));
         cityArr.add(new CityCode("전라북도 익산시",45140));
         cityArr.add(new CityCode("전라북도 정읍시",45180));
@@ -220,7 +200,6 @@ public class DTO {
         cityArr.add(new CityCode("전라북도 고창군",45790));
         cityArr.add(new CityCode("전라북도 부안군",45800));
 
-        cityArr.add(new CityCode("전라남도",46000));
         cityArr.add(new CityCode("전라남도 목포시",46110));
         cityArr.add(new CityCode("전라남도 여수시",46130));
         cityArr.add(new CityCode("전라남도 순천시",46150));
@@ -244,8 +223,6 @@ public class DTO {
         cityArr.add(new CityCode("전라남도 진도군",46900));
         cityArr.add(new CityCode("전라남도 신안군",46910));
 
-        cityArr.add(new CityCode("경상북도",47000));
-        cityArr.add(new CityCode("경상북도 포항시",47110));
         cityArr.add(new CityCode("경상북도 포항시 남구",47111));
         cityArr.add(new CityCode("경상북도 포항시 북구",47113));
         cityArr.add(new CityCode("경상북도 경주시",47130));
@@ -271,8 +248,6 @@ public class DTO {
         cityArr.add(new CityCode("경상북도 울진군",47930));
         cityArr.add(new CityCode("경상북도 울릉군",47940));
 
-        cityArr.add(new CityCode("경상남도",48000));
-        cityArr.add(new CityCode("경상남도 창원시",48120));
         cityArr.add(new CityCode("경상남도 창원시 의창구",48121));
         cityArr.add(new CityCode("경상남도 창원시 마산합포구",48125));
         cityArr.add(new CityCode("경상남도 창원시 마산회원구",48127));
@@ -296,8 +271,8 @@ public class DTO {
         cityArr.add(new CityCode("경상남도 거창군",48880));
         cityArr.add(new CityCode("경상남도 합천군",48890));
         
-        cityArr.add(new CityCode("제주특별자치도",50000));
         cityArr.add(new CityCode("제주특별자치도 제주시",50110));
         cityArr.add(new CityCode("제주특별자치도 서귀포시",50130));
+
     }
 }
