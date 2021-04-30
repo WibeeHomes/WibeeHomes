@@ -133,7 +133,7 @@
                 android:textColor="@color/black"
                 android:textSize="17dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/loandetail_et_name_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,7 +242,7 @@
                     android:textColor="@color/black"
                     android:textSize="17dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/loandetail_et_yearmoney_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
