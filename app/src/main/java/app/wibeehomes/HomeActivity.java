@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,20 +23,23 @@ import app.wibeehomes.Map.KakaoMapAPI;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private LinearLayout publicHousingLinearLayout, searchBarLinearLayout, conditionLinearLayout;
+    private LinearLayout publicHousingLinearLayout, conditionLinearLayout;
+    private TextView conditionTextView;
+
+    // 조건
+    int bigLocal, smallLocal;
+    RENTTYPE rentType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
 
         GPSListener gpsListener = new GPSListener();
         UserLoc.LocBy_gps(this,gpsListener);
         KakaoMapAPI kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),UserLoc.getUserPlace().get_placeX(),UserLoc.getUserPlace().get_placeY() );
 
         publicHousingLinearLayout = findViewById(R.id.home_ll_menu2);
-        searchBarLinearLayout = findViewById(R.id.home_ll_search_bar);
         conditionLinearLayout = findViewById(R.id.home_ll_condition);
 
         new Thread(new Runnable() {
@@ -58,23 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         }).start();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 서치바 다이얼로그 연결
-                        searchBarLinearLayout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
-                    }
-                });
-            }
-        }).start();
+        conditionTextView = findViewById(R.id.home_tv_condition);
 
         new Thread(new Runnable() {
             @Override
@@ -86,14 +74,44 @@ public class HomeActivity extends AppCompatActivity {
                         conditionLinearLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                Intent intent = new Intent(HomeActivity.this, HomeConditionActivity.class);
 
+                                // 설정된 조건이 있는 경우 기존 조건 같이 넘기기
+                                if (rentType != null) {
+                                    intent.putExtra("big_local", bigLocal);
+                                    intent.putExtra("small_local", smallLocal);
+                                    intent.putExtra("rent_type", rentType);
+                                }
+                                startActivity(intent);
                             }
                         });
                     }
                 });
             }
         }).start();
+
+
+        //------------------------------------------------------------------------------------------
+        // 조건 입력
+        Intent conIntent = getIntent();
+        String conditionString = "";
+
+        if (conIntent.getExtras() != null) {
+            bigLocal = conIntent.getExtras().getInt("con_big_local");
+            smallLocal = conIntent.getExtras().getInt("con_small_local");
+            rentType = (RENTTYPE) conIntent.getSerializableExtra("con_rent_type");
+
+            if (rentType == RENTTYPE.JEONSE){
+                conditionString += "전세";
+            } else {
+                conditionString += "월세";
+            }
+            conditionTextView.setText(conditionString);
+        }
+
+
     }
+
 
     private class GPSListener implements LocationListener {
         public void onLocationChanged(Location location) {
