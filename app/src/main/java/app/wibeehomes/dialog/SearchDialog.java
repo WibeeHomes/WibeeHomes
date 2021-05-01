@@ -85,13 +85,22 @@ public class SearchDialog extends Dialog {
                     // 검색 구현
                     // 검색 결과는 resultPlaces 배열에 넣으면 됩니다
                     // HomeActivity.java -> '서치바 다이얼로그 연결' 주석 아래 onSearchResultClick() 매개변수로 지도 위치 설정
-
+                        Thread thread= new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    resultPlaces= SearchPlace.searchPlaceAction(searchPlaceInput);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        thread.start();
                     try {
-                        resultPlaces= SearchPlace.searchPlaceAction(searchPlaceInput);
-                    } catch (IOException e) {
+                        thread.join();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                     adapter = new SearchAdapter(resultPlaces);
                     searchRecyclerView.setAdapter(adapter);
                     adapter.setOnSearchClickListener(new SearchAdapter.OnSearchClickListener() {
