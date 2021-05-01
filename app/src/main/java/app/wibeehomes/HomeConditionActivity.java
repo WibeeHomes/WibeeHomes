@@ -71,15 +71,14 @@ public class HomeConditionActivity extends AppCompatActivity {
         layout_monthly=(LinearLayout) findViewById(R.id.linearLayout2); //월세관련된 모든 내용 포함하는 레이아웃
 
 
-        // 조건 설정 후 다시 HomeConditionActivity로 돌아온 경우
-        Intent homeIntent = getIntent();
-        if (homeIntent.getExtras() != null ){
-            bigLocal = homeIntent.getExtras().getInt("big_local");
-            smallLocal = homeIntent.getExtras().getInt("small_local");
-            rentType = (RENTTYPE) homeIntent.getSerializableExtra("rent_type");
+        if (PreferenceManager.getBoolean(this, "isSetting") == true) {
+            bigLocal = PreferenceManager.getInt(this, "bigLocalNum");
+            Log.d("빅로컬 전", Integer.toString(bigLocal));
+            smallLocal = PreferenceManager.getInt(this, "smallLocalNum");
+            int rentNum = PreferenceManager.getInt(this, "rentType");
 
             // 전·월세에 따라 라디오버튼 선택
-            if (rentType == RENTTYPE.JEONSE) {
+            if (rentNum == 0) {
                 rg_lease.check(R.id.rb_lease_year);
                 for(int n=0;n<layout_monthly.getChildCount();n++){
                     View view=layout_monthly.getChildAt(n);
@@ -88,8 +87,6 @@ public class HomeConditionActivity extends AppCompatActivity {
             } else {
                 rg_lease.check(R.id.rb_lease_month);
             }
-
-            // 이전 위치 선택
         }
 
         //------------------------------------------------------------------------------------------
@@ -192,15 +189,18 @@ public class HomeConditionActivity extends AppCompatActivity {
         bigAdapter = ArrayAdapter.createFromResource(this, R.array.big_location_array, R.layout.item_spinner);
         bigAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         bigLocSpinner.setAdapter(bigAdapter);
+        bigLocSpinner.setSelection(bigLocal);
 
-        smallAdapter = ArrayAdapter.createFromResource(this, R.array.array_0, R.layout.item_spinner);
+        int resId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
+        smallAdapter = ArrayAdapter.createFromResource(getApplicationContext(), resId, R.layout.item_spinner);
+        Log.d("스몰로컬 결정", Integer.toString(smallLocal));
+
         smallAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         smallLocSpinner.setAdapter(smallAdapter);
+        smallLocSpinner.setSelection(smallLocal);
 
         BigSpinnerAction();
         SmallSpinnerAction();
-
-
 
         //------------------------------------------------------------------------------------------
         // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
@@ -228,15 +228,19 @@ public class HomeConditionActivity extends AppCompatActivity {
                 // 전월세 타입 저장
                 PreferenceManager.setInt(getApplicationContext(), "rentType", rentType.getValue());
 
-                // preference 시/도 이름 저장
+                // preference 시/도 이름, 인덱스 저장
+                    Log.d("보내기 전 큰 지역", Integer.toString(bigLocal));
                 String[] bigArray = getResources().getStringArray(R.array.big_location_array);
                 PreferenceManager.setString(getApplicationContext(), "bigLocal", bigArray[bigLocal]);
+                PreferenceManager.setInt(getApplicationContext(), "bigLocalNum", bigLocal);
 
-                // preference 시/군/구 이름 저장
+
+                // preference 시/군/구 이름, 인덱스 저장
                 Log.d("보내기 전 작은 지역", Integer.toString(smallLocal));
                 int resId = getResources().getIdentifier("array_"+bigLocal, "array", getApplicationContext().getPackageName());
                 String[] smallArray = getResources().getStringArray(resId);
                 PreferenceManager.setString(getApplicationContext(), "smallLocal", smallArray[smallLocal]);
+                PreferenceManager.setInt(getApplicationContext(), "smallLocalNum", smallLocal);
 
                 // preference 전세 최소, 최대 금액
                 PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", (int)min_value_jeonse);
