@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">maps.daum-img.net</domain>
         <domain includeSubdomains="true">openapi.tago.go.kr</domain>
+        <domain includeSubdomains="true">apis.data.go.kr</domain>
     </domain-config>
 </network-security-config>

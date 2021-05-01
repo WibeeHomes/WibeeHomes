@@ -58,9 +58,9 @@ public class HomeActivity extends AppCompatActivity {
 
         GPSListener gpsListener = new GPSListener();
         UserLoc.LocBy_gps(this,gpsListener);
-        Place test = new Place("집",37.28496752588621,126.99445809325184);
+
         try {
-            kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),test);
+            kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),UserLoc.getUserPlace());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
