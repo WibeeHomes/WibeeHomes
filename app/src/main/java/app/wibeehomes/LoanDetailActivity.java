@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -35,8 +36,9 @@ public class LoanDetailActivity extends AppCompatActivity {
     private String businessDate;//입사 일자 'yyyy/MM/dd'
     private String finalDate;//입사 일자 'yyyyMMdd'
 
-    private boolean available_worker_loan;
+    private boolean available_worker_loan;//직장인 대출 가능 여부 -해당되면 true, 아니면 false
 
+    private LinearLayout layout_year;//전세 자금 대출 레이아웃
 
 
     CheckBox check_all,check_first,check_second,check_third;//모두 동의, 신용정보조회동의, 개인정보제공동의, 개인신용정보이용동의
@@ -44,6 +46,8 @@ public class LoanDetailActivity extends AppCompatActivity {
     private int textlength;
     boolean validation_date=false;//날짜 유효성 검사
 
+    //intent로 rentType받기
+    RENTTYPE rentType;
 
     /*
     *고객한글명
@@ -80,11 +84,31 @@ public class LoanDetailActivity extends AppCompatActivity {
         check_second=findViewById(R.id.loandetail_check_second);//개인정보제공 동의
         check_third=findViewById(R.id.loandetail_check_third);//개인신용정보이용 동의
 
+        layout_year=findViewById(R.id.loandetail_ll_year);//전세자금 대출 레이아웃
+
         Calendar cal=Calendar.getInstance();
         cal.add(cal.MONTH,-6);
         SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd");
 
         final String currentDate=f.format(cal.getTime());//현재 날짜로부터 6개월전
+
+        //전월세 타입 받기-전세=0,월세=1
+        Intent get_homeintent=getIntent();
+        rentType=(RENTTYPE)get_homeintent.getSerializableExtra("con_rent_type");
+
+        if(rentType==RENTTYPE.JEONSE) {//전세라면
+            for(int n=0;n<layout_year.getChildCount();n++){
+                View view=layout_year.getChildAt(n);
+                view.setVisibility(View.VISIBLE);
+            }
+        }else if(rentType==RENTTYPE.WOLSE){//월세라면
+            for(int n=0;n<layout_year.getChildCount();n++){
+                View view=layout_year.getChildAt(n);
+                view.setVisibility(View.GONE);
+            }
+        }
+
+
 
         //-----------------------------------------------------------
         //고객한글명-한글만 입력하도록, 비상금에 입력시 직장인에도 자동으로 입력
@@ -154,6 +178,7 @@ public class LoanDetailActivity extends AppCompatActivity {
 
                     finalDate=businessDate.substring(0,4)+businessDate.substring(5,7)+businessDate.substring(8);
 
+                    //직장인 대출은 6개월 이상 근무->조건이 부합되면 true, 아니면 false
                     if(Integer.parseInt(currentDate)>=Integer.parseInt(finalDate)){
                         available_worker_loan=true;
                     }
@@ -233,8 +258,54 @@ public class LoanDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //부동산 검색 조건 + 대출 정보 를 서버로 보내고 HomeActivity로 이동
-                Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                AlertDialog.Builder builder=new AlertDialog.Builder(LoanDetailActivity.this);
+                if(et_name_1.getText().toString().length()==0){//이름을 입력 안한 경우
+                    builder.setMessage("이름을 입력해야 합니다.");
+                    builder.setPositiveButton("확인",null);
+                    builder.create().show();
+                }
+                else{//이름을 입력한 경우
+                    if(et_businessnum.getText().toString().length()==0){//사업자법인등록번호를 입력 안한 경우
+                        builder.setMessage("사업자법인등록번호를 입력해야 합니다.");
+                        builder.setPositiveButton("확인",null);
+                        builder.create().show();
+                    }
+                    else{//사업자법인등록번호를 입력한 경우
+                        if(!validation_date){//입사일자를 정확히 입력 안한 경우
+                                builder.setMessage("입사일자를 정확히 입력해야 합니다.");
+                                builder.setPositiveButton("확인",null);
+                                builder.create().show();
+                        }
+                        else{//입사일자를 입력한 경우
+                            if(et_yearmoney_1.getText().toString().length()==0){//연소득 금액을 입력 안한 경우
+                                builder.setMessage("연소득 금액을 입력해야 합니다.");
+                                builder.setPositiveButton("확인",null);
+                                builder.create().show();
+                            }
+                            else{//연소득 금액을 입력한 경우
+                                //전세라면 모두 동의를 선택해야 함
+                                if(rentType==RENTTYPE.JEONSE){
+                                    if(!check_all.isChecked()){//모두 동의 선택 안한 경우
+                                        builder.setMessage("모두 동의해야 합니다.");
+                                        builder.setPositiveButton("확인",null);
+                                        builder.create().show();
+                                    }
+                                    else{//모두 동의 선택한 경우
+                                        Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                                        startActivity(homeIntent);
+                                    }
+                                }
 
+                                //월세라면 통과~~
+                                else{
+                                    Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                                    startActivity(homeIntent);
+                                }
+                            }
+                        }
+                    }
+
+                }
             }
         });
 
