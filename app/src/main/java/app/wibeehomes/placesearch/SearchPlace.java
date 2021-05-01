@@ -1,8 +1,10 @@
-package app.wibeehomes;
+package app.wibeehomes.placesearch;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import app.wibeehomes.Place;
+import app.wibeehomes.RetrofitAction;
 import app.wibeehomes.placesearch.ItemPojo;
 import app.wibeehomes.placesearch.ResultPojo;
 import app.wibeehomes.placesearch.placeSearchPoJo;

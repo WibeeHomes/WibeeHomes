@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,7 +22,7 @@ import java.util.Objects;
 
 import app.wibeehomes.Place;
 import app.wibeehomes.R;
-import app.wibeehomes.SearchPlace;
+import app.wibeehomes.placesearch.SearchPlace;
 import app.wibeehomes.adapter.SearchAdapter;
 
 public class SearchDialog extends Dialog {
