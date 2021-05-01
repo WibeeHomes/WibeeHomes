@@ -274,6 +274,9 @@ public class DTO {
         
         cityArr.add(new CityCode("제주특별자치도 제주시",50110));
         cityArr.add(new CityCode("제주특별자치도 서귀포시",50130));
+    }
 
+    public static ArrayList<CityCode> getCityArr() {
+        return cityArr;
     }
 }

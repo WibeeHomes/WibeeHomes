@@ -17,15 +17,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
+import org.json.JSONArray;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
-import static app.wibeehomes.DTO.cityArr;
+import okhttp3.Response;
 
 enum RENTTYPE {
     JEONSE(0), WOLSE(1);
@@ -39,6 +46,11 @@ enum RENTTYPE {
 }
 
 public class HomeConditionActivity extends AppCompatActivity {
+
+    private static OkHttpClient client=new OkHttpClient().newBuilder().build();
+    private static String OkhttpUrl="http://192.168.1.34:8080/Wibee_Server/androidDB.jsp";
+    private static MediaType mediaType= MediaType.parse("text/plain");
+
 
     private RadioGroup rg_lease;
     private RadioButton rb_lease_year,rb_lease_month;
@@ -257,10 +269,38 @@ public class HomeConditionActivity extends AppCompatActivity {
                     }
 
                     // 요청 보내기 ------------------------------------------------------------------
-                    String localCodeName = bigArray[bigLocal]+" "+smallArray[smallLocal];
+                    String localCodeName = bigArray[bigLocal]+" "+smallArray[smallLocal]; // DTO 시티 네임
 
+                    ArrayList<CityCode> cityCodes = DTO.getCityArr();
+                    for(int i =0; i <cityCodes.size();i++){
+                        if(cityCodes.get(i).equals(localCodeName)) {
+                            RequestBody body =new FormBody.Builder().add("localCode","11110").build();
+                            Request request = new Request.Builder().url(OkhttpUrl).method("POST", body).build();
+                            // 서버에 법정동 코드 넘겨준다.
+                            final CountDownLatch countDownLatch = new CountDownLatch(1);
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    Log.d("연결 실패", "error Connect Server error is"+e.toString());
+                                    e.printStackTrace();
+                                    countDownLatch.countDown();
+                                }
 
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    if (response.isSuccessful()) {
+                                        countDownLatch.countDown();
+                                    }
+                                }
+                            });
 
+                            try {
+                                countDownLatch.await();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                     Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
