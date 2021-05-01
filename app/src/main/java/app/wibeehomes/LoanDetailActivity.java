@@ -4,21 +4,27 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -93,7 +99,7 @@ public class LoanDetailActivity extends AppCompatActivity {
         final String currentDate=f.format(cal.getTime());//현재 날짜로부터 6개월전
 
         //전월세 타입 받기-전세=0,월세=1
-        Intent get_homeintent=getIntent();
+        final Intent get_homeintent=getIntent();
         rentType=(RENTTYPE)get_homeintent.getSerializableExtra("con_rent_type");
 
         if(rentType==RENTTYPE.JEONSE) {//전세라면
@@ -290,28 +296,36 @@ public class LoanDetailActivity extends AppCompatActivity {
                                         builder.setPositiveButton("확인",null);
                                         builder.create().show();
                                     }
-                                    else{//모두 동의 선택한 경우
+                                    else{//모두 동의 선택한 경우-이름(name), 사업자(businessnum), 입사일자(businessdate), 연소득금액(year_money)
+                                        //available_worker_loan 직장인 대출 가능 여부 보내기 request로!!
                                         Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                                        PreferenceManager.setString(getApplicationContext(),"name",et_name_1.getText().toString());
+                                        PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
+                                        PreferenceManager.setString(getApplicationContext(),"businessdate",finalDate);
+                                        PreferenceManager.setInt(getApplicationContext(),"year_money",Integer.parseInt(et_yearmoney_1.getText().toString()));
+
                                         startActivity(homeIntent);
+
                                     }
                                 }
-
                                 //월세라면 통과~~
-                                else{
+                                else{//모두 동의 선택한 경우-이름(name), 사업자(businessnum), 입사일자(businessdate), 연소득금액(year_money)
+                                    //available_worker_loan 직장인 대출 가능 여부 보내기 request로!!
                                     Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                                    PreferenceManager.setString(getApplicationContext(),"name",et_name_1.getText().toString());
+                                    PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
+                                    PreferenceManager.setString(getApplicationContext(),"businessdate",finalDate);
+                                    PreferenceManager.setInt(getApplicationContext(),"year_money",Integer.parseInt(et_yearmoney_1.getText().toString()));
                                     startActivity(homeIntent);
                                 }
                             }
                         }
                     }
-
                 }
             }
         });
 
-
-
-
+        Log.v("name",PreferenceManager.getString(this,"name"));
 
 
 
