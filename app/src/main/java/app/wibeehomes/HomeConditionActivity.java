@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
@@ -202,11 +203,21 @@ public class HomeConditionActivity extends AppCompatActivity {
 
 
         //------------------------------------------------------------------------------------------
-        // 제출 버튼
+        // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
         submitButton = findViewById(R.id.condition_tv_submit);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()){//전월세를 선택 안한 경우
+                    AlertDialog.Builder builder=new AlertDialog.Builder(HomeConditionActivity.this);
+                    builder.setMessage("전세, 월세를 선택해야 합니다.");
+                    builder.setPositiveButton("확인",null);
+                    builder.create().show();
+                }
+                else if(rb_lease_year.isChecked() || rb_lease_month.isChecked()){//전월세를 선택한 경우
+
                 // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                 Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
 
@@ -236,6 +247,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                     PreferenceManager.setInt(getApplicationContext(), "maxMoneyMonth", (int)max_value_wolse);
                 }
                 startActivity(homeIntent);
+                }
             }
         });
 
