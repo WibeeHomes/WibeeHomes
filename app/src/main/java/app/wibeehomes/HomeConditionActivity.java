@@ -42,11 +42,11 @@ public class HomeConditionActivity extends AppCompatActivity {
     private Button btn_loan_info;//대출 정보 입력 버튼
 
     //전세 최소,최대값
-    Number min_value_jeonse;
-    Number max_value_jeonse;
+    int min_value_jeonse;
+    int max_value_jeonse;
     //월세 최소,최대값
-    Number min_value_wolse;
-    Number max_value_wolse;
+    int min_value_wolse;
+    int max_value_wolse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,39 +120,39 @@ public class HomeConditionActivity extends AppCompatActivity {
         rangeSeekBar_budget.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                min_value_jeonse=bar.getSelectedMinValue();
-                max_value_jeonse=bar.getSelectedMaxValue();
+                Number min_value_jeonse_bar=bar.getSelectedMinValue();
+                Number max_value_jeonse_bar=bar.getSelectedMaxValue();
 
-                int min=(int)min_value_jeonse;
-                int max=(int)max_value_jeonse;
+                min_value_jeonse=(int)min_value_jeonse_bar;
+                max_value_jeonse=(int)max_value_jeonse_bar;
                 String min_budget,max_budget;
 
-                if(min>=10000){//1억 이상
-                    int num=min/10000;
-                    if(min%10000==0){
+                if(min_value_jeonse>=10000){//1억 이상
+                    int num=min_value_jeonse/10000;
+                    if(min_value_jeonse%10000==0){
                         min_budget=num+"억";
                     }
                     else{
-                        min=min%10000;
-                        min_budget=num+"억 "+formatter.format(min)+"만원";
+                        min_value_jeonse=min_value_jeonse%10000;
+                        min_budget=num+"억 "+formatter.format(min_value_jeonse)+"만원";
                     }
                 }
                 else{
-                    min_budget=formatter.format(min)+"만원";
+                    min_budget=formatter.format(min_value_jeonse)+"만원";
                 }
 
-                if(max>=10000){//1억 이상
-                    int num=max/10000;
-                    if(max%10000==0){
+                if(max_value_jeonse>=10000){//1억 이상
+                    int num=max_value_jeonse/10000;
+                    if(max_value_jeonse%10000==0){
                         max_budget=num+"억";
                     }
                     else{
-                        max=max%10000;
-                        max_budget=num+"억 "+formatter.format(max)+"만원";
+                        max_value_jeonse=max_value_jeonse%10000;
+                        max_budget=num+"억 "+formatter.format(max_value_jeonse)+"만원";
                     }
                 }
                 else{
-                    max_budget=formatter.format(max)+"만원";
+                    max_budget=formatter.format(max_value_jeonse)+"만원";
                 }
 
                 tv_homecondition_budget.setText(min_budget+"~"+max_budget);
@@ -162,13 +162,13 @@ public class HomeConditionActivity extends AppCompatActivity {
         rangeSeekBar_monthly.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                min_value_wolse=bar.getSelectedMinValue();
-                max_value_wolse=bar.getSelectedMaxValue();
+                Number min_value_wolse_bar=bar.getSelectedMinValue();
+                Number max_value_wolse_bar=bar.getSelectedMaxValue();
 
-                int min=(int)min_value_wolse;
-                int max=(int)max_value_wolse;
-                String min_budget=formatter.format(min)+"만원";
-                String max_budget=formatter.format(max)+"만원";
+                min_value_wolse=(int)min_value_wolse_bar;
+                max_value_wolse=(int)max_value_wolse_bar;
+                String min_budget=formatter.format(min_value_wolse)+"만원";
+                String max_budget=formatter.format(max_value_wolse)+"만원";
 
                 tv_homecondition_monthly.setText(min_budget+"~"+max_budget);
             }
@@ -215,7 +215,8 @@ public class HomeConditionActivity extends AppCompatActivity {
             }
         });
 
-        btn_loan_info=(Button) findViewById(R.id.btn_homecondition_search);//대출 정보 입력 버튼
+        //대출 정보 입력 버튼
+        btn_loan_info=(Button) findViewById(R.id.btn_homecondition_search);
         btn_loan_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
