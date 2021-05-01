@@ -20,7 +20,14 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 import java.text.DecimalFormat;
 
 enum RENTTYPE {
-    JEONSE, WOLSE
+    JEONSE(0), WOLSE(1);
+    private final int value;
+    private RENTTYPE(int value) {
+        this.value = value;
+    }
+    public int getValue() {
+        return value;
+    }
 }
 
 public class HomeConditionActivity extends AppCompatActivity {
@@ -157,7 +164,9 @@ public class HomeConditionActivity extends AppCompatActivity {
 
                 tv_homecondition_budget.setText(min_budget+"~"+max_budget);
             }
+
         });
+
         //월세
         rangeSeekBar_monthly.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
@@ -200,16 +209,31 @@ public class HomeConditionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                 Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
-                homeIntent.putExtra("con_big_local", bigLocal);
-                homeIntent.putExtra("con_small_local", smallLocal);
-                homeIntent.putExtra("con_rent_type", rentType);
-                //전세(보증금)은 무조건 보내고,, 월세는 선택해야 보내기,,
-                homeIntent.putExtra("con_min_jeonse",min_value_jeonse);
-                homeIntent.putExtra("con_max_jeonse",max_value_jeonse);
+
+                // sharedPreference-----------------------------------------------------------------
+                // 전월세 타입 저장
+                PreferenceManager.setInt(getApplicationContext(), "rentType", rentType.getValue());
+
+                // preference 시/도 이름 저장
+                String[] bigArray = getResources().getStringArray(R.array.big_location_array);
+                PreferenceManager.setString(getApplicationContext(), "bigLocal", bigArray[bigLocal]);
+
+                // preference 시/군/구 이름 저장
+                Log.d("보내기 전 작은 지역", Integer.toString(smallLocal));
+                int resId = getResources().getIdentifier("array_"+bigLocal, "array", getApplicationContext().getPackageName());
+                String[] smallArray = getResources().getStringArray(resId);
+                PreferenceManager.setString(getApplicationContext(), "smallLocal", smallArray[smallLocal]);
+
+                // preference 전세 최소, 최대 금액
+                PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", (int)min_value_jeonse);
+                PreferenceManager.setInt(getApplicationContext(), "maxMoneyYear", (int)max_value_jeonse);
+
                 //월세
                 if(rentType==RENTTYPE.WOLSE){
-                    homeIntent.putExtra("con_min_wolse",min_value_wolse);
-                    homeIntent.putExtra("con_max_wolse",max_value_wolse);
+
+                    // preference 월세 최소, 최대 금액
+                    PreferenceManager.setInt(getApplicationContext(), "minMoneyMonth", (int)min_value_wolse);
+                    PreferenceManager.setInt(getApplicationContext(), "maxMoneyMonth", (int)max_value_wolse);
                 }
                 startActivity(homeIntent);
             }
@@ -235,8 +259,6 @@ public class HomeConditionActivity extends AppCompatActivity {
                 startActivity(loanIntent);
             }
         });
-
-
 
     }
 
@@ -268,6 +290,7 @@ public class HomeConditionActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 smallLocal = i;
                 Log.d("작은 도시 선택 : ", Integer.toString(i));
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

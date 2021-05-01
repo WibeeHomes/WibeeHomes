@@ -50,7 +50,6 @@ public class SearchDialog extends Dialog {
         this.searchDialogListener = searchDialogListener;
         this.resultPlaces = new ArrayList<Place>();
     }
-
     public SearchDialog(@NonNull Context context) {
         super(context);
         this.context = context;
@@ -98,7 +97,7 @@ public class SearchDialog extends Dialog {
                         @Override
                         public void onSearchItemClick(View v, int pos) throws JSONException {
                             // 검색 리스트 중에서 클릭 액션 메소드
-                            selectedRow = resultPlaces.get(pos); // 선택한 검색 Place 객체
+                            selectedRow = resultPlaces.get(pos);    // 선택한 검색 Place 객체
                             searchDialogListener.onSearchResultClick(selectedRow);
                             dismiss();
                         }

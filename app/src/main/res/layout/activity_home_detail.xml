@@ -280,7 +280,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="직장과의 거리"
+                android:text="근무지와의 거리"
                 android:layout_marginBottom="15dp"
                 style="@style/CON_TITLE_TEXTVIEW"/>
 
