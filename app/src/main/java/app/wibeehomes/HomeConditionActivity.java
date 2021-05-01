@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
@@ -70,15 +71,14 @@ public class HomeConditionActivity extends AppCompatActivity {
         layout_monthly=(LinearLayout) findViewById(R.id.linearLayout2); //월세관련된 모든 내용 포함하는 레이아웃
 
 
-        // 조건 설정 후 다시 HomeConditionActivity로 돌아온 경우
-        Intent homeIntent = getIntent();
-        if (homeIntent.getExtras() != null ){
-            bigLocal = homeIntent.getExtras().getInt("big_local");
-            smallLocal = homeIntent.getExtras().getInt("small_local");
-            rentType = (RENTTYPE) homeIntent.getSerializableExtra("rent_type");
+        if (PreferenceManager.getBoolean(this, "isSetting") == true) {
+            bigLocal = PreferenceManager.getInt(this, "bigLocalNum");
+            Log.d("빅로컬 전", Integer.toString(bigLocal));
+            smallLocal = PreferenceManager.getInt(this, "smallLocalNum");
+            int rentNum = PreferenceManager.getInt(this, "rentType");
 
             // 전·월세에 따라 라디오버튼 선택
-            if (rentType == RENTTYPE.JEONSE) {
+            if (rentNum == 0) {
                 rg_lease.check(R.id.rb_lease_year);
                 for(int n=0;n<layout_monthly.getChildCount();n++){
                     View view=layout_monthly.getChildAt(n);
@@ -87,8 +87,6 @@ public class HomeConditionActivity extends AppCompatActivity {
             } else {
                 rg_lease.check(R.id.rb_lease_month);
             }
-
-            // 이전 위치 선택
         }
 
         //------------------------------------------------------------------------------------------
@@ -191,38 +189,58 @@ public class HomeConditionActivity extends AppCompatActivity {
         bigAdapter = ArrayAdapter.createFromResource(this, R.array.big_location_array, R.layout.item_spinner);
         bigAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         bigLocSpinner.setAdapter(bigAdapter);
+        bigLocSpinner.setSelection(bigLocal);
 
-        smallAdapter = ArrayAdapter.createFromResource(this, R.array.array_0, R.layout.item_spinner);
+        int resId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
+        smallAdapter = ArrayAdapter.createFromResource(getApplicationContext(), resId, R.layout.item_spinner);
+        Log.d("스몰로컬 결정", Integer.toString(smallLocal));
+
         smallAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         smallLocSpinner.setAdapter(smallAdapter);
+        smallLocSpinner.setSelection(smallLocal);
 
         BigSpinnerAction();
         SmallSpinnerAction();
 
-
-
         //------------------------------------------------------------------------------------------
-        // 제출 버튼
+        // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
         submitButton = findViewById(R.id.condition_tv_submit);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()){//전월세를 선택 안한 경우
+                    AlertDialog.Builder builder=new AlertDialog.Builder(HomeConditionActivity.this);
+                    builder.setMessage("전세, 월세를 선택해야 합니다.");
+                    builder.setPositiveButton("확인",null);
+                    builder.create().show();
+                }
+                else if(rb_lease_year.isChecked() || rb_lease_month.isChecked()){//전월세를 선택한 경우
+
                 // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                 Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
 
                 // sharedPreference-----------------------------------------------------------------
+                // 조회 Boolean
+                PreferenceManager.setBoolean(getApplicationContext(), "isSetting", true);
+
                 // 전월세 타입 저장
                 PreferenceManager.setInt(getApplicationContext(), "rentType", rentType.getValue());
 
-                // preference 시/도 이름 저장
+                // preference 시/도 이름, 인덱스 저장
+                    Log.d("보내기 전 큰 지역", Integer.toString(bigLocal));
                 String[] bigArray = getResources().getStringArray(R.array.big_location_array);
                 PreferenceManager.setString(getApplicationContext(), "bigLocal", bigArray[bigLocal]);
+                PreferenceManager.setInt(getApplicationContext(), "bigLocalNum", bigLocal);
 
-                // preference 시/군/구 이름 저장
+
+                // preference 시/군/구 이름, 인덱스 저장
                 Log.d("보내기 전 작은 지역", Integer.toString(smallLocal));
                 int resId = getResources().getIdentifier("array_"+bigLocal, "array", getApplicationContext().getPackageName());
                 String[] smallArray = getResources().getStringArray(resId);
                 PreferenceManager.setString(getApplicationContext(), "smallLocal", smallArray[smallLocal]);
+                PreferenceManager.setInt(getApplicationContext(), "smallLocalNum", smallLocal);
 
                 // preference 전세 최소, 최대 금액
                 PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", (int)min_value_jeonse);
@@ -236,28 +254,29 @@ public class HomeConditionActivity extends AppCompatActivity {
                     PreferenceManager.setInt(getApplicationContext(), "maxMoneyMonth", (int)max_value_wolse);
                 }
                 startActivity(homeIntent);
+                }
             }
         });
 
         //대출 정보 입력 버튼
+
         btn_loan_info=(Button) findViewById(R.id.btn_homecondition_search);
         btn_loan_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //부동산 검색 조건을 서버로 보내고 LoanDetailActivity로 이동
-                Intent loanIntent=new Intent(HomeConditionActivity.this,LoanDetailActivity.class);
-                loanIntent.putExtra("con_big_local",bigLocal);
-                loanIntent.putExtra("con_small_local",smallLocal);
-                loanIntent.putExtra("con_rent_type",rentType);
-                //전세(보증금)은 무조건 보내고,, 월세는 선택해야 보내기,,
-                loanIntent.putExtra("con_min_jeonse",min_value_jeonse);
-                loanIntent.putExtra("con_max_jeonse",max_value_jeonse);
-                //월세
-                if(rentType==RENTTYPE.WOLSE) {
-                    loanIntent.putExtra("con_min_wolse", min_value_wolse);
-                    loanIntent.putExtra("con_max_wolse", max_value_wolse);
+                if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()){//전월세를 선택 안한 경우
+                    AlertDialog.Builder builder=new AlertDialog.Builder(HomeConditionActivity.this);
+                    builder.setMessage("전세, 월세를 선택해야 합니다.");
+                    builder.setPositiveButton("확인",null);
+                    builder.create().show();
                 }
-                startActivity(loanIntent);
+                else if(rb_lease_year.isChecked() || rb_lease_month.isChecked()) {//전월세를 선택한 경우
+                    Intent loanIntent = new Intent(HomeConditionActivity.this, LoanDetailActivity.class);
+                    loanIntent.putExtra("con_rent_type", rentType);
+
+                    startActivity(loanIntent);
+                }
             }
         });
 

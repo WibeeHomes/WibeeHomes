@@ -81,6 +81,7 @@ public class PublicHousingActivity extends AppCompatActivity {
             public void run() {
                 try {
                     publicHousingData = searchPlaceAction("2021-01-01", "2021-05-01");
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

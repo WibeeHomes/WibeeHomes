@@ -41,6 +41,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Log.d("저장된 빅로컬", Integer.toString(PreferenceManager.getInt(this, "bigLocalNum")));
+        Log.d("저장된 스몰로컬", Integer.toString(PreferenceManager.getInt(this, "smallLocalNum")));
+        Log.d("저장상태", Boolean.toString(PreferenceManager.getBoolean(this, "isSetting")));
+
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
             // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
             Toast.makeText(this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
@@ -118,11 +122,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent conIntent = getIntent();
         String conditionString = "";
 
-        if (conIntent.getExtras() != null) {
-            bigLocal = conIntent.getExtras().getInt("con_big_local");
-            smallLocal = conIntent.getExtras().getInt("con_small_local");
-            rentType = (RENTTYPE) conIntent.getSerializableExtra("con_rent_type");
-
+        if (PreferenceManager.getBoolean(this, "isSetting") == true) {
             String bigLocalString = PreferenceManager.getString(this, "bigLocal");
             String smallLocalString = PreferenceManager.getString(this, "smallLocal");
 
