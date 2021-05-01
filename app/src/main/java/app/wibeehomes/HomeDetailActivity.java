@@ -1,12 +1,14 @@
 package app.wibeehomes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.RestrictionEntry;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -151,8 +153,6 @@ public class HomeDetailActivity extends AppCompatActivity {
                         PreferenceManager.setString(getApplicationContext(), "company_name", company.get_placeAddress());
                         PreferenceManager.setString(getApplicationContext(), "company_x", Double.toString(company.get_placeX()));
                         PreferenceManager.setString(getApplicationContext(), "company_y", Double.toString(company.get_placeY()));
-
-                        //workSettingButton.setBackground(getResources().);
                     }
                 });
 
@@ -169,11 +169,13 @@ public class HomeDetailActivity extends AppCompatActivity {
             }
         });
 
-        if (company == null){
+        if (PreferenceManager.getString(this, "company_name") == null) {
             distance = getString(R.string.detail_distance_none);
             time = getString(R.string.detail_time_none);
         } else {
-            distance = getString(R.string.detail_distance);  // distance + Integer.toString(계산한 거리) + km
+            workSettingButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_work_click_color));
+            Log.d("근무지 이름", PreferenceManager.getString(this, "company_name"));
+            distance = getString(R.string.detail_distance);         // distance + Integer.toString(계산한 거리) + km
             time = getString(R.string.detail_time);          // time + Integer.toString(계산한 시간) + 분
         }
 

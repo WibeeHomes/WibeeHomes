@@ -15,10 +15,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import app.wibeehomes.adapter.PublicHousingAdapter;
 import app.wibeehomes.PublicHousing.PublicHousingData;
+
+import static app.wibeehomes.PublicHousing.searchPulbicHousing.searchPlaceAction;
 
 public class PublicHousingActivity extends AppCompatActivity {
 
@@ -72,15 +75,23 @@ public class PublicHousingActivity extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
         /* RecyclerView 연결 */
-        publicHousingData = new ArrayList<PublicHousingData>();
-        // 더미데이터
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 1", "https://www.google.com", "2021.04.27"));
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 2", "https://www.google.com", "2021.04.27"));
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 3", "https://www.google.com", "2021.04.27"));
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 4", "https://www.google.com", "2021.04.27"));
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 5", "https://www.google.com", "2021.04.28"));
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 6", "https://www.google.com", "2021.04.28"));
-        publicHousingData.add(new PublicHousingData("국민임대","공공주택사업 제목 7", "https://www.naver.com", "2021.04.28"));
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    publicHousingData = searchPlaceAction("2021-01-01", "2021-05-01");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+            thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         housingResultRecyclerView = findViewById(R.id.public_housing_rc);
         layoutManager = new LinearLayoutManager(getApplication());
