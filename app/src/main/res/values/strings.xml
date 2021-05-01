@@ -7,4 +7,8 @@
     <string name="detail_time">대중교통으로 이동한 시간 : </string>
     <string name="detail_distance_none">현재 설정된 근무지 위치가 없습니다.</string>
     <string name="detail_time_none">왼쪽 버튼에서 등록하세요</string>
+
+    <string name="condition_none_loan">대출 한도를 같이 조회할까요?</string>
+    <string name="condition_add_jeonse">전세 대출을 추가로 조회할까요?</string>
+    <string name="condition_edit">대출 조회 정보를 수정하실래요?</string>
 </resources>

@@ -40,6 +40,7 @@ public class HomeDetailActivity extends AppCompatActivity {
     private int rentType = 0;
     private int money1 = -1, money2 = -1, money3 = -1; // 1. 전세자금  2. 직장인 3.  비상금
     private Place company; // 직장
+    Double company_x, company_y; // 근무지 x, y 좌표
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,13 +173,21 @@ public class HomeDetailActivity extends AppCompatActivity {
         });
 
         if (PreferenceManager.getString(this, "company_name") == null) {
+            // 근무지 정보가 없는 경우
             distance = getString(R.string.detail_distance_none);
             time = getString(R.string.detail_time_none);
         } else {
+            // 근무지 정보가 있는 경우
+            // 아래 근무지 x, y 좌표로 ODsay에서 거리, 걸리는 시간 계산
+            company_x = Double.parseDouble(PreferenceManager.getString(this, "company_x"));
+            company_y = Double.parseDouble(PreferenceManager.getString(this, "company_y"));
+
+            // distance, time에서 오른쪽 주석과 같이 String 만들 것!
             workSettingButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_work_click_color));
             Log.d("근무지 이름", PreferenceManager.getString(this, "company_name"));
             distance = getString(R.string.detail_distance);         // distance + Integer.toString(계산한 거리) + km
             time = getString(R.string.detail_time);          // time + Integer.toString(계산한 시간) + 분
+
         }
 
         // 받은 정보 setText로 입력
@@ -207,24 +216,32 @@ public class HomeDetailActivity extends AppCompatActivity {
             }
         });
 
-        // 대출 조회 정보가 없는 경우
-        if (money2 == -1) {
+
+        if (PreferenceManager.getBoolean(this, "isSetting_loan") != true) {
+            // 대출 조회 정보가 없는 경우
             loan1LinearLayout.setVisibility(View.GONE);
             loan2LinearLayout.setVisibility(View.GONE);
             loan3LinearLayout.setVisibility(View.GONE);
             loanNoneLinearLayout.setVisibility(View.VISIBLE);
         } else {
-            // 대출 정보가 있고, 전세인 경우
-            if (rentType == 1) {
-                loan1LinearLayout.setVisibility(View.VISIBLE);
+            // 대출 정보가 있는 경우
+            if (PreferenceManager.getInt(this, "rentType") == RENTTYPE.JEONSE.getValue()) {
+                if (PreferenceManager.getBoolean(this, "isSetting_jeonse") == true) {
+                    // 대출 정보가 모두 있고, 전세인 경우
+                    loan1LinearLayout.setVisibility(View.VISIBLE);
+                } else {
+                    // 전세 자금 대출 정보가 없는 경우
+                    loan1LinearLayout.setVisibility(View.GONE);
+                    loanNoneLinearLayout.setVisibility(View.VISIBLE);
+                }
             } else {
+                // 대출 정보가 있고, 월세인 경우
                 loan1LinearLayout.setVisibility(View.GONE);
+                loanNoneLinearLayout.setVisibility(View.GONE);
             }
             loan2LinearLayout.setVisibility(View.VISIBLE);
             loan3LinearLayout.setVisibility(View.VISIBLE);
-            loanNoneLinearLayout.setVisibility(View.GONE);
         }
-
 
     }
 

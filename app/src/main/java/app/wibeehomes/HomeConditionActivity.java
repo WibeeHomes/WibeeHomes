@@ -51,19 +51,18 @@ public class HomeConditionActivity extends AppCompatActivity {
     private static String OkhttpUrl="http://192.168.1.34:8080/Wibee_Server/androidDB.jsp";
     private static MediaType mediaType= MediaType.parse("text/plain");
 
-
     private RadioGroup rg_lease;
     private RadioButton rb_lease_year,rb_lease_month;
     private RENTTYPE rentType = RENTTYPE.JEONSE;
 
-    private TextView tv_homecondition_budget,tv_homecondition_monthly;
+    private TextView tv_homecondition_budget,tv_homecondition_monthly, tv_condition_loan;
     RangeSeekBar rangeSeekBar_budget,rangeSeekBar_monthly;
     LinearLayout layout_monthly;
 
     // Spinner 관련 컴포넌트
     private Spinner bigLocSpinner, smallLocSpinner;
     private ArrayAdapter bigAdapter, smallAdapter;
-    private int bigLocal = 0, smallLocal = 0;
+    private int bigLocal, smallLocal;
 
     private TextView submitButton;
     private Button btn_loan_info;//대출 정보 입력 버튼
@@ -106,6 +105,9 @@ public class HomeConditionActivity extends AppCompatActivity {
             } else {
                 rg_lease.check(R.id.rb_lease_month);
             }
+        } else {
+            bigLocal = 0;
+            smallLocal = 0;
         }
 
         //------------------------------------------------------------------------------------------
@@ -210,21 +212,38 @@ public class HomeConditionActivity extends AppCompatActivity {
         bigLocSpinner.setAdapter(bigAdapter);
         bigLocSpinner.setSelection(bigLocal);
 
-        int resId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
-        smallAdapter = ArrayAdapter.createFromResource(getApplicationContext(), resId, R.layout.item_spinner);
-        Log.d("스몰로컬 결정", Integer.toString(smallLocal));
-
+        int arrayResId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
+        smallAdapter = ArrayAdapter.createFromResource(this, arrayResId, R.layout.item_spinner);
         smallAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         smallLocSpinner.setAdapter(smallAdapter);
-        smallLocSpinner.setSelection(smallLocal);
+        smallLocSpinner.setSelection(PreferenceManager.getInt(this, "smallLocalNum"));
+        int smallSelected = smallLocSpinner.getSelectedItemPosition();
+        Log.d("선택된 작은 로컬", Integer.toString(smallSelected));
 
         BigSpinnerAction();
         SmallSpinnerAction();
 
         //------------------------------------------------------------------------------------------
-        // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
-        submitButton = findViewById(R.id.condition_tv_submit);
+        // 제출 버튼 위의 텍스트
+        tv_condition_loan = findViewById(R.id.condition_tv_loan);
+        if (PreferenceManager.getBoolean(this, "isSetting_loan") != true) {
+            // 대출 조회 정보가 없는 경우
+            tv_condition_loan.setText(R.string.condition_none_loan);
+        } else {
+            if (rentType == RENTTYPE.JEONSE) {
+                // 현재 전세
+                if (PreferenceManager.getBoolean(this, "isSetting_jeonse") != true) {
+                    // 전세자금대출 정보가 없는 경우
+                    tv_condition_loan.setText(R.string.condition_add_jeonse);
+                }
+            }
+            // 대출 정보가 있는 경우 - 수정
+            tv_condition_loan.setText(R.string.condition_edit);
+        }
 
+
+        // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
+        submitButton = findViewById(R.id.condition_btn_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -360,8 +379,6 @@ public class HomeConditionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 smallLocal = i;
-                Log.d("작은 도시 선택 : ", Integer.toString(i));
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
