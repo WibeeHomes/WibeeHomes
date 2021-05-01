@@ -3,6 +3,7 @@ package app.wibeehomes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -28,6 +30,14 @@ public class LoanDetailActivity extends AppCompatActivity {
     private EditText et_date; //입사일자
     private EditText et_yearmoney_1;
     private TextView et_yearmoney_2;//연소득금액 (직장인,전세대출)
+    private TextView submitButton;//조회버튼
+
+    private String businessDate;//입사 일자 'yyyy/MM/dd'
+    private String finalDate;//입사 일자 'yyyyMMdd'
+
+    private boolean available_worker_loan;
+
+
 
     CheckBox check_all,check_first,check_second,check_third;//모두 동의, 신용정보조회동의, 개인정보제공동의, 개인신용정보이용동의
 
@@ -70,6 +80,11 @@ public class LoanDetailActivity extends AppCompatActivity {
         check_second=findViewById(R.id.loandetail_check_second);//개인정보제공 동의
         check_third=findViewById(R.id.loandetail_check_third);//개인신용정보이용 동의
 
+        Calendar cal=Calendar.getInstance();
+        cal.add(cal.MONTH,-6);
+        SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd");
+
+        final String currentDate=f.format(cal.getTime());//현재 날짜로부터 6개월전
 
         //-----------------------------------------------------------
         //고객한글명-한글만 입력하도록, 비상금에 입력시 직장인에도 자동으로 입력
@@ -133,8 +148,19 @@ public class LoanDetailActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if(et_date.getText().toString().length()==10){
+                businessDate=et_date.getText().toString();
+                if(businessDate.length()==10){
                     validation_date=isDate(et_date.getText().toString(),"yyyy/MM/dd");
+
+                    finalDate=businessDate.substring(0,4)+businessDate.substring(5,7)+businessDate.substring(8);
+
+                    if(Integer.parseInt(currentDate)>=Integer.parseInt(finalDate)){
+                        available_worker_loan=true;
+                    }
+                    else{
+                        available_worker_loan=false;
+                    }
+
                 }}
         });
 
@@ -198,6 +224,19 @@ public class LoanDetailActivity extends AppCompatActivity {
             }
         });
 
+        //---------------------------------------------------------------------------
+        //조회 버튼
+        //homecondition에서 넘어온 정보 받기-bigLocal,smallLocal,rentType,min_value_jeonse,max_value_jeonse,min_value_wolse,max_value_wolse
+
+        submitButton=findViewById(R.id.loandetail_tv_submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //부동산 검색 조건 + 대출 정보 를 서버로 보내고 HomeActivity로 이동
+                Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+
+            }
+        });
 
 
 
