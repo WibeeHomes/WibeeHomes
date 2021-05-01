@@ -1,25 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_0">
-        <item>ㅡ</item>
+        <item>종로구</item>
+        <item>중구</item>
+        <item>용산구</item>
+        <item>성동구</item>
+        <item>광진구</item>
+        <item>동대문구</item>
+        <item>중랑구</item>
+        <item>성북구</item>
+        <item>강북구</item>
+        <item>도봉구</item>
+        <item>노원구</item>
+        <item>은평구</item>
+        <item>서대문구</item>
+        <item>마포구</item>
+        <item>양천구</item>
+        <item>강서구</item>
+        <item>구로구</item>
+        <item>금천구</item>
+        <item>영등포구</item>
+        <item>동작구</item>
+        <item>관악구</item>
+        <item>서초구</item>
+        <item>강남구</item>
+        <item>송파구</item>
+        <item>강동구</item>
     </string-array>
     <string-array name="array_1">
-        <item>ㅡ</item>
+        <item>중구</item>
+        <item>서구</item>
+        <item>동구</item>
+        <item>영도구</item>
+        <item>부산진구</item>
+        <item>동래구</item>
+        <item>남구</item>
+        <item>북구</item>
+        <item>해운대구</item>
+        <item>사하구</item>
+        <item>금정구</item>
+        <item>강서구</item>
+        <item>연제구</item>
+        <item>수영구</item>
+        <item>사상구</item>
+        <item>기장군</item>
     </string-array>
     <string-array name="array_2">
-        <item>ㅡ</item>
+        <item>중구</item>
+        <item>동구</item>
+        <item>서구</item>
+        <item>남구</item>
+        <item>북구</item>
+        <item>수성구</item>
+        <item>달서구</item>
+        <item>달성군</item>
     </string-array>
     <string-array name="array_3">
-        <item>ㅡ</item>
+        <item>중구</item>
+        <item>동구</item>
+        <item>미추홀구</item>
+        <item>연수구</item>
+        <item>남동구</item>
+        <item>부평구</item>
+        <item>계양구</item>
+        <item>서구</item>
+        <item>강화군</item>
+        <item>옹진군</item>
     </string-array>
     <string-array name="array_4">
-        <item>ㅡ</item>
+        <item>동구</item>
+        <item>서구</item>
+        <item>남구</item>
+        <item>북구</item>
+        <item>광산구</item>
     </string-array>
     <string-array name="array_5">
-        <item>ㅡ</item>
+        <item>동구</item>
+        <item>중구</item>
+        <item>서구</item>
+        <item>유성구</item>
+        <item>대덕구</item>
     </string-array>
     <string-array name="array_6">
-        <item>ㅡ</item>
+        <item>중구</item>
+        <item>남구</item>
+        <item>동구</item>
+        <item>북구</item>
+        <item>울주군</item>
     </string-array>
     <string-array name="array_7">
         <item>ㅡ</item>
