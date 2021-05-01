@@ -1,6 +1,7 @@
 package app.wibeehomes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DTO {
     private static ArrayList<CityCode> cityArr = new ArrayList<CityCode>();
