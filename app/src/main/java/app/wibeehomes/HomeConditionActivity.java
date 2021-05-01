@@ -252,24 +252,24 @@ public class HomeConditionActivity extends AppCompatActivity {
         });
 
         //대출 정보 입력 버튼
+
         btn_loan_info=(Button) findViewById(R.id.btn_homecondition_search);
         btn_loan_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //부동산 검색 조건을 서버로 보내고 LoanDetailActivity로 이동
-                Intent loanIntent=new Intent(HomeConditionActivity.this,LoanDetailActivity.class);
-                loanIntent.putExtra("con_big_local",bigLocal);
-                loanIntent.putExtra("con_small_local",smallLocal);
-                loanIntent.putExtra("con_rent_type",rentType);
-                //전세(보증금)은 무조건 보내고,, 월세는 선택해야 보내기,,
-                loanIntent.putExtra("con_min_jeonse",min_value_jeonse);
-                loanIntent.putExtra("con_max_jeonse",max_value_jeonse);
-                //월세
-                if(rentType==RENTTYPE.WOLSE) {
-                    loanIntent.putExtra("con_min_wolse", min_value_wolse);
-                    loanIntent.putExtra("con_max_wolse", max_value_wolse);
+                if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()){//전월세를 선택 안한 경우
+                    AlertDialog.Builder builder=new AlertDialog.Builder(HomeConditionActivity.this);
+                    builder.setMessage("전세, 월세를 선택해야 합니다.");
+                    builder.setPositiveButton("확인",null);
+                    builder.create().show();
                 }
-                startActivity(loanIntent);
+                else if(rb_lease_year.isChecked() || rb_lease_month.isChecked()) {//전월세를 선택한 경우
+                    Intent loanIntent = new Intent(HomeConditionActivity.this, LoanDetailActivity.class);
+                    loanIntent.putExtra("con_rent_type", rentType);
+
+                    startActivity(loanIntent);
+                }
             }
         });
 
