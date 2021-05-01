@@ -1,4 +1,4 @@
-package app.wibeehomes.adapter;
+package app.wibeehomes.PublicHousing;
 
 /**
  * 공공주택사업 RecyclerView 데이터 클래스
