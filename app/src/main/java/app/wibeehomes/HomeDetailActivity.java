@@ -37,7 +37,7 @@ public class HomeDetailActivity extends AppCompatActivity {
     private SearchDialog dialog;
 
     // 받아올 값
-    private RENTTYPE rentType = RENTTYPE.JEONSE;
+    private int rentType = 0;
     private int money1 = -1, money2 = -1, money3 = -1; // 1. 전세자금  2. 직장인 3.  비상금
     private Place company; // 직장
 
@@ -119,8 +119,10 @@ public class HomeDetailActivity extends AppCompatActivity {
         detailMoney = findViewById(R.id.home_detail_tv_money);
         detailAddress = findViewById(R.id.home_detail_tv_address);          // Address - 지번 + 법정동주소
 
+        rentType = PreferenceManager.getInt(this, "rentType");
+
         // 전세인 경우
-        if (rentType == RENTTYPE.JEONSE) {
+        if (rentType == 1) {
             detailMoneyTitle.setText("전세금");
         } else {
             detailMoneyTitle.setText("보증금/월세");
@@ -213,7 +215,7 @@ public class HomeDetailActivity extends AppCompatActivity {
             loanNoneLinearLayout.setVisibility(View.VISIBLE);
         } else {
             // 대출 정보가 있고, 전세인 경우
-            if (rentType == RENTTYPE.JEONSE) {
+            if (rentType == 1) {
                 loan1LinearLayout.setVisibility(View.VISIBLE);
             } else {
                 loan1LinearLayout.setVisibility(View.GONE);

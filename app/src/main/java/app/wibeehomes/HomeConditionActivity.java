@@ -19,6 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.text.DecimalFormat;
+import java.util.concurrent.CountDownLatch;
+
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+
+import static app.wibeehomes.DTO.cityArr;
 
 enum RENTTYPE {
     JEONSE(0), WOLSE(1);
@@ -210,50 +217,54 @@ public class HomeConditionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()){//전월세를 선택 안한 경우
+                if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()) { //전월세를 선택 안한 경우
                     AlertDialog.Builder builder=new AlertDialog.Builder(HomeConditionActivity.this);
                     builder.setMessage("전세, 월세를 선택해야 합니다.");
                     builder.setPositiveButton("확인",null);
                     builder.create().show();
                 }
-                else if(rb_lease_year.isChecked() || rb_lease_month.isChecked()){//전월세를 선택한 경우
+                else if(rb_lease_year.isChecked() || rb_lease_month.isChecked()) { //전월세를 선택한 경우
 
-                // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
-                Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
+                    // sharedPreference-----------------------------------------------------------------
+                    // 조회 Boolean
+                    PreferenceManager.setBoolean(getApplicationContext(), "isSetting", true);
 
-                // sharedPreference-----------------------------------------------------------------
-                // 조회 Boolean
-                PreferenceManager.setBoolean(getApplicationContext(), "isSetting", true);
+                    // 전월세 타입 저장
+                    PreferenceManager.setInt(getApplicationContext(), "rentType", rentType.getValue());
 
-                // 전월세 타입 저장
-                PreferenceManager.setInt(getApplicationContext(), "rentType", rentType.getValue());
+                    // preference 시/도 이름, 인덱스 저장
+                        Log.d("보내기 전 큰 지역", Integer.toString(bigLocal));
+                    String[] bigArray = getResources().getStringArray(R.array.big_location_array);
+                    PreferenceManager.setString(getApplicationContext(), "bigLocal", bigArray[bigLocal]);
+                    PreferenceManager.setInt(getApplicationContext(), "bigLocalNum", bigLocal);
 
-                // preference 시/도 이름, 인덱스 저장
-                    Log.d("보내기 전 큰 지역", Integer.toString(bigLocal));
-                String[] bigArray = getResources().getStringArray(R.array.big_location_array);
-                PreferenceManager.setString(getApplicationContext(), "bigLocal", bigArray[bigLocal]);
-                PreferenceManager.setInt(getApplicationContext(), "bigLocalNum", bigLocal);
+                    // preference 시/군/구 이름, 인덱스 저장
+                    Log.d("보내기 전 작은 지역", Integer.toString(smallLocal));
+                    int resId = getResources().getIdentifier("array_"+bigLocal, "array", getApplicationContext().getPackageName());
+                    String[] smallArray = getResources().getStringArray(resId);
+                    PreferenceManager.setString(getApplicationContext(), "smallLocal", smallArray[smallLocal]);
+                    PreferenceManager.setInt(getApplicationContext(), "smallLocalNum", smallLocal);
+
+                    // preference 전세 최소, 최대 금액
+                    PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", (int)min_value_jeonse);
+                    PreferenceManager.setInt(getApplicationContext(), "maxMoneyYear", (int)max_value_jeonse);
+
+                    //월세
+                    if(rentType==RENTTYPE.WOLSE){
+                        // preference 월세 최소, 최대 금액
+                        PreferenceManager.setInt(getApplicationContext(), "minMoneyMonth", (int)min_value_wolse);
+                        PreferenceManager.setInt(getApplicationContext(), "maxMoneyMonth", (int)max_value_wolse);
+                    }
+
+                    // 요청 보내기 ------------------------------------------------------------------
+                    String localCodeName = bigArray[bigLocal]+" "+smallArray[smallLocal];
 
 
-                // preference 시/군/구 이름, 인덱스 저장
-                Log.d("보내기 전 작은 지역", Integer.toString(smallLocal));
-                int resId = getResources().getIdentifier("array_"+bigLocal, "array", getApplicationContext().getPackageName());
-                String[] smallArray = getResources().getStringArray(resId);
-                PreferenceManager.setString(getApplicationContext(), "smallLocal", smallArray[smallLocal]);
-                PreferenceManager.setInt(getApplicationContext(), "smallLocalNum", smallLocal);
 
-                // preference 전세 최소, 최대 금액
-                PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", (int)min_value_jeonse);
-                PreferenceManager.setInt(getApplicationContext(), "maxMoneyYear", (int)max_value_jeonse);
 
-                //월세
-                if(rentType==RENTTYPE.WOLSE){
-
-                    // preference 월세 최소, 최대 금액
-                    PreferenceManager.setInt(getApplicationContext(), "minMoneyMonth", (int)min_value_wolse);
-                    PreferenceManager.setInt(getApplicationContext(), "maxMoneyMonth", (int)max_value_wolse);
-                }
-                startActivity(homeIntent);
+                    // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
+                    Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
+                    startActivity(homeIntent);
                 }
             }
         });
