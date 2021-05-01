@@ -1,9 +1,10 @@
-package app.wibeehomes;
+package app.wibeehomes.traffic;
 
 import android.content.Context;
 
 import com.odsay.odsayandroidsdk.ODsayService;
 
+import app.wibeehomes.Place;
 import app.wibeehomes.traffic.ResultCallbackListener;
 
 /**

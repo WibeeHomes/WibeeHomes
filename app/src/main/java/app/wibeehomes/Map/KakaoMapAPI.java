@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import app.wibeehomes.Place;
 import app.wibeehomes.R;
+import app.wibeehomes.ResidentialFacilities;
 import app.wibeehomes.SurrFacilities;
 
 public class KakaoMapAPI {
@@ -53,10 +54,7 @@ public class KakaoMapAPI {
         makerNumber++;
         this.mapView.addPOIItem(marker);
 
-        this.conviMarker();
-        this.subwayMarker();
-        this.busMarker();
-        this.MartMarker();
+        sidePlaceMaker();
     }
 
     public void changeLoc(Place centerLoc){
@@ -66,6 +64,30 @@ public class KakaoMapAPI {
         subwayMarker();
         busMarker();
         MartMarker();
+    }
+
+    public void sidePlaceMaker(){
+        this.conviMarker();
+        this.subwayMarker();
+        this.busMarker();
+        this.MartMarker();
+    }
+
+    public void residentMaker(ArrayList<ResidentialFacilities> residetns){
+        for(int i =0;i < residetns.size();i++){
+            Place temp =residetns.get(i).getResident();
+            MapPOIItem marker = new MapPOIItem();
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            marker.setItemName(temp.get_placeAddress());
+            marker.setTag(makerNumber);
+            marker.setMapPoint(mapPoint); //좌표
+
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+            this.mapView.addPOIItem(marker);
+            subwayMarker.add(marker);
+            makerNumber++;
+        }
     }
 
     public void subwayMarker(){
