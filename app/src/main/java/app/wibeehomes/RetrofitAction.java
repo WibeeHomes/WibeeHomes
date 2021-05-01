@@ -1,6 +1,8 @@
 package app.wibeehomes;
 
 import app.wibeehomes.Kakao.KakaoRetrofitAPI;
+import app.wibeehomes.PublicHousing.PublicHousingAPI;
+import app.wibeehomes.placesearch.SearchPlaceAPI;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,6 +25,15 @@ public class RetrofitAction {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SearchPlaceAPI retrofitAPI = searchAPIIns.create(SearchPlaceAPI.class);
+        return retrofitAPI;
+    }
+
+    public static PublicHousingAPI publicHousingAPIAction(){
+        Retrofit publicHousingAPIIns = new Retrofit.Builder()
+                .baseUrl("http://apis.data.go.kr")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PublicHousingAPI retrofitAPI = publicHousingAPIIns.create(PublicHousingAPI.class);
         return retrofitAPI;
     }
  }

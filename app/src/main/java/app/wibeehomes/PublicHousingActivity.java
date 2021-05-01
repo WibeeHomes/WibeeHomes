@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 import app.wibeehomes.adapter.PublicHousingAdapter;
-import app.wibeehomes.adapter.PublicHousingData;
+import app.wibeehomes.PublicHousing.PublicHousingData;
 
 public class PublicHousingActivity extends AppCompatActivity {
 

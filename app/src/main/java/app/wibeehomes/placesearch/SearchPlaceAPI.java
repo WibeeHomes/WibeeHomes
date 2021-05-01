@@ -1,4 +1,4 @@
-package app.wibeehomes;
+package app.wibeehomes.placesearch;
 
 import app.wibeehomes.placesearch.placeSearchPoJo;
 import retrofit2.Call;
