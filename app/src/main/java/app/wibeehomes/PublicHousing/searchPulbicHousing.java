@@ -14,14 +14,17 @@ public class searchPulbicHousing {
     public static ArrayList<PublicHousingData> searchPlaceAction(String startDate, String finishDate) throws IOException {
         result.clear();
         pageNum = 1;
-        while(Integer.parseInt(data.getDsSch().getPG_SZ()) > 0){
+        do{
             data = RetrofitAction.publicHousingAPIAction().getData(apiKey,30,startDate,finishDate,pageNum).execute().body();
+            if(data == null){
+                break;
+            }
             for (int i = 0; i < Integer.parseInt(data.getDsSch().getPG_SZ()); i++) {
                 DsList node = data.getDsList().get(i);
                 result.add(new PublicHousingData(node.getAIS_TP_CD_NM(),node.getBBS_TL(),node.getLINK_URL(),node.getBBS_WOU_DTTM()));
             }
             pageNum++;
-        }
+        }while(Integer.parseInt(data.getDsSch().getPG_SZ()) > 0);
         return result;
     }
 }
