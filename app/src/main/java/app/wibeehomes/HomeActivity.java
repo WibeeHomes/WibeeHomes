@@ -118,11 +118,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent conIntent = getIntent();
         String conditionString = "";
 
-        if (conIntent.getExtras() != null) {
-            bigLocal = conIntent.getExtras().getInt("con_big_local");
-            smallLocal = conIntent.getExtras().getInt("con_small_local");
-            rentType = (RENTTYPE) conIntent.getSerializableExtra("con_rent_type");
-
+        if (PreferenceManager.getBoolean(this, "isSetting") == true) {
             String bigLocalString = PreferenceManager.getString(this, "bigLocal");
             String smallLocalString = PreferenceManager.getString(this, "smallLocal");
 
