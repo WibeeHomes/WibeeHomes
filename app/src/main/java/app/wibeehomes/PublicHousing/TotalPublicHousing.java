@@ -6,37 +6,37 @@ import java.util.ArrayList;
 
 public class TotalPublicHousing {
     @SerializedName("dsSch")
-    private DsSch dsSch;
+    private ArrayList<DsSch> dsSch;
     @SerializedName("dsListNm")
-    private DsListNm dsListNm;
+    private ArrayList<DsListNm> dsListNm;
     @SerializedName("resHeader")
-    private ResHeader resHeader;
+    private ArrayList<ResHeader> resHeader;
     @SerializedName("dsList")
     private ArrayList<DsList> dsList;
 
-    public DsSch getDsSch() {
+    public ArrayList<DsSch> getDsSch() {
         return dsSch;
     }
     public ArrayList<DsList> getDsList() {
         return dsList;
     }
-    public DsListNm getDsListNm() {
+    public ArrayList<DsListNm> getDsListNm() {
         return dsListNm;
     }
-    public ResHeader getResHeader() {
+    public ArrayList<ResHeader> getResHeader() {
         return resHeader;
     }
 
     public void setDsList(ArrayList<DsList> dsList) {
         this.dsList = dsList;
     }
-    public void setDsListNm(DsListNm dsListNm) {
+    public void setDsListNm(ArrayList<DsListNm> dsListNm) {
         this.dsListNm = dsListNm;
     }
-    public void setDsSch(DsSch dsSch) {
+    public void setDsSch(ArrayList<DsSch> dsSch) {
         this.dsSch = dsSch;
     }
-    public void setResHeader(ResHeader resHeader) {
+    public void setResHeader(ArrayList<ResHeader> resHeader) {
         this.resHeader = resHeader;
     }
     @Override
