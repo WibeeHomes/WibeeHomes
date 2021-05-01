@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class UserLoc {
-    private static Place userPlace = new Place("동국대학교 정보문화관", 37.559562, 126.998557);
+    private static Place userPlace = new Place("집", 37.28496752588621,  126.99445809325184);
     //유저 장소 표시할 변수 디폴트 값으로 동국대학교 정보 문화관 넣어주고 있음
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // GPS를 업데이트할 최소 거리
     private static final long MIN_TIME_BW_UPDATES = 1000 * 10 * 1; // GPS를 업데이트할 시간

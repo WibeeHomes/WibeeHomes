@@ -102,10 +102,15 @@ public class SurrFacilities {
     public void addSetConvenience (ArrayList<Place> convenience) { this.convenience = convenience;}
 
     public synchronized void searchSuperMarket() throws IOException {
-        KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("MT1",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
+
+        KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("MT1",loc.get_placeY(),loc.get_placeX(),
                 "2000",1,"distance").execute().body();
         if(data != null|| Integer.parseInt(data.getMeta().getPageable_count())!= 0) {
-            for (int i = 0; i < 15; i++) {
+            int index  = 15;
+            if(15 > Integer.parseInt(data.getMeta().getPageable_count())){
+                index = Integer.parseInt(data.getMeta().getPageable_count());
+            }
+            for (int i = 0; i < index; i++) {
                 supermarket.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
                         Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
                         , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
@@ -114,10 +119,14 @@ public class SurrFacilities {
     }
 
     public synchronized void searchSubwayStation() throws IOException {
-        KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("SW8",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
+        KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("SW8",loc.get_placeY(),loc.get_placeX(),
                 "2000",1,"distance").execute().body();
         if(data != null|| Integer.parseInt(data.getMeta().getPageable_count())!= 0) {
-            for (int i = 0; i < 15; i++) {
+            int index  = 15;
+            if(15 > Integer.parseInt(data.getMeta().getPageable_count())){
+                index = Integer.parseInt(data.getMeta().getPageable_count());
+            }
+            for (int i = 0; i < index; i++) {
                 subwayStation.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
                         Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
                         , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
@@ -126,10 +135,14 @@ public class SurrFacilities {
     }
 
     public synchronized void searchConvenience() throws IOException {
-        KakaoCategory data=RetrofitAction.KaKaoAPIAction().getData("CS2",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
+        KakaoCategory data=RetrofitAction.KaKaoAPIAction().getData("CS2",loc.get_placeY(),loc.get_placeX(),
                 "2000",1,"distance").execute().body();
         if(data != null|| Integer.parseInt(data.getMeta().getPageable_count())!= 0) {
-            for (int i = 0; i < 15; i++) {
+            int index  = 15;
+            if(15 > Integer.parseInt(data.getMeta().getPageable_count())){
+                index = Integer.parseInt(data.getMeta().getPageable_count());
+            }
+            for (int i = 0; i < index; i++) {
                 convenience.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
                         Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
                         , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));

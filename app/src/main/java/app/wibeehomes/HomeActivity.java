@@ -31,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView conditionTextView;
     private String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private static final int PERMISSIONS_REQUEST_CODE = 100;
+    private KakaoMapAPI kakaoMapAPI = null;
     // 조건
     int bigLocal, smallLocal;
     RENTTYPE rentType;
@@ -53,9 +54,9 @@ public class HomeActivity extends AppCompatActivity {
 
         GPSListener gpsListener = new GPSListener();
         UserLoc.LocBy_gps(this,gpsListener);
-
+        Place test = new Place("집",37.28496752588621,126.99445809325184);
         try {
-            KakaoMapAPI kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),UserLoc.getUserPlace());
+            kakaoMapAPI = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.map_view),test);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -136,8 +137,6 @@ public class HomeActivity extends AppCompatActivity {
             }
             conditionTextView.setText(conditionString);
         }
-
-
     }
 
     private class GPSListener implements LocationListener {
@@ -145,6 +144,10 @@ public class HomeActivity extends AppCompatActivity {
             //capture location data sent by current provider
             Double latitude = location.getLatitude();
             Double longitude = location.getLongitude();
+            kakaoMapAPI.MartMarker();
+            kakaoMapAPI.busMarker();
+            kakaoMapAPI.subwayMarker();
+            kakaoMapAPI.conviMarker();
         }
     }
     public void onProviderDisabled(String provider) {

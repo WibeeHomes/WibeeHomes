@@ -24,9 +24,14 @@ public class KakaoMapAPI {
     private Place centerLoc;
     private int makerNumber =0;
 
+    private ArrayList<MapPOIItem> martMarker = new ArrayList<MapPOIItem>();
+    private ArrayList<MapPOIItem> subwayMarker = new ArrayList<MapPOIItem>();
+    private ArrayList<MapPOIItem> conviMarker = new ArrayList<MapPOIItem>();
+    private ArrayList<MapPOIItem> busMarker = new ArrayList<MapPOIItem>();
+
+
     public KakaoMapAPI(Activity activity, ViewGroup viewGroup,Place centerLoc) throws IOException, InterruptedException {
         this.centerLoc = centerLoc;
-
         this.surrFacilities = new SurrFacilities(centerLoc);
 
         mapView = new MapView(activity);
@@ -74,6 +79,7 @@ public class KakaoMapAPI {
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
             this.mapView.addPOIItem(marker);
+            subwayMarker.add(marker);
             makerNumber++;
         }
     }
@@ -89,6 +95,7 @@ public class KakaoMapAPI {
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
             this.mapView.addPOIItem(marker);
+            conviMarker.add(marker);
             makerNumber++;
         }
     }
@@ -104,6 +111,7 @@ public class KakaoMapAPI {
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
             this.mapView.addPOIItem(marker);
+            busMarker.add(marker);
             makerNumber++;
         }
     }
@@ -119,6 +127,7 @@ public class KakaoMapAPI {
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
             this.mapView.addPOIItem(marker);
+            martMarker.add(marker);
             makerNumber++;
         }
     }
