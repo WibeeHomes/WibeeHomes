@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.RestrictionEntry;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -143,10 +147,25 @@ public class HomeDetailActivity extends AppCompatActivity {
                 dialog.setSearchDialogListener(new SearchDialog.SearchDialogListener() {
                     @Override
                     public void onSearchResultClick(Place place) throws JSONException {
-                        //company = place;
+                        company = place;
+                        PreferenceManager.setString(getApplicationContext(), "company_name", company.get_placeAddress());
+                        PreferenceManager.setString(getApplicationContext(), "company_x", Double.toString(company.get_placeX()));
+                        PreferenceManager.setString(getApplicationContext(), "company_y", Double.toString(company.get_placeY()));
 
+                        //workSettingButton.setBackground(getResources().);
                     }
                 });
+
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                Window window = dialog.getWindow();
+                window.setAttributes(lp);
             }
         });
 

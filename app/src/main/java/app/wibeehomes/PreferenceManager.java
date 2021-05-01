@@ -102,11 +102,11 @@ public class PreferenceManager {
      * @param value
      */
 
-    public static void setRentType(Context context, String key, RENTTYPE value) {
+    public static void setFloat(Context context, String key, float value) {
 
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        //editor.putFloat(key, value);
+        editor.putFloat(key, value);
         editor.commit();
 
     }

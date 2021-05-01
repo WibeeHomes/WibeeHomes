@@ -39,6 +39,7 @@ public class SearchDialog extends Dialog {
     LinearLayoutManager layoutManager;
     SearchDialogListener searchDialogListener;
     Place selectedRow;
+    String searchPlaceInput;
     //private FindPlace fp;
 
 
@@ -74,9 +75,10 @@ public class SearchDialog extends Dialog {
 
         // 검색 버튼 액션
         searchButton.setOnClickListener(new View.OnClickListener() {
-            String searchPlaceInput = searchEditText.getText().toString();  // 검색어
             @Override
             public void onClick(View view) {
+                searchPlaceInput = searchEditText.getText().toString();  // 검색어
+                Log.d("서치", searchPlaceInput);
                 if(searchPlaceInput.equals("") || searchPlaceInput == null) {
                     Toast.makeText(getContext(), "검색어를 입력하세요", Toast.LENGTH_SHORT);
                 }
@@ -89,6 +91,7 @@ public class SearchDialog extends Dialog {
                             public void run() {
                                 try {
                                     resultPlaces= SearchPlace.searchPlaceAction(searchPlaceInput);
+                                    Log.d("검색결과 사이즈", Integer.toString(resultPlaces.size()));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

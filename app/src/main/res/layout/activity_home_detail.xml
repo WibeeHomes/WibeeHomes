@@ -42,8 +42,8 @@
             android:orientation="horizontal">
 
             <!--여기는 나중에 상세 주소에 대한 지도 넣을 예정-->
-            <ImageView
-                android:id="@+id/imgv_homedetail_map"
+            <RelativeLayout
+                android:id="@+id/homedetail_map_view"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="@color/colorButtonGrey"
