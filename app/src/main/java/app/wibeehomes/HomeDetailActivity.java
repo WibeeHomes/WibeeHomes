@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import app.wibeehomes.R;
+import app.wibeehomes.dialog.SearchDialog;
 
 public class HomeDetailActivity extends AppCompatActivity {
 
@@ -24,7 +27,8 @@ public class HomeDetailActivity extends AppCompatActivity {
                         detailDistanceFromCompany, detailTimeFromCompany,
                         loan1MoneyTextView, loan2MoneyTextView, loan3MoneyTextView; // 1. 전세자금  2. 직장인 3.  비상금
     private LinearLayout loan1LinearLayout, loan2LinearLayout, loan3LinearLayout, loanNoneLinearLayout;
-    private Button loanConditionButton;
+    private Button loanConditionButton, workSettingButton;
+    private SearchDialog dialog;
 
     // 받아올 값
     private RENTTYPE rentType = RENTTYPE.JEONSE;
@@ -123,11 +127,28 @@ public class HomeDetailActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------------
         // 직장과의 거리
         // ODsay - 총 거리, 걸리는 시간
+
         detailDistanceFromCompany = findViewById(R.id.home_detail_tv_distance);     // 총 거리 :
         detailTimeFromCompany = findViewById(R.id.home_detail_tv_time);             // 대중교통으로 이동한 시간 :
 
         String distance = "";
         String time = "";
+
+        // 근무지 검색 다이얼로그 연결
+        workSettingButton = findViewById(R.id.btn_homedetail_work);
+        workSettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new SearchDialog(HomeDetailActivity.this);
+                dialog.setSearchDialogListener(new SearchDialog.SearchDialogListener() {
+                    @Override
+                    public void onSearchResultClick(Place place) throws JSONException {
+                        //company = place;
+
+                    }
+                });
+            }
+        });
 
         if (company == null){
             distance = getString(R.string.detail_distance_none);

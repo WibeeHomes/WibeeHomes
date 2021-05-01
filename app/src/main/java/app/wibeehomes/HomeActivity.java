@@ -123,7 +123,14 @@ public class HomeActivity extends AppCompatActivity {
             smallLocal = conIntent.getExtras().getInt("con_small_local");
             rentType = (RENTTYPE) conIntent.getSerializableExtra("con_rent_type");
 
-            if (rentType == RENTTYPE.JEONSE){
+            String bigLocalString = PreferenceManager.getString(this, "bigLocal");
+            String smallLocalString = PreferenceManager.getString(this, "smallLocal");
+
+            conditionString += bigLocalString + " · ";
+            conditionString += smallLocalString + " · ";
+
+            int rent = PreferenceManager.getInt(this, "rentType");
+            if (rent == RENTTYPE.JEONSE.getValue()){
                 conditionString += "전세";
             } else {
                 conditionString += "월세";
