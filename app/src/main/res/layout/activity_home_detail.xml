@@ -136,11 +136,12 @@
                         android:text="면적/층수" />
 
                     <TextView
+                        android:id="@+id/home_detail_tv_money_title"
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="보증금/월세" />
+                        android:text="전세금" />
 
                     <TextView
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
@@ -157,6 +158,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/home_detail_tv_category"
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -165,6 +167,7 @@
                         android:textColor="@color/colorMainBlue" />
 
                     <TextView
+                        android:id="@+id/home_detail_tv_year"
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -173,6 +176,7 @@
                         android:textColor="@color/colorMainBlue" />
 
                     <TextView
+                        android:id="@+id/home_detail_tv_area"
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -181,6 +185,7 @@
                         android:textColor="@color/colorMainBlue" />
 
                     <TextView
+                        android:id="@+id/home_detail_tv_money"
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -189,10 +194,12 @@
                         android:textColor="@color/colorMainBlue" />
 
                     <TextView
+                        android:id="@+id/home_detail_tv_address"
                         style="@style/CON_SUB_TITLE_TEXTVIEW"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:maxLines="2"
                         android:text="주소"
                         android:textColor="@color/colorMainBlue" />
                 </LinearLayout>
@@ -274,6 +281,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="직장과의 거리"
+                android:layout_marginBottom="15dp"
                 style="@style/CON_TITLE_TEXTVIEW"/>
 
             <LinearLayout
@@ -296,40 +304,21 @@
                     android:layout_weight="1"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/home_detail_tv_distance"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="10dp">
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/view_bus_color"
-                            android:layout_marginRight="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="버스까지의 거리"
-                            style="@style/CON_SUB_TITLE_TEXTVIEW"
-                            android:layout_gravity="center_vertical"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                        android:text="총 거리 : 12km"
+                        android:layout_marginBottom="5dp"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_time"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/view_subway_color"
-                            android:layout_marginRight="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="지하철까지의 거리"
-                            style="@style/CON_SUB_TITLE_TEXTVIEW"
-                            android:layout_gravity="center_vertical"/>
-                    </LinearLayout>
-
+                        android:text="대중교통으로 이동한 시간 : 1시간 56분"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:layout_gravity="center_vertical"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -338,6 +327,7 @@
 
         <View
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             style="@style/VIEW_LINE"/>
 
         <LinearLayout
@@ -345,21 +335,141 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="대출 조회"
-                android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:layout_marginBottom="15dp"
+                style="@style/CON_TITLE_TEXTVIEW" />
 
-            <!--여기는 대출 조회 목록 넣을 예정-->
-            <TextView
+            <LinearLayout
+                android:id="@+id/home_detail_ll_loan1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/ll_loan_round"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="1dp"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전세 자금 대출"
+                    style="@style/CON_TITLE_TEXTVIEW"
+                    android:textColor="@color/colorMainBlue"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/colorMainBlue"/>
+                <TextView
+                    android:id="@+id/home_detail_tv_loan1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CON_SUB_TITLE_TEXTVIEW"
+                    android:text="000만원 가능"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/home_detail_ll_loan2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/ll_loan_round"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="1dp"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="     직장인 대출"
+                    style="@style/CON_TITLE_TEXTVIEW"
+                    android:textColor="@color/colorMainBlue"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/colorMainBlue"/>
+                <TextView
+                    android:id="@+id/home_detail_tv_loan2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CON_SUB_TITLE_TEXTVIEW"
+                    android:text="000만원 가능"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/home_detail_ll_loan3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/ll_loan_round"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="1dp"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비상 자금 대출"
+                    style="@style/CON_TITLE_TEXTVIEW"
+                    android:textColor="@color/colorMainBlue"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/colorMainBlue"/>
+                <TextView
+                    android:id="@+id/home_detail_tv_loan3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CON_SUB_TITLE_TEXTVIEW"
+                    android:text="000만원 가능"/>
+            </LinearLayout>
 
-                />
+            <LinearLayout
+                android:id="@+id/home_detail_ll_loan_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="1dp"
+                android:weightSum="1">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/emoji_face_with_monocle"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="대출을 조회하기 위한 정보가 없어요" />
+                <Button
+                    android:id="@+id/home_detail_btn_loan_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="대출 조건 입력하기"
+                    android:textColor="@color/colorMainBlue"
+                    android:textSize="18dp"
+                    android:background="@drawable/button_blue"/>
+            </LinearLayout>
 
         </LinearLayout>
 

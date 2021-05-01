@@ -2,4 +2,9 @@
     <string name="app_name">우리WON하는부동산</string>
     <string name="main_menu1">부동산 검색</string>
     <string name="main_menu2">공공주택사업</string>
+
+    <string name="detail_distance">총 거리 : </string>
+    <string name="detail_time">대중교통으로 이동한 시간 : </string>
+    <string name="detail_distance_none">현재 설정된 근무지 위치가 없습니다.</string>
+    <string name="detail_time_none">왼쪽 버튼에서 등록하세요</string>
 </resources>
