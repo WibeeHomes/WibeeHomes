@@ -25,65 +25,44 @@ import retrofit2.Response;
 public class SurrFacilities {
     private Place loc;
 
-    private int marketIndex;
-    private int subwayIndex;
-    private int conviIndex;
-
-    private boolean marketBool;
-    private boolean subwayBool;
-    private boolean conviBool;
-
-
     private ArrayList<Place> supermarket =new ArrayList<Place>(); // 대형 마트
     private ArrayList<Place> convenience = new ArrayList<Place>(); // 편의점
     private ArrayList<Place> subwayStation = new ArrayList<Place>(); // 지하철역
     private ArrayList<Place> busStation = new ArrayList<Place>(); // 버스 정류장
 
-    public SurrFacilities(Place loc1) throws IOException {
+    public SurrFacilities(Place loc1) throws IOException, InterruptedException {
         this.loc = loc1;
-        this.marketIndex =0;
-        this.subwayIndex=0;
-        this.conviIndex =0;
-        this.conviBool = true;
-        this.marketBool =true;
-        this.subwayBool =true;
-        new Thread(new Runnable() {
+        Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(marketBool){
-                    try {
-                        searchSuperMarket();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    searchSuperMarket();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        }).start();
-        new Thread(new Runnable() {
+        });
+        Thread thread2 =new Thread(new Runnable() {
             @Override
             public void run() {
-                while(subwayBool){
-                    try {
-                        searchSubwayStation();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    searchSubwayStation();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        }).start();
-        new Thread(new Runnable() {
+        });
+        Thread thread3=new Thread(new Runnable() {
             @Override
             public void run() {
-                while(conviBool){
-                    try {
-                        searchConvenience();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    searchConvenience();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        }).start();
-        new Thread(new Runnable() {
+        });
+        Thread thread4 =new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -92,7 +71,15 @@ public class SurrFacilities {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+        thread1.join();
+        thread2.join();
+        thread3.join();
+        thread4.join();
     }
 
     // get
@@ -116,52 +103,44 @@ public class SurrFacilities {
 
     public synchronized void searchSuperMarket() throws IOException {
         KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("MT1",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
-                "2000",marketIndex).execute().body();
-        if(data != null) {
-            marketBool=Boolean.parseBoolean(data.getMeta().getIs_end());
-            for (int i = 0; i < Integer.parseInt(data.getMeta().getPageable_count()); i++) {
+                "2000",1,"distance").execute().body();
+        if(data != null|| Integer.parseInt(data.getMeta().getPageable_count())!= 0) {
+            for (int i = 0; i < 15; i++) {
                 supermarket.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
                         Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
                         , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
             }
-            marketIndex++;
         }
     }
 
     public synchronized void searchSubwayStation() throws IOException {
         KakaoCategory data = RetrofitAction.KaKaoAPIAction().getData("SW8",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
-                "2000",subwayIndex).execute().body();
-        if(data != null){
-            subwayBool=Boolean.parseBoolean(data.getMeta().getIs_end());
-            for(int i = 0;i < Integer.parseInt(data.getMeta().getPageable_count()) ;i++){
-                subwayStation.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
-                        Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
-                        ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
+                "2000",1,"distance").execute().body();
+        if(data != null|| Integer.parseInt(data.getMeta().getPageable_count())!= 0) {
+            for (int i = 0; i < 15; i++) {
+                subwayStation.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
+                        Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
+                        , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
             }
-            subwayIndex++;
         }
     }
 
     public synchronized void searchConvenience() throws IOException {
         KakaoCategory data=RetrofitAction.KaKaoAPIAction().getData("CS2",Double.toString(loc.get_placeX()),Double.toString(loc.get_placeY()),
-                "2000",conviIndex).execute().body();
-        if(data!=null){
-            conviBool=Boolean.parseBoolean(data.getMeta().getIs_end());
-            for(int i = 0;i < Integer.parseInt(data.getMeta().getPageable_count()) ;i++){
-                convenience.add(new Place(data.getDocuments().get(i).getPlace_name() ,data.getDocuments().get(i).getRoad_address_name() ,
-                        Double.parseDouble(data.getDocuments().get(i).getX()),Double.parseDouble(data.getDocuments().get(i).getY())
-                        ,data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
+                "2000",1,"distance").execute().body();
+        if(data != null|| Integer.parseInt(data.getMeta().getPageable_count())!= 0) {
+            for (int i = 0; i < 15; i++) {
+                convenience.add(new Place(data.getDocuments().get(i).getPlace_name(), data.getDocuments().get(i).getRoad_address_name(),
+                        Double.parseDouble(data.getDocuments().get(i).getX()), Double.parseDouble(data.getDocuments().get(i).getY())
+                        , data.getDocuments().get(i).getPhone(), data.getDocuments().get(i).getDistance()));
             }
-            addSetConvenience(convenience);
-            conviIndex++;
         }
     }
 
     public synchronized ArrayList<Place> busAPI(double x, double y) throws IOException, ParserConfigurationException, SAXException {
         String parsingUrl="";
-        String apiKey = "0eMMHHcbnpAK1eXmexxzB4pMr9lfDCq4Tl6P4wh2DrYWPkvQfiB0u9Vr5mMh39H6x63xk%2FesCnLgUfMbHBQV8g%3D%3D";
         StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/BusSttnInfoInqireService/getCrdntPrxmtSttnList"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + URLEncoder.encode(apiKey, "UTF-8")); /*Service Key*/
+        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=0eMMHHcbnpAK1eXmexxzB4pMr9lfDCq4Tl6P4wh2DrYWPkvQfiB0u9Vr5mMh39H6x63xk%2FesCnLgUfMbHBQV8g%3D%3D"); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("gpsLati","UTF-8") + "=" + URLEncoder.encode(Double.toString(x), "UTF-8")); /*WGS84 위도 좌표*/
         urlBuilder.append("&" + URLEncoder.encode("gpsLong","UTF-8") + "=" + URLEncoder.encode(Double.toString(y), "UTF-8")); /*WGS84 경도 좌표*/
 
@@ -170,7 +149,7 @@ public class SurrFacilities {
 
         DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder=dbFactory.newDocumentBuilder();
-        Document doc=dBuilder.parse(parsingUrl);
+        Document doc = dBuilder.parse(parsingUrl);
         doc.getDocumentElement().normalize();
 
         NodeList nList = doc.getElementsByTagName("item");

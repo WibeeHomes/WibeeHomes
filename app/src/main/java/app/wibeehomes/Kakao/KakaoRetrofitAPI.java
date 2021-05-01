@@ -12,5 +12,5 @@ public interface KakaoRetrofitAPI {
     @Headers("Authorization: KakaoAK "+kakaoApiKey)
     @GET("/v2/local/search/category.json?")
     Call<KakaoCategory> getData(@Query("category_group_code") String groupCode,
-                                @Query("x") String x , @Query("y") String y, @Query("radius") String radius, @Query("page") int page);
+                                @Query("x") String x , @Query("y") String y, @Query("radius") String radius, @Query("page") int page, @Query("sort") String sort);
 }
