@@ -211,6 +211,9 @@ public class HomeConditionActivity extends AppCompatActivity {
                 Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
 
                 // sharedPreference-----------------------------------------------------------------
+                // 조회 Boolean
+                PreferenceManager.setBoolean(getApplicationContext(), "isSetting", true);
+
                 // 전월세 타입 저장
                 PreferenceManager.setInt(getApplicationContext(), "rentType", rentType.getValue());
 
