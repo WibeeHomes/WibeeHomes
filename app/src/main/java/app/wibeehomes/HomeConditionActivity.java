@@ -17,8 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -50,7 +48,6 @@ public class HomeConditionActivity extends AppCompatActivity {
     private static OkHttpClient client=new OkHttpClient().newBuilder().build();
     private static String OkhttpUrl="http://192.168.1.34:8080/Wibee_Server/androidDB.jsp";
     private static MediaType mediaType= MediaType.parse("text/plain");
-
 
     private RadioGroup rg_lease;
     private RadioButton rb_lease_year,rb_lease_month;
