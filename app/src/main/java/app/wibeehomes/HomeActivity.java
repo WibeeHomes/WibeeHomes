@@ -20,6 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -73,6 +77,28 @@ public class HomeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        kakaoMapAPI.getMapView().setPOIItemEventListener(new MapView.POIItemEventListener() {
+            @Override
+            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+                clickHomeMarker();
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+            }
+
+            @Override
+            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+            }
+        });
+
         publicHousingLinearLayout = findViewById(R.id.home_ll_menu2);
         conditionLinearLayout = findViewById(R.id.home_ll_condition);
 
@@ -122,7 +148,6 @@ public class HomeActivity extends AppCompatActivity {
                 });
             }
         }).start();
-        kakaoMapAPI.residentMaker(ResidentialStaticObject.getResidentialFacilities());
 
         //------------------------------------------------------------------------------------------
         // 조건 입력
@@ -147,12 +172,21 @@ public class HomeActivity extends AppCompatActivity {
 
         // 집 리스트
         Intent conditionIntent = getIntent();
-        residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
 
+
+        try {
+            residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
+            kakaoMapAPI.residentMaker(residentialFacilities);
+            System.out.println("성공");
+        }
+        catch (NullPointerException e){
+            
+        }
+        finally{
+
+        }
         // HomeDetailActivity로 가기
         // button -> 마커
-
-
     }
 
     private void clickHomeMarker() {

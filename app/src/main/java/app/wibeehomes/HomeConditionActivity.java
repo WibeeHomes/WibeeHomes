@@ -300,7 +300,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                     ArrayList<CityCode> cityCodes = DTO.getCityArr();
                     for(int i =0; i <cityCodes.size();i++) {
                         if (cityCodes.get(i).getName().equals(localCodeName)) {
-                            RequestBody body = new FormBody.Builder().add("localCode",localCodeName).build();
+                            RequestBody body = new FormBody.Builder().add("localCode",cityCodes.get(i).getCode()).build();
                             Request request = new Request.Builder().url(OkhttpUrl).method("POST", body).build();
                             // 서버에 법정동 코드 넘겨준다.
                             final CountDownLatch countDownLatch = new CountDownLatch(1);
