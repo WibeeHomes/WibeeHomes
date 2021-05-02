@@ -195,6 +195,34 @@ public class KakaoMapAPI {
         }
     }
 
+    public void deleteMartMarker(){
+        for(int i =0; i < martMarker.size();i++){
+            this.mapView.removePOIItem(martMarker.get(i));
+        }
+        martMarker.clear();
+    }
+
+    public void deleteSubwayMarker(){
+        for(int i =0; i < subwayMarker.size();i++){
+            this.mapView.removePOIItem(subwayMarker.get(i));
+        }
+        subwayMarker.clear();
+    }
+
+    public void deleteBusMarker(){
+        for(int i =0; i < busMarker.size();i++){
+            this.mapView.removePOIItem(busMarker.get(i));
+        }
+        busMarker.clear();
+    }
+
+    public void deleteConvinMarker(){
+        for(int i =0; i < conviMarker.size();i++){
+            this.mapView.removePOIItem(conviMarker.get(i));
+        }
+        conviMarker.clear();
+    }
+
     public MapView getMapView() {
         return mapView;
     }
