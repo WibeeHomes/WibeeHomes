@@ -10,13 +10,28 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class UserAuthActivity extends AppCompatActivity {
 
@@ -24,6 +39,8 @@ public class UserAuthActivity extends AppCompatActivity {
     private CheckBox check;
     private Button submit;
     int textlength=0;
+    ArrayList<String> encoding_info=new ArrayList<String>();
+    String encodedname;//암호화실명번호
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +112,28 @@ public class UserAuthActivity extends AppCompatActivity {
                                 builder.create().show();
                             }
                             else{//동의를 한 경우-모든게 완벽
+                                encoding_info.add(et_name.getText().toString());//암호화 대상
+                                encoding_info.add("98OLhiTmtTwA7OMoPy45U8Bujuzpr0yz");//시크릿 키
+                                try {
+                                    encodedname=getAES256EncStr(encoding_info);
+                                    Log.d("암호화 테스트 ; ",encodedname);
+
+                                } catch (NoSuchAlgorithmException e) {
+                                    e.printStackTrace();
+                                } catch (NoSuchPaddingException e) {
+                                    e.printStackTrace();
+                                } catch (InvalidKeyException e) {
+                                    e.printStackTrace();
+                                } catch (InvalidAlgorithmParameterException e) {
+                                    e.printStackTrace();
+                                } catch (IllegalBlockSizeException e) {
+                                    e.printStackTrace();
+                                } catch (BadPaddingException e) {
+                                    e.printStackTrace();
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+
                                 Intent homeIntent=new Intent(UserAuthActivity.this,HomeActivity.class);
                                 startActivity(homeIntent);
                             }
@@ -117,4 +156,39 @@ public class UserAuthActivity extends AppCompatActivity {
             return null;
         }
     };
+
+    //----------------------------------------------------------------------
+    //암호화
+    public static String getAES256EncStr(List<String> params)throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException{
+        if(params==null||params.size()<2||params.get(0)==null||params.get(1)==null){
+            return null;
+        }
+        String str=params.get(0).toString();//암호화 대상
+        String key=params.get(1).toString();//시크릿 키
+        String iv="0000000000000000";
+
+        Key keySpec;
+        byte[] keyBytes=new byte[key.length()];
+        byte[] b=key.getBytes("UTF-8");
+
+        int len=b.length;
+
+        if(len>keyBytes.length){
+            len=keyBytes.length;
+        }
+        System.arraycopy(b,0,keyBytes,0,len);
+
+        keySpec=new SecretKeySpec(keyBytes,"AES");
+
+        Cipher c=Cipher.getInstance("AES/CBC/PKCS5Padding");
+        c.init(Cipher.ENCRYPT_MODE,keySpec,new IvParameterSpec(iv.getBytes()));
+
+        byte[] encrypted=c.doFinal(str.getBytes("UTF-8"));
+
+        String encStr=new String(Base64.encodeToString(encrypted,0));
+        return encStr;
+    }
+
+
+
 }
