@@ -25,6 +25,7 @@ public class KakaoMapAPI {
 
     private MapPOIItem workMarker = null;
     private MapPOIItem homeMarker = null;
+    private MapPOIItem myLocMarker = null;
 
     private ArrayList<MapPOIItem> martMarker = new ArrayList<MapPOIItem>();
     private ArrayList<MapPOIItem> subwayMarker = new ArrayList<MapPOIItem>();
@@ -45,21 +46,7 @@ public class KakaoMapAPI {
         mapView.zoomIn(true);
         // 줌 아웃
         mapView.zoomOut(true);
-
-        MapPOIItem marker = new MapPOIItem();
-        marker.setItemName("Default Marker");
-        marker.setTag(0);
-        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(centerLoc.get_placeX(),centerLoc.get_placeY())); //좌표
-
-        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-        marker.setCustomImageResourceId(R.drawable.marker_home);
-        marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
-        marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
-
-        makerNumber++;
-        this.mapView.addPOIItem(marker);
-
-        sidePlaceMaker();
+        myLocMaker(centerLoc);
     }
 
     public void changeLoc(Place centerLoc){
@@ -76,6 +63,22 @@ public class KakaoMapAPI {
         this.subwayMarker();
         this.busMarker();
         this.MartMarker();
+    }
+
+    public void myLocMaker(Place myLoc){
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName("MyLoc");
+        marker.setTag(makerNumber);
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(myLoc.get_placeX(),myLoc.get_placeY())); //좌표
+
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+        marker.setCustomImageResourceId(R.drawable.marker_home);
+        marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+        marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+
+        makerNumber++;
+        this.mapView.addPOIItem(marker);
+        myLocMarker = marker;
     }
 
     public void workMarker(Place workPlace){
@@ -193,6 +196,37 @@ public class KakaoMapAPI {
             martMarker.add(marker);
             makerNumber++;
         }
+    }
+
+    public void deleteMyLocMarker(){
+        this.mapView.removePOIItem(myLocMarker);
+    }
+
+    public void deleteWorkMarker(){
+        this.mapView.removePOIItem(workMarker);
+    }
+
+    public void deleteHomeMarker(){
+        this.mapView.removePOIItem(homeMarker);
+    }
+    public void deleteMartMarker(){
+        this.mapView.removePOIItems(martMarker.toArray(new MapPOIItem[martMarker.size()]));
+        martMarker.clear();
+    }
+
+    public void deleteSubwayMarker(){
+        this.mapView.removePOIItems(subwayMarker.toArray(new MapPOIItem[subwayMarker.size()]));
+        subwayMarker.clear();
+    }
+
+    public void deleteBusMarker(){
+        this.mapView.removePOIItems(busMarker.toArray(new MapPOIItem[busMarker.size()]));
+        busMarker.clear();
+    }
+
+    public void deleteConvinMarker(){
+        this.mapView.removePOIItems(conviMarker.toArray(new MapPOIItem[conviMarker.size()]));
+        conviMarker.clear();
     }
 
     public MapView getMapView() {
