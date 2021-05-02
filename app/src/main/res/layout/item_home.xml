@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edittext_light_blue"
+    android:padding="15dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/item_home_category"
+        android:text="카테고리"
+        android:textSize="13dp"
+        android:textColor="@color/colorMainBlue"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/item_home_address"
+        android:text="집 이름"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/item_home_detail_address"
+        android:text="상세주소"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/item_home_area"
+        android:text="면적/층수"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_marginTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

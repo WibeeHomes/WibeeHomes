@@ -220,7 +220,7 @@ public class HomeConditionActivity extends AppCompatActivity {
         bigLocSpinner.setAdapter(bigAdapter);
         bigLocSpinner.setSelection(bigLocal);
 
-        //int arrayResId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
+        int arrayResId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
         smallAdapter = ArrayAdapter.createFromResource(this, R.array.array_0, R.layout.item_spinner);
         smallAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         smallLocSpinner.setAdapter(smallAdapter);
@@ -351,9 +351,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                     Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
                     homeIntent.putExtra("homeList", residentialFacilities);
-                    setResult(RESULT_OK,homeIntent);
-                    finish();
-                    //startActivity(homeIntent);
+                    startActivity(homeIntent);
                 }
             }
         });
