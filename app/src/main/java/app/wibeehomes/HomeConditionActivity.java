@@ -118,6 +118,33 @@ public class HomeConditionActivity extends AppCompatActivity {
         rangeSeekBar_monthly.setSelectedMinValue(0);
         rangeSeekBar_monthly.setRangeValues(0,500);  //0만원~500만원
 
+        //조건이 선택된 경우라면
+        if(PreferenceManager.getBoolean(this,"isSetting")){
+            //전세, 월세를 선택했다면->전세금(보증금) setting
+            int temp_min=PreferenceManager.getInt(this,"minMoneyYear");
+            int temp_max=PreferenceManager.getInt(this,"maxMoneyYear");
+            rangeSeekBar_budget.setSelectedMinValue(temp_min);
+            rangeSeekBar_budget.setSelectedMaxValue(temp_max);
+
+            String temp_year=moneyToString(temp_min)+"~"+moneyToString(temp_max);
+            tv_homecondition_budget.setText(temp_year);
+
+            Log.d("저장됨?",Boolean.toString(PreferenceManager.getBoolean(getApplicationContext(),"isSetting")));
+            Log.d("전세범위",Integer.toString(temp_min));
+
+            //월세를 선택했다면->월세 setting
+            if(PreferenceManager.getInt(this, "rentType")==1){
+                int temp_min_month=PreferenceManager.getInt(this,"minMoneyMonth");
+                int temp_max_month=PreferenceManager.getInt(this,"maxMoneyMonth");
+                rangeSeekBar_monthly.setSelectedMinValue(temp_min_month);
+                rangeSeekBar_monthly.setSelectedMaxValue(temp_max_month);
+
+                String temp_month=moneyToString(temp_min_month)+"~"+moneyToString(temp_max_month);
+                tv_homecondition_monthly.setText(temp_month);
+                Log.d("월세범위",temp_year);
+            }
+        }
+
         final DecimalFormat formatter=new DecimalFormat("###,###");
 
         rg_lease.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -151,33 +178,9 @@ public class HomeConditionActivity extends AppCompatActivity {
                 max_value_jeonse=(int)max_value_jeonse_bar;
                 String min_budget,max_budget;
 
-                if(min_value_jeonse>=10000){//1억 이상
-                    int num=min_value_jeonse/10000;
-                    if(min_value_jeonse%10000==0){
-                        min_budget=num+"억";
-                    }
-                    else{
-                        min_value_jeonse=min_value_jeonse%10000;
-                        min_budget=num+"억 "+formatter.format(min_value_jeonse)+"만원";
-                    }
-                }
-                else{
-                    min_budget=formatter.format(min_value_jeonse)+"만원";
-                }
+                min_budget=moneyToString(min_value_jeonse);
 
-                if(max_value_jeonse>=10000){//1억 이상
-                    int num=max_value_jeonse/10000;
-                    if(max_value_jeonse%10000==0){
-                        max_budget=num+"억";
-                    }
-                    else{
-                        max_value_jeonse=max_value_jeonse%10000;
-                        max_budget=num+"억 "+formatter.format(max_value_jeonse)+"만원";
-                    }
-                }
-                else{
-                    max_budget=formatter.format(max_value_jeonse)+"만원";
-                }
+                max_budget=moneyToString(max_value_jeonse);
 
                 tv_homecondition_budget.setText(min_budget+"~"+max_budget);
             }
@@ -275,8 +278,8 @@ public class HomeConditionActivity extends AppCompatActivity {
                     PreferenceManager.setInt(getApplicationContext(), "smallLocalNum", smallLocal);
 
                     // preference 전세 최소, 최대 금액
-                    PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", (int)min_value_jeonse);
-                    PreferenceManager.setInt(getApplicationContext(), "maxMoneyYear", (int)max_value_jeonse);
+                    PreferenceManager.setInt(getApplicationContext(), "minMoneyYear", min_value_jeonse);
+                    PreferenceManager.setInt(getApplicationContext(), "maxMoneyYear", max_value_jeonse);
 
                     //월세
                     if(rentType==RENTTYPE.WOLSE){
@@ -383,5 +386,22 @@ public class HomeConditionActivity extends AppCompatActivity {
                 smallLocal = 0;
             }
         });
+    }
+
+    public String moneyToString(int money){
+        String moneystring="";
+        final DecimalFormat formatter=new DecimalFormat("###,###");
+        if(money>=10000){//1억 이상
+            if(money%10000==0){//억단위
+                moneystring=Integer.toString(money/10000)+"억원";
+            }
+            else{
+                moneystring=Integer.toString(money/10000)+"억"+formatter.format(money%10000)+"만원";
+            }
+        }
+        else{//1억 이하
+            moneystring=formatter.format(money)+"만원";
+        }
+        return moneystring;
     }
 }

@@ -92,6 +92,8 @@ public class LoanDetailActivity extends AppCompatActivity {
 
         layout_year=findViewById(R.id.loandetail_ll_year);//전세자금 대출 레이아웃
 
+
+        //현재 날짜로부터 6개월 전 날짜 구하기
         Calendar cal=Calendar.getInstance();
         cal.add(cal.MONTH,-6);
         SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd");
@@ -114,9 +116,30 @@ public class LoanDetailActivity extends AppCompatActivity {
             }
         }
 
+        //조건이 저장된 상태라면
+        /*if (PreferenceManager.getBoolean(this, "isSetting_Loan") == true) {
+            et_name_1.setText(PreferenceManager.getString(this,"name"));
+            //et_name_2.setText(PreferenceManager.getString(this,"name"));
+
+            et_businessnum.setText(Integer.toString(PreferenceManager.getInt(this,"businessnum")));
+
+            et_date.setText(PreferenceManager.getString(this,businessDate));
+
+            et_yearmoney_1.setText(Integer.toString(PreferenceManager.getInt(this,"businessdate")));
+            //et_yearmoney_2.setText(PreferenceManager.getInt(this,"businessdate"));
+
+            check_all.setChecked(true);
+
+        }*/
+
 
 
         //-----------------------------------------------------------
+        //조건이 저장된 상태라면
+        if(PreferenceManager.getBoolean(getApplicationContext(),"isSetting_Loan")==true){
+            et_name_1.setText(PreferenceManager.getString(getApplicationContext(),"name"));
+            et_name_2.setText(PreferenceManager.getString(getApplicationContext(),"name"));
+        }
         //고객한글명-한글만 입력하도록, 비상금에 입력시 직장인에도 자동으로 입력
         InputFilter[] filter_kor=new InputFilter[]{filterKor};
         et_name_1.setFilters(filter_kor);
@@ -135,11 +158,24 @@ public class LoanDetailActivity extends AppCompatActivity {
             }
         });
 
+        //---------------------------------------------------------------
+        //조건이 저장된 상태라면
+        if(PreferenceManager.getBoolean(getApplicationContext(),"isSetting_Loan")==true){
+           et_businessnum.setText(Integer.toString(PreferenceManager.getInt(getApplicationContext(),"businessnum")));
+        }
+
         //--------------------------------------------------------------
+        //조건이 저장된 상태라면
+        if(PreferenceManager.getBoolean(getApplicationContext(),"isSetting_Loan")==true){
+            String savedDate=PreferenceManager.getString(getApplicationContext(),"businessdate");
+            String transDate=savedDate.substring(0,4)+"/"+savedDate.substring(4,6)+"/"+savedDate.substring(6);
+            et_date.setText(transDate);
+        }
         //입사날짜-입력시 '/'넣기, 유효성 검사
         et_date.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
@@ -197,6 +233,11 @@ public class LoanDetailActivity extends AppCompatActivity {
 
 
         //------------------------------------------------------------------------------
+        //조건이 저장된 상태라면
+        if(PreferenceManager.getBoolean(getApplicationContext(),"isSetting_Loan")==true){
+            et_yearmoney_1.setText(Integer.toString(PreferenceManager.getInt(getApplicationContext(),"businessnum")));
+            et_yearmoney_2.setText(Integer.toString(PreferenceManager.getInt(getApplicationContext(),"businessnum")));
+        }
         //연소득금액-직장인에 입력시 전세자금에도 자동으로 입력
         et_yearmoney_1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -212,6 +253,10 @@ public class LoanDetailActivity extends AppCompatActivity {
         });
 
         //-------------------------------------------------------------------------------
+        //조건이 저장된 상태라면
+        if(PreferenceManager.getInt(this, "rentType")==0){//전세라면 모두 동의 체크된 상태
+            check_all.setChecked(true);
+        }
         //동의 버튼
         check_all.setOnClickListener(new View.OnClickListener() {//모두 동의 버튼
             @Override
@@ -298,6 +343,8 @@ public class LoanDetailActivity extends AppCompatActivity {
                                     }
                                     else{//모두 동의 선택한 경우-이름(name), 사업자(businessnum), 입사일자(businessdate), 연소득금액(year_money)
                                         //available_worker_loan 직장인 대출 가능 여부 보내기 request로!!
+                                        // 조회 Boolean
+                                        PreferenceManager.setBoolean(getApplicationContext(), "isSetting_Loan", true);
                                         Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
                                         PreferenceManager.setString(getApplicationContext(),"name",et_name_1.getText().toString());
                                         PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
@@ -312,6 +359,8 @@ public class LoanDetailActivity extends AppCompatActivity {
                                 //월세라면 통과~~
                                 else{//모두 동의 선택한 경우-이름(name), 사업자(businessnum), 입사일자(businessdate), 연소득금액(year_money)
                                     //available_worker_loan 직장인 대출 가능 여부 보내기 request로!!
+                                    // 조회 Boolean
+                                    PreferenceManager.setBoolean(getApplicationContext(), "isSetting_Loan", true);
                                     Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
                                     PreferenceManager.setString(getApplicationContext(),"name",et_name_1.getText().toString());
                                     PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
@@ -327,9 +376,6 @@ public class LoanDetailActivity extends AppCompatActivity {
         });
 
         Log.v("name",PreferenceManager.getString(this,"name"));
-
-
-
 
     }
 
