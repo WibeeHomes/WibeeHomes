@@ -351,6 +351,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                     }
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                     Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
+                    homeIntent.putExtra("homeList", residentialFacilities);
                     startActivity(homeIntent);
                 }
             }

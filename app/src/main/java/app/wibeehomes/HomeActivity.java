@@ -15,6 +15,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import app.wibeehomes.Map.KakaoMapAPI;
 
@@ -32,9 +34,14 @@ public class HomeActivity extends AppCompatActivity {
     private String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     private KakaoMapAPI kakaoMapAPI = null;
+    private ArrayList<ResidentialFacilities> residentialFacilities = new ArrayList<ResidentialFacilities>();
+
     // 조건
     int bigLocal, smallLocal;
     RENTTYPE rentType;
+
+    private Place selectedPlace;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +144,23 @@ public class HomeActivity extends AppCompatActivity {
             }
             conditionTextView.setText(conditionString);
         }
+
+        // 집 리스트
+        Intent conditionIntent = getIntent();
+        residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
+
+        // HomeDetailActivity로 가기
+        // button -> 마커
+
+
+    }
+
+    private void clickHomeMarker() {
+        // 매개변수로 맵마커 객체 받고
+        // 맵마커 객체 -> Place 객체 -> selectedPlace에 저장
+        Intent detailIntent = new Intent(HomeActivity.this, HomeDetailActivity.class);
+        detailIntent.putExtra("selectedHome", selectedPlace);
+        startActivity(detailIntent);
     }
 
     private class GPSListener implements LocationListener {

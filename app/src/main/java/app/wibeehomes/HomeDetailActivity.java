@@ -42,7 +42,7 @@ public class HomeDetailActivity extends AppCompatActivity {
     // 받아올 값
     private int rentType = 0;
     private int money1 = -1, money2 = -1, money3 = -1; // 1. 전세자금  2. 직장인 3.  비상금
-    private Place company; // 직장
+    private Place company, home; // 직장
     Double company_x, company_y; // 근무지 x, y 좌표
 
     @Override
@@ -51,6 +51,10 @@ public class HomeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_detail);
 
         //kakaoMapAPIDetail = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.homedetail_map_view),);
+
+        // HomeActivity에서 넘어온 선택된 집 객체
+        Intent detailIntent = getIntent();
+        home = (Place) detailIntent.getSerializableExtra("selectedHome");
 
         btn_bus=(Button)findViewById(R.id.btn_homedetail_bus);
         btn_subway=(Button)findViewById(R.id.btn_homedetail_subway);
