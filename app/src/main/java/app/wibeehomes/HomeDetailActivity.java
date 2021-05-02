@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
+import app.wibeehomes.Map.KakaoMapAPI;
 import app.wibeehomes.R;
 import app.wibeehomes.dialog.SearchDialog;
 
@@ -27,6 +29,7 @@ public class HomeDetailActivity extends AppCompatActivity {
     private boolean check2=false; //subway 마커 체크
     private boolean check3=false; //convenience 마커 체크
     private boolean check4=false; //cart 마커 체크
+    private KakaoMapAPI kakaoMapAPIDetail =null;
     Button btn_bus,btn_subway,btn_convenience_store,btn_cart;
 
     private TextView detailCategory, detailYear, detailArea, detailMoney, detailAddress, detailMoneyTitle,
@@ -46,6 +49,8 @@ public class HomeDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_detail);
+
+        //kakaoMapAPIDetail = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.homedetail_map_view),);
 
         btn_bus=(Button)findViewById(R.id.btn_homedetail_bus);
         btn_subway=(Button)findViewById(R.id.btn_homedetail_subway);
