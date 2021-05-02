@@ -35,6 +35,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import app.wibeehomes.WooriBankAPI.WarFeeLoan;
+import app.wibeehomes.WooriBankAPI.bisangLoan;
+import app.wibeehomes.WooriBankAPI.WorkerLoan;
+
 enum RENTTYPE {
     JEONSE(0), WOLSE(1);
     private final int value;
@@ -341,19 +345,58 @@ public class HomeConditionActivity extends AppCompatActivity {
                             break;
                         }
                     }
+                    bisangLoan bisangloan = null;
+                    WorkerLoan workerLoan = null;
+                    WarFeeLoan warFeeLoan = null;
+                    JSONObject home = null;
+                    Place temp = null;
                     for(int i =0; i < jsonArray.length();i++){
                         try {
-                            JSONObject object = (JSONObject)jsonArray.get(i);
-                            String address = String.valueOf(object.get("adddong"))+String.valueOf(object.get("addjibun"));
-                            Place temp = new Place(String.valueOf(object.get("hname")),address,Double.parseDouble(String.valueOf(object.get("pointx"))),
-                                    Double.parseDouble(String.valueOf(object.get("pointy"))));
-                            residentialFacilities.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(object.get("hyear"))),
-                                    Integer.parseInt(String.valueOf(object.get("hfloor"))),
-                                    Double.parseDouble(String.valueOf(object.get("harea"))),
-                                    Integer.parseInt(String.valueOf(object.get("hcate"))),String.valueOf(object.get("addjibun")),
-                                    String.valueOf(object.get("warfee")),String.valueOf(object.get("renfee"))));
+                            JSONObject loan1 = (JSONObject)jsonArray.get(0);
+                            bisangloan = new bisangLoan(Integer.parseInt(String.valueOf(loan1.get("LON_DCS_IR"))),
+                                    Integer.parseInt(String.valueOf(loan1.get("APL_ADN_IR"))),Integer.parseInt(String.valueOf(loan1.get("PRC_STCD"))),
+                                    Integer.parseInt(String.valueOf(loan1.get("TGT_CUS_PRME_IR"))),Integer.parseInt(String.valueOf(loan1.get("WOORI_PBOK_HLDG_PRME_IR"))),
+                                    String.valueOf(loan1.get("APV_AM")));
+                            JSONObject loan2 = (JSONObject)jsonArray.get(1);
+                            workerLoan = new WorkerLoan(String.valueOf(loan2.get("LON_DCS_IR")),String.valueOf(loan2.get("APL_ADN_IR")),
+                                    Integer.parseInt(String.valueOf(loan2.get("PRC_STCD"))), Integer.parseInt(String.valueOf(loan2.get("LNAPV_RQ_NO"))),
+                                    Integer.parseInt(String.valueOf(loan2.get("APV_AM"))));
+                            home = (JSONObject)jsonArray.get(2);
+                            String address = String.valueOf(home.get("adddong"))+String.valueOf(home.get("addjibun"));
+                            temp = new Place(String.valueOf(home.get("hname")),address,Double.parseDouble(String.valueOf(home.get("pointx"))),
+                                    Double.parseDouble(String.valueOf(home.get("pointy"))));
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        }
+                        if(rb_lease_year.isChecked()){
+                            try {
+                                JSONObject loan3 = (JSONObject)jsonArray.get(1);
+                                warFeeLoan = new WarFeeLoan(String.valueOf(loan3.get("c")),String.valueOf(loan3.get("RSP_ERR_TXT")),
+                                                String.valueOf(loan3.get("FRCS_AVL_LN_AM"))
+                                        ,String.valueOf(loan3.get("FRCS_AVL_GDOC_AM"))
+                                ,String.valueOf(loan3.get("FRCS_AVL_GRN_RT"))
+                                ,String.valueOf(loan3.get("FRCS_AVL_GRFE_RT")),
+                                                String.valueOf(loan3.get("FRCS_AVL_GRFE")));
+
+                                residentialFacilities.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(home.get("hyear"))),
+                                        Integer.parseInt(String.valueOf(home.get("hfloor"))),
+                                        Double.parseDouble(String.valueOf(home.get("harea"))),
+                                        Integer.parseInt(String.valueOf(home.get("hcate"))),String.valueOf(home.get("addjibun")),
+                                        String.valueOf(home.get("warfee")),String.valueOf(home.get("renfee")),warFeeLoan,bisangloan,workerLoan));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else{
+                            try {
+                                residentialFacilities.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(home.get("hyear"))),
+                                        Integer.parseInt(String.valueOf(home.get("hfloor"))),
+                                        Double.parseDouble(String.valueOf(home.get("harea"))),
+                                        Integer.parseInt(String.valueOf(home.get("hcate"))),String.valueOf(home.get("addjibun")),
+                                        String.valueOf(home.get("warfee")),String.valueOf(home.get("renfee")),warFeeLoan,bisangloan,workerLoan));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동

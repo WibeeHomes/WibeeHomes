@@ -2,6 +2,10 @@ package app.wibeehomes;
 
 import java.io.Serializable;
 
+import app.wibeehomes.WooriBankAPI.WarFeeLoan;
+import app.wibeehomes.WooriBankAPI.bisangLoan;
+import app.wibeehomes.WooriBankAPI.WorkerLoan;
+
 public class ResidentialFacilities implements Serializable {
 
     private Place resident;
@@ -14,7 +18,13 @@ public class ResidentialFacilities implements Serializable {
     private String warFee;// 보증금
     private String renFee; // 월세
 
-    public ResidentialFacilities(Place resident, int hYear, int hFloor, double hArea, int hCate, String addJibun, String warFee, String renFee){
+    private WarFeeLoan warFeeLoan;
+    private bisangLoan bisangLoan;
+    private WorkerLoan workerLoan;
+
+
+    public ResidentialFacilities(Place resident, int hYear, int hFloor, double hArea, int hCate, String addJibun, String warFee, String renFee,
+     WarFeeLoan warFeeLoan, bisangLoan bisangLoan,WorkerLoan workerLoan){
         this.resident = resident;
         this.hYear=hYear;
         this.hFloor=hFloor;
@@ -23,6 +33,9 @@ public class ResidentialFacilities implements Serializable {
         this.addJibun =addJibun;
         this.warFee = warFee;
         this.renFee=renFee;
+        this.warFeeLoan =warFeeLoan;
+        this.bisangLoan = bisangLoan;
+        this.workerLoan=workerLoan;
     }
 
     public double gethArea() {
