@@ -158,6 +158,9 @@ public class HomeActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 residentialFacilities = (ArrayList<ResidentialFacilities>) data.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
                 System.out.println("리스트 길이"+residentialFacilities.size());
+
+                adapter = new HomeListAdapter(residentialFacilities);
+                homeListRecyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
         }
