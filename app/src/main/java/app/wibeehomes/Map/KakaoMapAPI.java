@@ -102,7 +102,7 @@ public class KakaoMapAPI {
         for(int i =0;i < residetns.size();i++){
             Place temp =residetns.get(i).getResident();
             MapPOIItem marker = new MapPOIItem();
-            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeX(), temp.get_placeY());
             marker.setItemName(temp.get_placeAddress());
             marker.setTag(makerNumber);
             marker.setMapPoint(mapPoint); //좌표

@@ -141,19 +141,15 @@ public class HomeActivity extends AppCompatActivity {
                                     intent.putExtra("small_local", smallLocal);
                                     intent.putExtra("rent_type", rentType);
                                 }
-                                startActivity(intent);
+                                //startActivity(intent);
+                                startActivityForResult(intent,1);
                             }
                         });
-
                         // 집 리스트
-                        Intent conditionIntent = getIntent();
-                        residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
-
                     }
                 });
             }
         }).start();
-        kakaoMapAPI.residentMaker(ResidentialStaticObject.getResidentialFacilities());
 
         //------------------------------------------------------------------------------------------
         // 조건 입력
@@ -175,26 +171,23 @@ public class HomeActivity extends AppCompatActivity {
             }
             conditionTextView.setText(conditionString);
         }
-
-        // 집 리스트
-        Intent conditionIntent = getIntent();
-
-
-        try {
-            residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
-            kakaoMapAPI.residentMaker(residentialFacilities);
-            System.out.println("성공");
-        }
-        catch (NullPointerException e){
-
-        }
-        finally{
-
-        }
         // HomeDetailActivity로 가기
         // button -> 마커
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                residentialFacilities = (ArrayList<ResidentialFacilities>) data.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
+                try {
+                    kakaoMapAPI.residentMaker(residentialFacilities);
+                }catch(NullPointerException e){
 
+                }
+            }
+        }
     }
 
     private void clickHomeMarker() {

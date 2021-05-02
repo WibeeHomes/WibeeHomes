@@ -333,7 +333,6 @@ public class HomeConditionActivity extends AppCompatActivity {
                             break;
                         }
                     }
-
                     for(int i =0; i < jsonArray.length();i++){
                         try {
                             JSONObject object = (JSONObject)jsonArray.get(i);
@@ -352,7 +351,9 @@ public class HomeConditionActivity extends AppCompatActivity {
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                     Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
                     homeIntent.putExtra("homeList", residentialFacilities);
-                    startActivity(homeIntent);
+                    setResult(RESULT_OK,homeIntent);
+                    finish();
+                    //startActivity(homeIntent);
                 }
             }
         });
