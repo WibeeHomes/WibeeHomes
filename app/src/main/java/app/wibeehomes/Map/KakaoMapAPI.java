@@ -32,7 +32,6 @@ public class KakaoMapAPI {
     private ArrayList<MapPOIItem> busMarker = new ArrayList<MapPOIItem>();
     private ArrayList<MapPOIItem> residentMarker = new ArrayList<MapPOIItem>();
 
-
     public KakaoMapAPI(Activity activity, ViewGroup viewGroup,Place centerLoc) throws IOException, InterruptedException {
         this.centerLoc = centerLoc;
         this.surrFacilities = new SurrFacilities(centerLoc);
