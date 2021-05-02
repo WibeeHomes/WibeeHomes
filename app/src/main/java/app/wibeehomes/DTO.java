@@ -277,6 +277,9 @@ public class DTO {
     }
 
     public static ArrayList<CityCode> getCityArr() {
+        if(cityArr.size() == 0){
+            new DTO();
+        }
         return cityArr;
     }
 }

@@ -16,13 +16,18 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.JsonObject;
+
 import org.florescu.android.rangeseekbar.RangeSeekBar;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
+import app.wibeehomes.PublicHousing.PublicHousingData;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -46,7 +51,7 @@ enum RENTTYPE {
 public class HomeConditionActivity extends AppCompatActivity {
 
     private static OkHttpClient client=new OkHttpClient().newBuilder().build();
-    private static String OkhttpUrl="http://192.168.1.34:8080/Wibee_Server/androidDB.jsp";
+    private static String OkhttpUrl="http://3.34.216.87:8080/Wibee_Server/androidDB.jsp";
     private static MediaType mediaType= MediaType.parse("text/plain");
 
     private RadioGroup rg_lease;
@@ -61,6 +66,10 @@ public class HomeConditionActivity extends AppCompatActivity {
     private Spinner bigLocSpinner, smallLocSpinner;
     private ArrayAdapter bigAdapter, smallAdapter;
     private int bigLocal, smallLocal;
+
+    private static JSONArray jsonArray=null;
+
+    private ArrayList<ResidentialFacilities> publicHousingData = new ArrayList<ResidentialFacilities>();
 
     private TextView submitButton;
     private Button btn_loan_info;//대출 정보 입력 버튼
@@ -245,10 +254,10 @@ public class HomeConditionActivity extends AppCompatActivity {
 
         // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
         submitButton = findViewById(R.id.condition_btn_submit);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(!rb_lease_year.isChecked()&&!rb_lease_month.isChecked()) { //전월세를 선택 안한 경우
                     AlertDialog.Builder builder=new AlertDialog.Builder(HomeConditionActivity.this);
                     builder.setMessage("전세, 월세를 선택해야 합니다.");
@@ -309,6 +318,11 @@ public class HomeConditionActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     if (response.isSuccessful()) {
+                                        try {
+                                            jsonArray = new JSONArray(response.body().toString());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                         countDownLatch.countDown();
                                     }
                                 }
@@ -321,7 +335,21 @@ public class HomeConditionActivity extends AppCompatActivity {
                             }
                         }
                     }
-
+                    for(int i =0; i < jsonArray.length();i++){
+                        try {
+                            JsonObject object = (JsonObject)jsonArray.get(i);
+                            String address = String.valueOf(object.get("adddong"))+String.valueOf(object.get("addjibun"));
+                            Place temp = new Place(String.valueOf(object.get("hname")),address,Double.parseDouble(String.valueOf(object.get("pointx"))),
+                                    Double.parseDouble(String.valueOf(object.get("pointy"))));
+                            publicHousingData.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(object.get("hyear"))),
+                                    Integer.parseInt(String.valueOf(object.get("hfloor"))),
+                                    Double.parseDouble(String.valueOf(object.get("harea"))),
+                                    Integer.parseInt(String.valueOf(object.get("hcate"))),String.valueOf(object.get("addjibun")),
+                                    String.valueOf(object.get("warfee")),String.valueOf(object.get("renfee"))));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                     Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
                     startActivity(homeIntent);
