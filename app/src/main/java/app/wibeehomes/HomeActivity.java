@@ -47,14 +47,18 @@ public class HomeActivity extends AppCompatActivity {
     private Place selectedPlace;
     private Button button;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         Log.d("저장된 빅로컬", Integer.toString(PreferenceManager.getInt(this, "bigLocalNum")));
         Log.d("저장된 스몰로컬", Integer.toString(PreferenceManager.getInt(this, "smallLocalNum")));
         Log.d("저장상태", Boolean.toString(PreferenceManager.getBoolean(this, "isSetting")));
+
 
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
             // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.

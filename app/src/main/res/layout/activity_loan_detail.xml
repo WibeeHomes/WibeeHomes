@@ -293,6 +293,10 @@
                     android:buttonTint="@color/colorMainBlue"
                     android:text="개인신용정보이용 동의"
                     android:textSize="17dp" />
+
+
+
+
             </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
