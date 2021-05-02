@@ -12,6 +12,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -37,7 +38,7 @@ public class LoanDetailActivity extends AppCompatActivity {
     private EditText et_date; //입사일자
     private EditText et_yearmoney_1;
     private TextView et_yearmoney_2;//연소득금액 (직장인,전세대출)
-    private TextView submitButton;//조회버튼
+    private Button submitButton;//조회버튼
 
     private String businessDate;//입사 일자 'yyyy/MM/dd'
     private String finalDate;//입사 일자 'yyyyMMdd'
@@ -311,7 +312,7 @@ public class LoanDetailActivity extends AppCompatActivity {
         //조회 버튼
         //homecondition에서 넘어온 정보 받기-bigLocal,smallLocal,rentType,min_value_jeonse,max_value_jeonse,min_value_wolse,max_value_wolse
 
-        submitButton=findViewById(R.id.loandetail_tv_submit);
+        submitButton=findViewById(R.id.loandetail_btn_authuser);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,7 +353,7 @@ public class LoanDetailActivity extends AppCompatActivity {
                                         //available_worker_loan 직장인 대출 가능 여부 보내기 request로!!
                                         // 조회 Boolean
                                         PreferenceManager.setBoolean(getApplicationContext(), "isSetting_Loan", true);
-                                        Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                                        Intent homeIntent=new Intent(LoanDetailActivity.this,UserAuthActivity.class);
                                         PreferenceManager.setString(getApplicationContext(),"name",et_name_1.getText().toString());
                                         PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
                                         PreferenceManager.setString(getApplicationContext(),"businessdate",finalDate);
@@ -368,7 +369,7 @@ public class LoanDetailActivity extends AppCompatActivity {
                                     //available_worker_loan 직장인 대출 가능 여부 보내기 request로!!
                                     // 조회 Boolean
                                     PreferenceManager.setBoolean(getApplicationContext(), "isSetting_Loan", true);
-                                    Intent homeIntent=new Intent(LoanDetailActivity.this,HomeActivity.class);
+                                    Intent homeIntent=new Intent(LoanDetailActivity.this,UserAuthActivity.class);
                                     PreferenceManager.setString(getApplicationContext(),"name",et_name_1.getText().toString());
                                     PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
                                     PreferenceManager.setString(getApplicationContext(),"businessdate",finalDate);

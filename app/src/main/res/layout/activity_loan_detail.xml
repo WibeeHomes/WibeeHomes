@@ -41,17 +41,6 @@
                     android:text="대출 정보 입력"
                     android:layout_weight="1"
                     style="@style/TITLE_TEXTVIEW" />
-                <TextView
-                    android:id="@+id/loandetail_tv_submit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="20dp"
-                    android:paddingLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:text="조회"
-                    android:textColor="@color/colorMainBlue"
-                    android:textStyle="bold"
-                    android:textSize="17dp"/>
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -294,5 +283,36 @@
                     android:text="개인신용정보이용 동의"
                     android:textSize="17dp" />
             </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loanedetail_ll_loan3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/loandetail_ll_year"
+            tools:context=".LoanDetailActivity"
+            tools:layout_editor_absoluteX="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <Button
+                android:id="@+id/loandetail_btn_authuser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_search"
+                android:text="사용자 인증하기"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:textColor="@color/colorMainBlue"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+
+        </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

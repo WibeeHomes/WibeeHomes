@@ -102,11 +102,11 @@ public class KakaoMapAPI {
         for(int i =0;i < residetns.size();i++){
             Place temp =residetns.get(i).getResident();
             MapPOIItem marker = new MapPOIItem();
-            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeY(), temp.get_placeX());
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeX(), temp.get_placeY());
             marker.setItemName(temp.get_placeAddress());
             marker.setTag(makerNumber);
             marker.setMapPoint(mapPoint); //좌표
-
+            marker.setUserObject(residetns.get(i));
             marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             marker.setCustomImageResourceId(R.drawable.marker_home_pin);
             marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.

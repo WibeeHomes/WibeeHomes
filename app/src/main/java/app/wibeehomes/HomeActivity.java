@@ -28,9 +28,6 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
 
 import app.wibeehomes.Map.KakaoMapAPI;
 
@@ -43,7 +40,6 @@ public class HomeActivity extends AppCompatActivity {
     private KakaoMapAPI kakaoMapAPI = null;
     private ArrayList<ResidentialFacilities> residentialFacilities = new ArrayList<ResidentialFacilities>();
 
-
     // 조건
     int bigLocal, smallLocal;
     RENTTYPE rentType;
@@ -51,14 +47,18 @@ public class HomeActivity extends AppCompatActivity {
     private Place selectedPlace;
     private Button button;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         Log.d("저장된 빅로컬", Integer.toString(PreferenceManager.getInt(this, "bigLocalNum")));
         Log.d("저장된 스몰로컬", Integer.toString(PreferenceManager.getInt(this, "smallLocalNum")));
         Log.d("저장상태", Boolean.toString(PreferenceManager.getBoolean(this, "isSetting")));
+
 
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
             // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         kakaoMapAPI.getMapView().setPOIItemEventListener(new MapView.POIItemEventListener() {
             @Override
             public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-                clickHomeMarker();
+                clickHomeMarker((ResidentialFacilities) mapPOIItem.getUserObject());
             }
 
             @Override
@@ -145,7 +145,8 @@ public class HomeActivity extends AppCompatActivity {
                                     intent.putExtra("small_local", smallLocal);
                                     intent.putExtra("rent_type", rentType);
                                 }
-                                startActivity(intent);
+                                //startActivity(intent);
+                                startActivityForResult(intent,1);
                             }
                         });
 
@@ -181,21 +182,22 @@ public class HomeActivity extends AppCompatActivity {
             }
             conditionTextView.setText(conditionString);
         }
+        // HomeDetailActivity로 가기
+        // button -> 마커
+    }
 
-        // 집 리스트
-        Intent conditionIntent = getIntent();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                residentialFacilities = (ArrayList<ResidentialFacilities>) data.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
+                try {
+                    kakaoMapAPI.residentMaker(residentialFacilities);
+                }catch(NullPointerException e){
 
-
-        try {
-            residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
-            kakaoMapAPI.residentMaker(residentialFacilities);
-            System.out.println("성공");
-        }
-        catch (NullPointerException e){
-
-        }
-        finally{
-
+                }
+            }
         }
         // HomeDetailActivity로 가기
         // button -> 마커
@@ -203,7 +205,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void clickHomeMarker() {
+    private void clickHomeMarker(ResidentialFacilities selectedPlace) {
         // 매개변수로 맵마커 객체 받고
         // 맵마커 객체 -> Place 객체 -> selectedPlace에 저장
         Intent detailIntent = new Intent(HomeActivity.this, HomeDetailActivity.class);
