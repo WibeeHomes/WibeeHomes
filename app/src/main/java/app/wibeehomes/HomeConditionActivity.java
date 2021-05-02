@@ -220,8 +220,8 @@ public class HomeConditionActivity extends AppCompatActivity {
         bigLocSpinner.setAdapter(bigAdapter);
         bigLocSpinner.setSelection(bigLocal);
 
-        int arrayResId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
-        smallAdapter = ArrayAdapter.createFromResource(this, arrayResId, R.layout.item_spinner);
+        //int arrayResId = getResources().getIdentifier("array_"+Integer.toString(bigLocal), "array", getApplicationContext().getPackageName());
+        smallAdapter = ArrayAdapter.createFromResource(this, R.array.array_0, R.layout.item_spinner);
         smallAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         smallLocSpinner.setAdapter(smallAdapter);
         smallLocSpinner.setSelection(PreferenceManager.getInt(this, "smallLocalNum"));

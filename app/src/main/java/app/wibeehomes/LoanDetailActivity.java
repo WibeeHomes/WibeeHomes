@@ -224,9 +224,12 @@ public class LoanDetailActivity extends AppCompatActivity {
                     //직장인 대출은 6개월 이상 근무->조건이 부합되면 true, 아니면 false
                     if(Integer.parseInt(currentDate)>=Integer.parseInt(finalDate)){
                         available_worker_loan=true;
+                        Log.d("직장인 대출 가능 여부-first : ",Boolean.toString(available_worker_loan));
                     }
                     else{
                         available_worker_loan=false;
+                        Log.d("직장인 대출 가능 여부-first : ",Boolean.toString(available_worker_loan));
+
                     }
 
                 }}
@@ -360,6 +363,10 @@ public class LoanDetailActivity extends AppCompatActivity {
                                         PreferenceManager.setInt(getApplicationContext(),"year_money",Integer.parseInt(et_yearmoney_1.getText().toString()));
                                         PreferenceManager.setBoolean(getApplicationContext(), "isSetting_jeonse", true);
 
+                                        Log.d("직장인 대출 가능 여부-loan : ",Boolean.toString(available_worker_loan));
+
+                                        //직장인 대출 가능 여부-되면 true, 아니면 false
+                                        homeIntent.putExtra("available_worker_loan",available_worker_loan);
                                         startActivity(homeIntent);
 
                                     }
@@ -374,6 +381,10 @@ public class LoanDetailActivity extends AppCompatActivity {
                                     PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
                                     PreferenceManager.setString(getApplicationContext(),"businessdate",finalDate);
                                     PreferenceManager.setInt(getApplicationContext(),"year_money",Integer.parseInt(et_yearmoney_1.getText().toString()));
+
+                                    Log.d("직장인 대출 가능 여부-loan : ",Boolean.toString(available_worker_loan));
+
+                                    homeIntent.putExtra("available_worker_loan",available_worker_loan);
                                     startActivity(homeIntent);
                                 }
                             }
