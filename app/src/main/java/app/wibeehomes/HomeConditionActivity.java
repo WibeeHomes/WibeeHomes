@@ -16,9 +16,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +26,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
-import app.wibeehomes.PublicHousing.PublicHousingData;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -71,7 +67,7 @@ public class HomeConditionActivity extends AppCompatActivity {
 
     private static JSONArray jsonArray=null;
 
-    private ArrayList<ResidentialFacilities> publicHousingData = new ArrayList<ResidentialFacilities>();
+    private ArrayList<ResidentialFacilities> residentialFacilities = new ArrayList<ResidentialFacilities>();
 
     private TextView submitButton;
     private Button btn_loan_info;//대출 정보 입력 버튼
@@ -253,7 +249,6 @@ public class HomeConditionActivity extends AppCompatActivity {
             tv_condition_loan.setText(R.string.condition_edit);
         }
 
-
         // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
         submitButton = findViewById(R.id.condition_btn_submit);
 
@@ -305,7 +300,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                     ArrayList<CityCode> cityCodes = DTO.getCityArr();
                     for(int i =0; i <cityCodes.size();i++) {
                         if (cityCodes.get(i).getName().equals(localCodeName)) {
-                            RequestBody body = new FormBody.Builder().add("localCode", "11110").build();
+                            RequestBody body = new FormBody.Builder().add("localCode",localCodeName).build();
                             Request request = new Request.Builder().url(OkhttpUrl).method("POST", body).build();
                             // 서버에 법정동 코드 넘겨준다.
                             final CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -345,7 +340,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                             String address = String.valueOf(object.get("adddong"))+String.valueOf(object.get("addjibun"));
                             Place temp = new Place(String.valueOf(object.get("hname")),address,Double.parseDouble(String.valueOf(object.get("pointx"))),
                                     Double.parseDouble(String.valueOf(object.get("pointy"))));
-                            publicHousingData.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(object.get("hyear"))),
+                            residentialFacilities.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(object.get("hyear"))),
                                     Integer.parseInt(String.valueOf(object.get("hfloor"))),
                                     Double.parseDouble(String.valueOf(object.get("harea"))),
                                     Integer.parseInt(String.valueOf(object.get("hcate"))),String.valueOf(object.get("addjibun")),
@@ -382,7 +377,6 @@ public class HomeConditionActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void BigSpinnerAction(){

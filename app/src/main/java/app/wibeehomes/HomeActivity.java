@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
             // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
             // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
         }
+
         ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
                 PERMISSIONS_REQUEST_CODE);
 
@@ -101,7 +102,6 @@ public class HomeActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(HomeActivity.this, HomeConditionActivity.class);
-
                                 // 설정된 조건이 있는 경우 기존 조건 같이 넘기기
                                 if (rentType != null) {
                                     intent.putExtra("big_local", bigLocal);
@@ -115,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                 });
             }
         }).start();
-
+        kakaoMapAPI.residentMaker(ResidentialStaticObject.getResidentialFacilities());
 
         //------------------------------------------------------------------------------------------
         // 조건 입력
@@ -142,12 +142,10 @@ public class HomeActivity extends AppCompatActivity {
     private class GPSListener implements LocationListener {
         public void onLocationChanged(Location location) {
             //capture location data sent by current provider
-            Double latitude = location.getLatitude();
-            Double longitude = location.getLongitude();
-            kakaoMapAPI.MartMarker();
-            kakaoMapAPI.busMarker();
-            kakaoMapAPI.subwayMarker();
-            kakaoMapAPI.conviMarker();
+            UserLoc.getUserPlace().set_placeX(location.getLatitude());
+            UserLoc.getUserPlace().set_placeY(location.getLongitude());
+            kakaoMapAPI.deleteMyLocMarker();
+            kakaoMapAPI.myLocMaker(UserLoc.getUserPlace());
         }
     }
     public void onProviderDisabled(String provider) {
