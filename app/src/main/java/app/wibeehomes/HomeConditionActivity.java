@@ -355,11 +355,16 @@ public class HomeConditionActivity extends AppCompatActivity {
                     JSONObject objt =null;
                     try {
                         jsonArray = new JSONArray(str);
-                        objt = (JSONObject)jsonArray.get(0);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     for(int i =0; i < jsonArray.length();i++){
+                        try {
+                            objt = (JSONObject)jsonArray.get(i);
+                        } catch (JSONException e) {
+
+                        }
                         try {
                             JSONObject loan1 =  objt.getJSONObject("loan1");
                             bisangloan = new bisangLoan( Double.toString(loan1.getDouble("LON_DCS_IR")),
