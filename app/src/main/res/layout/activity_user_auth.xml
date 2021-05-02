@@ -6,59 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".UserAuthActivity">
 
-    <TextView
-        android:id="@+id/auth_tv_name"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/auth_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이름"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <EditText
-        android:id="@+id/auth_et_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/auth_tv_name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <TextView
-        android:id="@+id/auth_tv_birth"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/emoji_smile"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사용자 인증"
+            android:layout_weight="1"
+            style="@style/TITLE_TEXTVIEW" />
+    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="생년월일"
-        app:layout_constraintTop_toBottomOf="@id/auth_et_name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <EditText
-        android:id="@+id/auth_et_birth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="20210502"
-        app:layout_constraintTop_toBottomOf="@id/auth_tv_birth"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <TextView
-        android:id="@+id/auth_tv_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="휴대폰번호"
-        app:layout_constraintTop_toBottomOf="@id/auth_et_birth"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <EditText
-        android:id="@+id/auth_et_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="'-' 제외하고 숫자만 입력"
-        app:layout_constraintTop_toBottomOf="@id/auth_tv_phone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <Button
-        android:id="@+id/auth_btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/auth_et_phone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/auth_toolbar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <TextView
+            android:id="@+id/auth_tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            app:layout_constraintTop_toBottomOf="@id/auth_toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <EditText
+            android:id="@+id/auth_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/auth_tv_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/auth_tv_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주민번호"
+            app:layout_constraintTop_toBottomOf="@id/auth_et_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/auth_et_birth_front"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="20210502"/>
+            <EditText
+                android:id="@+id/auth_et_birth_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="20210502"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/auth_tv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="휴대폰번호"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/auth_et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="'-' 제외하고 숫자만 입력"
+                app:layout_constraintTop_toBottomOf="@id/auth_tv_phone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/auth_btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/auth_et_phone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
