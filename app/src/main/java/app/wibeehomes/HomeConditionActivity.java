@@ -67,6 +67,8 @@ public class HomeConditionActivity extends AppCompatActivity {
 
     private static JSONArray jsonArray=null;
 
+    private ArrayList<ResidentialFacilities> residentialFacilities = new ArrayList<ResidentialFacilities>();
+
     private TextView submitButton;
     private Button btn_loan_info;//대출 정보 입력 버튼
 
@@ -247,7 +249,6 @@ public class HomeConditionActivity extends AppCompatActivity {
             tv_condition_loan.setText(R.string.condition_edit);
         }
 
-
         // 제출 버튼-지역은 기본 설정으로 되어 있고, 전월세는 선택을 해야만! 조회로 넘어갈 수 있음
         submitButton = findViewById(R.id.condition_btn_submit);
 
@@ -339,7 +340,7 @@ public class HomeConditionActivity extends AppCompatActivity {
                             String address = String.valueOf(object.get("adddong"))+String.valueOf(object.get("addjibun"));
                             Place temp = new Place(String.valueOf(object.get("hname")),address,Double.parseDouble(String.valueOf(object.get("pointx"))),
                                     Double.parseDouble(String.valueOf(object.get("pointy"))));
-                            ResidentialStaticObject.addResidentialFacilities(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(object.get("hyear"))),
+                            residentialFacilities.add(new ResidentialFacilities(temp,Integer.parseInt(String.valueOf(object.get("hyear"))),
                                     Integer.parseInt(String.valueOf(object.get("hfloor"))),
                                     Double.parseDouble(String.valueOf(object.get("harea"))),
                                     Integer.parseInt(String.valueOf(object.get("hcate"))),String.valueOf(object.get("addjibun")),
@@ -376,7 +377,6 @@ public class HomeConditionActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void BigSpinnerAction(){
