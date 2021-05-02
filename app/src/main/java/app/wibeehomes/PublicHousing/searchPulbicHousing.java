@@ -59,7 +59,7 @@ public class searchPulbicHousing {
             String title = String.valueOf(object.get("BBS_TL"));
             StringBuffer strT = new StringBuffer(title);
             strT.deleteCharAt(0);
-            strT.deleteCharAt(str.length()-1);
+            strT.deleteCharAt(strT.length()-1);
             title=strT.toString();
             String urlLink = String.valueOf(object.get("LINK_URL"));
             StringBuffer strb= new StringBuffer(urlLink);
