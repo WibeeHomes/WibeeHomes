@@ -127,11 +127,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // 집 리스트
-        Intent conditionIntent = getIntent();
-        residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
-        adapter.notifyDataSetChanged();
-
         //------------------------------------------------------------------------------------------
         // 조건 입력
         Intent conIntent = getIntent();
@@ -162,17 +157,12 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 residentialFacilities = (ArrayList<ResidentialFacilities>) data.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
-                try {
-
-                }catch(NullPointerException e){
-
-                }
+                System.out.println("리스트 길이"+residentialFacilities.size());
+                adapter.notifyDataSetChanged();
             }
         }
         // HomeDetailActivity로 가기
         // button -> 마커
-
-
     }
 
 

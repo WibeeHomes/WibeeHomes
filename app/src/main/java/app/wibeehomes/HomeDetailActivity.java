@@ -24,10 +24,13 @@ import net.daum.mf.map.api.MapView;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import app.wibeehomes.Map.KakaoMapAPI;
 import app.wibeehomes.R;
 import app.wibeehomes.dialog.SearchDialog;
+import app.wibeehomes.traffic.CalRoute;
+import app.wibeehomes.traffic.ExtendNode;
 
 public class HomeDetailActivity extends AppCompatActivity {
 
@@ -216,14 +219,39 @@ public class HomeDetailActivity extends AppCompatActivity {
         } else {
             // 근무지 정보가 있는 경우
             // 아래 근무지 x, y 좌표로 ODsay에서 거리, 걸리는 시간 계산
+
             company_x = Double.parseDouble(PreferenceManager.getString(this, "company_x"));
             company_y = Double.parseDouble(PreferenceManager.getString(this, "company_y"));
+
+            Place temp = new Place(PreferenceManager.getString(this, "company_name"),company_x,company_y);
+
+            kakaoMapAPIDetail.workMarker(temp);
+
+            ArrayList<ExtendNode> sortArr = new ArrayList<ExtendNode>();
+            int minV = 999999; double minVdis = 999999;
+            try {
+                CalRoute calRoute = new CalRoute(this,home.getResident(),temp);
+                for(int i =0;i< calRoute.calRoute1().getResultPath().size();i++){
+                    sortArr.add(calRoute.calRoute1().getResultPath().get(i).getInfo());
+                    if(minV > calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalTime()){
+                        minV = calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalTime();
+                        minVdis =  calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalDistance();
+                    }
+                    else if(minV == calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalTime()){
+                        if(minVdis > calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalDistance()){
+                            minVdis =  calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalDistance();
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             // distance, time에서 오른쪽 주석과 같이 String 만들 것!
             workSettingButton.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_work_click_color));
             Log.d("근무지 이름", PreferenceManager.getString(this, "company_name"));
-            distance = getString(R.string.detail_distance);         // distance + Integer.toString(계산한 거리) + km
-            time = getString(R.string.detail_time);          // time + Integer.toString(계산한 시간) + 분
+            distance = Double.toString(minVdis) ;    // distance + Integer.toString(계산한 거리) + km
+            time = Integer.toString(minV);          // time + Integer.toString(계산한 시간) + 분
 
         }
 

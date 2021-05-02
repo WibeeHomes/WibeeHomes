@@ -50,6 +50,7 @@ public class HomeConditionActivity extends AppCompatActivity {
 
     private static OkHttpClient client=new OkHttpClient().newBuilder().build();
     private static String OkhttpUrl="http://3.34.216.87:8080/Wibee_Server/androidDB.jsp";
+    //private static String OkhttpUrl="http://192.168.1.34:8080/Wibee_Server/androidDB.jsp";
     private static MediaType mediaType= MediaType.parse("text/plain");
 
     private RadioGroup rg_lease;
@@ -300,7 +301,14 @@ public class HomeConditionActivity extends AppCompatActivity {
                     ArrayList<CityCode> cityCodes = DTO.getCityArr();
                     for(int i =0; i <cityCodes.size();i++) {
                         if (cityCodes.get(i).getName().equals(localCodeName)) {
-                            RequestBody body = new FormBody.Builder().add("localCode",cityCodes.get(i).getCode()).build();
+                            RequestBody body = null;
+                            if(rb_lease_year.isChecked()){
+                                body = new FormBody.Builder().add("localCode","a"+cityCodes.get(i).getCode()).build();
+                            }
+                            else {
+                                body = new FormBody.Builder().add("localCode","b"+cityCodes.get(i).getCode()).build();
+                            }
+
                             Request request = new Request.Builder().url(OkhttpUrl).method("POST", body).build();
                             // 서버에 법정동 코드 넘겨준다.
                             final CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -351,7 +359,9 @@ public class HomeConditionActivity extends AppCompatActivity {
                     // 부동산 검색 조건 서버로 보내고 HomeActivity로 이동
                     Intent homeIntent = new Intent(HomeConditionActivity.this, HomeActivity.class);
                     homeIntent.putExtra("homeList", residentialFacilities);
-                    startActivity(homeIntent);
+                    setResult(RESULT_OK,homeIntent);
+                    finish();
+                    //startActivity(homeIntent);
                 }
             }
         });

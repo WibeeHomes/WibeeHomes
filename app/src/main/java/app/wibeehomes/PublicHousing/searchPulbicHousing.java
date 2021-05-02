@@ -55,7 +55,12 @@ public class searchPulbicHousing {
         for(int i =0; i < dsListArray.size();i++){
             JsonObject object = (JsonObject)dsListArray.get(i);
             String cata = String.valueOf(object.get("AIS_TP_CD_NM"));
+
             String title = String.valueOf(object.get("BBS_TL"));
+            StringBuffer strT = new StringBuffer(title);
+            strT.deleteCharAt(0);
+            strT.deleteCharAt(str.length()-1);
+            title=strT.toString();
             String urlLink = String.valueOf(object.get("LINK_URL"));
             StringBuffer strb= new StringBuffer(urlLink);
             strb.deleteCharAt(0);
