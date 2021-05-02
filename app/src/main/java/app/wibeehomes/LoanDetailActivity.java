@@ -254,9 +254,16 @@ public class LoanDetailActivity extends AppCompatActivity {
 
         //-------------------------------------------------------------------------------
         //조건이 저장된 상태라면
-        if(PreferenceManager.getInt(this, "rentType")==0){//전세라면 모두 동의 체크된 상태
-            check_all.setChecked(true);
+        if(PreferenceManager.getBoolean(this,"isSetting_Loan")){
+            if(PreferenceManager.getInt(this, "rentType")==0){//전세라면 모두 동의 체크된 상태
+                check_all.setChecked(true);
+                check_first.setChecked(true);
+                check_second.setChecked(true);
+                check_third.setChecked(true);
+            }
         }
+
+
         //동의 버튼
         check_all.setOnClickListener(new View.OnClickListener() {//모두 동의 버튼
             @Override
@@ -376,7 +383,6 @@ public class LoanDetailActivity extends AppCompatActivity {
         });
 
         Log.v("name",PreferenceManager.getString(this,"name"));
-
     }
 
     //-------------------------------------------------------------------
