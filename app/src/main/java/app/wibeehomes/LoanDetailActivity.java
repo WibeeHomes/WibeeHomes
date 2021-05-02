@@ -303,6 +303,7 @@ public class LoanDetailActivity extends AppCompatActivity {
                                         PreferenceManager.setInt(getApplicationContext(),"businessnum",Integer.parseInt(et_businessnum.getText().toString()));
                                         PreferenceManager.setString(getApplicationContext(),"businessdate",finalDate);
                                         PreferenceManager.setInt(getApplicationContext(),"year_money",Integer.parseInt(et_yearmoney_1.getText().toString()));
+                                        PreferenceManager.setBoolean(getApplicationContext(), "isSetting_jeonse", true);
 
                                         startActivity(homeIntent);
 
