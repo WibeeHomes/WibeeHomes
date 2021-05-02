@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         Log.d("저장상태", Boolean.toString(PreferenceManager.getBoolean(this, "isSetting")));
 
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
             // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
             Toast.makeText(this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
             // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
@@ -154,6 +154,25 @@ public class HomeActivity extends AppCompatActivity {
         }
         // HomeDetailActivity로 가기
         // button -> 마커
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                residentialFacilities = (ArrayList<ResidentialFacilities>) data.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
+                try {
+
+                }catch(NullPointerException e){
+
+                }
+            }
+        }
+        // HomeDetailActivity로 가기
+        // button -> 마커
+
+
     }
 
 

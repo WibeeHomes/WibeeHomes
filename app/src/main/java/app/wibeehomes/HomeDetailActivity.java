@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import net.daum.mf.map.api.CalloutBalloonAdapter;
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapView;
+
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -68,14 +72,6 @@ public class HomeDetailActivity extends AppCompatActivity {
         // HomeActivity에서 넘어온 선택된 집 객체
         Intent detailIntent = getIntent();
         home = (ResidentialFacilities) detailIntent.getSerializableExtra("selectedHome");
-
-        try {
-            kakaoMapAPIDetail = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.homedetail_map_view),home.getResident());
-        } catch (IOException | InterruptedException e) {
-
-        }
-
-        kakaoMapAPIDetail.sidePlaceMaker();
 
         btn_bus=(Button)findViewById(R.id.btn_homedetail_bus);
         btn_subway=(Button)findViewById(R.id.btn_homedetail_subway);
@@ -148,7 +144,6 @@ public class HomeDetailActivity extends AppCompatActivity {
             }
         });
 
-
         //------------------------------------------------------------------------------------------
         // 상세 정보
         detailCategory = findViewById(R.id.home_detail_tv_category);
@@ -214,7 +209,7 @@ public class HomeDetailActivity extends AppCompatActivity {
             }
         });
 
-        if (PreferenceManager.getString(this, "company_name") == null) {
+        if (PreferenceManager.getString(this, "company_name").equals("")) {
             // 근무지 정보가 없는 경우
             distance = getString(R.string.detail_distance_none);
             time = getString(R.string.detail_time_none);
@@ -312,8 +307,36 @@ public class HomeDetailActivity extends AppCompatActivity {
             }
 
         }
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if(kakaoMapAPIDetail != null){
+            kakaoMapAPIDetail.newMapView(this);
+            kakaoMapAPIDetail.myLocMaker(home.getResident());
+            kakaoMapAPIDetail.sidePlaceMaker();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(kakaoMapAPIDetail == null){
+            try {
+                kakaoMapAPIDetail = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.homedetail_map_view),home.getResident());
+                kakaoMapAPIDetail.sidePlaceMaker();
+            } catch (IOException | InterruptedException e) {
 
+            }
+        }
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        kakaoMapAPIDetail.getMapViewContainer().removeAllViews();
+    }
 }

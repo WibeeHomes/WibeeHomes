@@ -15,7 +15,7 @@ import app.wibeehomes.R;
 import app.wibeehomes.ResidentialFacilities;
 import app.wibeehomes.SurrFacilities;
 
-public class KakaoMapAPI {
+public class KakaoMapAPI{
 
     private MapView mapView;
     private ViewGroup mapViewContainer;
@@ -36,8 +36,7 @@ public class KakaoMapAPI {
     public KakaoMapAPI(Activity activity, ViewGroup viewGroup,Place centerLoc) throws IOException, InterruptedException {
         this.centerLoc = centerLoc;
         this.surrFacilities = new SurrFacilities(centerLoc);
-
-        mapView = new MapView(activity);
+        this.mapView = new MapView(activity);
         mapViewContainer = viewGroup;
         mapViewContainer.addView(mapView);
         // 중심점 변경 + 줌 레벨 변경
@@ -47,6 +46,26 @@ public class KakaoMapAPI {
         // 줌 아웃
         mapView.zoomOut(true);
         myLocMaker(centerLoc);
+    }
+    public void newMapView2(MapView mapView){
+        this.mapView = mapView;
+        mapViewContainer.addView(mapView);
+    }
+    public void newMapView(Activity activity){
+        mapView = new MapView(activity);
+        mapViewContainer.addView(mapView);
+    }
+
+    public void destroyObj(){
+        mapView.onSurfaceDestroyed();
+    }
+
+    public void addMap(Activity activity, Place centerLoc) throws IOException, InterruptedException {
+        this.centerLoc = centerLoc;
+        this.surrFacilities = new SurrFacilities(centerLoc);
+
+        mapView = new MapView(activity);
+        mapViewContainer.addView(mapView);
     }
 
     public void changeLoc(Place centerLoc){
@@ -104,6 +123,7 @@ public class KakaoMapAPI {
             MapPOIItem marker = new MapPOIItem();
             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(temp.get_placeX(), temp.get_placeY());
             marker.setItemName(temp.get_placeAddress());
+
             marker.setTag(makerNumber);
             marker.setMapPoint(mapPoint); //좌표
             marker.setUserObject(residetns.get(i));
@@ -232,8 +252,17 @@ public class KakaoMapAPI {
     public MapView getMapView() {
         return mapView;
     }
+
+    public void setMapView(MapView mapView) {
+        this.mapView = mapView;
+        mapViewContainer.addView(mapView);
+    }
+
     public ViewGroup getMapViewContainer() {
         return mapViewContainer;
     }
 
+    public void setSurrFacilities(SurrFacilities surrFacilities) {
+        this.surrFacilities = surrFacilities;
+    }
 }
