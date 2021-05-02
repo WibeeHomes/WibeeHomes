@@ -1,6 +1,8 @@
 package app.wibeehomes.WooriBankAPI;
 
-public class WarFeeLoan {
+import java.io.Serializable;
+
+public class WarFeeLoan implements Serializable {
     private String CRINF; // 응답 결과 코드
     private String PSN; // 응답 오류 내용
     private String ADR; // 예상 가능 대출 금액

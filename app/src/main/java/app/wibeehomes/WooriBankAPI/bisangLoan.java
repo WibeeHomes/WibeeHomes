@@ -1,6 +1,8 @@
 package app.wibeehomes.WooriBankAPI;
 
-public class bisangLoan {
+import java.io.Serializable;
+
+public class bisangLoan implements Serializable {
     private String LONDCS; // 여신 결정 금리
     private String APLIR; // 적용 가산금리
     private String TGTCUS; // 대상 고객 우대 금리

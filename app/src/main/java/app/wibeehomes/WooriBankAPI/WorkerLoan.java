@@ -1,6 +1,8 @@
 package app.wibeehomes.WooriBankAPI;
 
-public class WorkerLoan {
+import java.io.Serializable;
+
+public class WorkerLoan implements Serializable {
     private String ENCY; // 여신 결정 금리
     private String name; //  적용 가산 금리
     private String RQAM; // 승인 금액
