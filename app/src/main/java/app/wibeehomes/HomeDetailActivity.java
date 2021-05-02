@@ -44,7 +44,8 @@ public class HomeDetailActivity extends AppCompatActivity {
 
     private TextView loan1Money_1_TextView, loan1Money_2_TextView, loan1Money_3_TextView, loan1Money_4_TextView,
                     loan2Money_1_TextView, loan2Money_2_TextView,
-                    loan3Money_1_TextView, loan3Money_2_TextView, loan3Money_3_TextView, loan3Money_4_TextView;
+                    loan3Money_1_TextView, loan3Money_2_TextView, loan3Money_3_TextView, loan3Money_4_TextView,
+                    loanCondition_TextView;
 
     // 받아올 값
     private int rentType = 0;
@@ -270,6 +271,7 @@ public class HomeDetailActivity extends AppCompatActivity {
             }
         });
 
+        loanCondition_TextView = findViewById(R.id.home_detail_tv_loan_condition);
 
         if (PreferenceManager.getBoolean(this, "isSetting_loan") != true) {
             // 대출 조회 정보가 없는 경우
@@ -280,21 +282,35 @@ public class HomeDetailActivity extends AppCompatActivity {
         } else {
             // 대출 정보가 있는 경우
             if (PreferenceManager.getInt(this, "rentType") == RENTTYPE.JEONSE.getValue()) {
+                // 전세
                 if (PreferenceManager.getBoolean(this, "isSetting_jeonse") == true) {
                     // 대출 정보가 모두 있고, 전세인 경우
                     loan1LinearLayout.setVisibility(View.VISIBLE);
+                    loanNoneLinearLayout.setVisibility(View.GONE);
                 } else {
                     // 전세 자금 대출 정보가 없는 경우
                     loan1LinearLayout.setVisibility(View.GONE);
                     loanNoneLinearLayout.setVisibility(View.VISIBLE);
+                    loanCondition_TextView.setText(R.string.condition_add_jeonse);
                 }
             } else {
+                // 월세
                 // 대출 정보가 있고, 월세인 경우
                 loan1LinearLayout.setVisibility(View.GONE);
                 loanNoneLinearLayout.setVisibility(View.GONE);
             }
-            loan2LinearLayout.setVisibility(View.VISIBLE);
-            loan3LinearLayout.setVisibility(View.VISIBLE);
+
+            if (available_worker_loan == true) {
+                // 직장인 대출이 가능한 경우
+                loan2Money_1_TextView.setVisibility(View.VISIBLE);
+                loan2Money_2_TextView.setVisibility(View.VISIBLE);
+            } else {
+                // 직장인 대출이 불가능한 경우
+                loan2MoneyTextView.setText(R.string.loan2_warning);
+                loan2Money_1_TextView.setVisibility(View.GONE);
+                loan2Money_2_TextView.setVisibility(View.GONE);
+            }
+
         }
 
     }

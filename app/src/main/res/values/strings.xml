@@ -12,6 +12,8 @@
     <string name="condition_add_jeonse">전세 대출을 추가로 조회할까요?</string>
     <string name="condition_edit">대출 조회 정보를 수정하실래요?</string>
 
+    <string name="loan2_warning">근무기간이 6개월 이상인 경우에만 가능한 대출입니다.</string>
+
     <string name="loan1_1">예상가능보증서금액 : </string>
     <string name="loan1_2">예상가능보증비율 : </string>
     <string name="loan1_3">예상가능보증료율 : </string>
