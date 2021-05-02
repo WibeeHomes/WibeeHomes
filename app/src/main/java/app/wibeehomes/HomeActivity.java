@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
     private Place selectedPlace;
     private Button button;
 
+    private Boolean available_worker_loan;
 
 
     @Override
@@ -54,6 +55,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+        available_worker_loan=getIntent().getBooleanExtra("available_worker_loan",true);
+        Log.d("직장인 대출 가능 여부-Home : ",Boolean.toString(available_worker_loan));
 
         Log.d("저장된 빅로컬", Integer.toString(PreferenceManager.getInt(this, "bigLocalNum")));
         Log.d("저장된 스몰로컬", Integer.toString(PreferenceManager.getInt(this, "smallLocalNum")));
