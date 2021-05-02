@@ -41,6 +41,7 @@ public class UserAuthActivity extends AppCompatActivity {
     int textlength=0;
     ArrayList<String> encoding_info=new ArrayList<String>();
     String encodedname;//암호화실명번호
+    private Boolean available_worker_loan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,12 @@ public class UserAuthActivity extends AppCompatActivity {
                                 }
 
                                 Intent homeIntent=new Intent(UserAuthActivity.this,HomeActivity.class);
+
+
+                                available_worker_loan=getIntent().getBooleanExtra("available_worker_loan",true);
+
+                                Log.d("직장인 대출 가능 여부-loan : ",Boolean.toString(available_worker_loan));
+
                                 startActivity(homeIntent);
                             }
                         }

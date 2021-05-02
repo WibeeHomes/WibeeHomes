@@ -49,10 +49,16 @@ public class HomeDetailActivity extends AppCompatActivity {
     private ResidentialFacilities home; // 집
     Double company_x, company_y; // 근무지 x, y 좌표
 
+    Boolean available_worker_loan; //직장인 대출 가능 여부
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_detail);
+
+        //직장인 대출 가능 여부-가능하면 True, 안되면 False -> 표시X
+        available_worker_loan=getIntent().getBooleanExtra("available_worker_loan",true);
+        Log.d("직장인 대출 가능 여부-HD : ",Boolean.toString(available_worker_loan));
 
         // HomeActivity에서 넘어온 선택된 집 객체
         Intent detailIntent = getIntent();
