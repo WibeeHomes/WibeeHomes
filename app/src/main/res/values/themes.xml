@@ -62,6 +62,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="LIGHT_BLUE_EDITTEXT">
+        <item name="android:background">@drawable/edittext_light_blue</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
     <!--BUTTON-->
     <style name="BUTTON">
         <item name="android:background">@drawable/button_blue</item>

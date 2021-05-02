@@ -118,6 +118,11 @@ public class HomeActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+
+                        // 집 리스트
+                        Intent conditionIntent = getIntent();
+                        residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
+
                     }
                 });
             }
@@ -145,9 +150,6 @@ public class HomeActivity extends AppCompatActivity {
             conditionTextView.setText(conditionString);
         }
 
-        // 집 리스트
-        Intent conditionIntent = getIntent();
-        residentialFacilities = (ArrayList<ResidentialFacilities>) conditionIntent.getSerializableExtra("homeList"); // condition에서 받은 집 리스트
 
         // HomeDetailActivity로 가기
         // button -> 마커

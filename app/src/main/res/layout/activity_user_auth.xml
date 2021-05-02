@@ -10,6 +10,7 @@
         android:id="@+id/auth_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/TOOL_BAR"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
@@ -36,6 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         app:layout_constraintTop_toBottomOf="@id/auth_toolbar"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
@@ -43,7 +46,9 @@
             android:id="@+id/auth_tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="이름"
+            style="@style/CON_TITLE_TEXTVIEW"
             app:layout_constraintTop_toBottomOf="@id/auth_toolbar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -51,6 +56,9 @@
             android:id="@+id/auth_et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edittext_light_blue"
+            style="@style/LIGHT_BLUE_EDITTEXT"
+            android:hint="이름"
             app:layout_constraintTop_toBottomOf="@id/auth_tv_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -58,7 +66,9 @@
             android:id="@+id/auth_tv_birth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="주민번호"
+            android:text="주민등록번호"
+            style="@style/CON_TITLE_TEXTVIEW"
+            android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/auth_et_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -71,45 +81,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="20210502"/>
+                style="@style/LIGHT_BLUE_EDITTEXT"
+                android:hint="주민등록번호 앞자리"/>
+            <View
+                android:layout_width="10dp"
+                android:layout_height="2dp"
+                android:background="@color/colorLightBlue"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_vertical"/>
             <EditText
                 android:id="@+id/auth_et_birth_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="20210502"/>
+                style="@style/LIGHT_BLUE_EDITTEXT"
+                android:hint="주민등록번호 뒷자리"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/auth_tv_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CON_TITLE_TEXTVIEW"
+            android:layout_marginTop="15dp"
             android:text="휴대폰번호"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
             <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/auth_spinner_telecom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:padding="10dp"
+                android:layout_gravity="bottom"
+                android:entries="@array/telecom_list"/>
             <EditText
                 android:id="@+id/auth_et_phone"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="'-' 제외하고 숫자만 입력"
+                android:layout_weight="0.7"
+                style="@style/LIGHT_BLUE_EDITTEXT"
                 app:layout_constraintTop_toBottomOf="@id/auth_tv_phone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
         </LinearLayout>
+        <CheckBox
+            android:id="@+id/auth_checkbox_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인정보사용 동의"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/auth_btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_search"
+            android:text="사용자 인증하기"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:textColor="@color/colorMainBlue"
+            android:textSize="18dp"
+            android:layout_gravity="center"
             app:layout_constraintTop_toBottomOf="@id/auth_et_phone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

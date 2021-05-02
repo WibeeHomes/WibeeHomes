@@ -1,6 +1,8 @@
 package app.wibeehomes;
 
-public class ResidentialFacilities {
+import java.io.Serializable;
+
+public class ResidentialFacilities implements Serializable {
 
     private Place resident;
 
