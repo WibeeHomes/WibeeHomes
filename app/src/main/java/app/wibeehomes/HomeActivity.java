@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         kakaoMapAPI.getMapView().setPOIItemEventListener(new MapView.POIItemEventListener() {
             @Override
             public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-                clickHomeMarker();
+                clickHomeMarker((ResidentialFacilities) mapPOIItem.getUserObject());
             }
 
             @Override
@@ -194,7 +194,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void clickHomeMarker() {
+    private void clickHomeMarker(ResidentialFacilities selectedPlace) {
         // 매개변수로 맵마커 객체 받고
         // 맵마커 객체 -> Place 객체 -> selectedPlace에 저장
         Intent detailIntent = new Intent(HomeActivity.this, HomeDetailActivity.class);

@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+
 import app.wibeehomes.Map.KakaoMapAPI;
 import app.wibeehomes.R;
 import app.wibeehomes.dialog.SearchDialog;
@@ -28,7 +30,8 @@ public class HomeDetailActivity extends AppCompatActivity {
     private boolean check1=false; //bus 마커 체크
     private boolean check2=false; //subway 마커 체크
     private boolean check3=false; //convenience 마커 체크
-    private boolean check4=false; //cart 마커 체크
+    private boolean check4=false; //mart 마커 체크
+
     private KakaoMapAPI kakaoMapAPIDetail =null;
     Button btn_bus,btn_subway,btn_convenience_store,btn_cart;
 
@@ -42,7 +45,8 @@ public class HomeDetailActivity extends AppCompatActivity {
     // 받아올 값
     private int rentType = 0;
     private int money1 = -1, money2 = -1, money3 = -1; // 1. 전세자금  2. 직장인 3.  비상금
-    private Place company, home; // 직장
+    private Place company; // 직장
+    private ResidentialFacilities home; // 집
     Double company_x, company_y; // 근무지 x, y 좌표
 
     @Override
@@ -50,11 +54,17 @@ public class HomeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_detail);
 
-        //kakaoMapAPIDetail = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.homedetail_map_view),);
-
         // HomeActivity에서 넘어온 선택된 집 객체
         Intent detailIntent = getIntent();
-        home = (Place) detailIntent.getSerializableExtra("selectedHome");
+        home = (ResidentialFacilities) detailIntent.getSerializableExtra("selectedHome");
+
+        try {
+            kakaoMapAPIDetail = new KakaoMapAPI(this, (ViewGroup) findViewById(R.id.homedetail_map_view),home.getResident());
+        } catch (IOException | InterruptedException e) {
+
+        }
+
+        kakaoMapAPIDetail.sidePlaceMaker();
 
         btn_bus=(Button)findViewById(R.id.btn_homedetail_bus);
         btn_subway=(Button)findViewById(R.id.btn_homedetail_subway);
@@ -72,10 +82,12 @@ public class HomeDetailActivity extends AppCompatActivity {
                 if(check1){//체크
                     btn_bus.setBackground(getResources().getDrawable(R.drawable.button_bus_click_color));
                     check1=false;
+                    kakaoMapAPIDetail.busMarker();
                 }
                 else{//체크 해제
                     btn_bus.setBackground(getResources().getDrawable(R.drawable.button_bus_color));
                     check1=true;
+                    kakaoMapAPIDetail.deleteBusMarker();
                 }
             }
         });
@@ -85,10 +97,12 @@ public class HomeDetailActivity extends AppCompatActivity {
                 if(check2){//체크
                     btn_subway.setBackground(getResources().getDrawable(R.drawable.button_subway_click_color));
                     check2=false;
+                    kakaoMapAPIDetail.subwayMarker();
                 }
                 else{//체크 해제
                     btn_subway.setBackground(getResources().getDrawable(R.drawable.button_subway_color));
                     check2=true;
+                    kakaoMapAPIDetail.deleteSubwayMarker();
                 }
             }
         });
@@ -98,10 +112,12 @@ public class HomeDetailActivity extends AppCompatActivity {
                 if(check3){//체크
                     btn_convenience_store.setBackground(getResources().getDrawable(R.drawable.button_convenience_store_click_color));
                     check3=false;
+                    kakaoMapAPIDetail.conviMarker();
                 }
                 else{//체크 해제
                     btn_convenience_store.setBackground(getResources().getDrawable(R.drawable.button_convenience_store_color));
                     check3=true;
+                    kakaoMapAPIDetail.deleteConvinMarker();
                 }
             }
         });
@@ -111,10 +127,12 @@ public class HomeDetailActivity extends AppCompatActivity {
                 if(check4){//체크
                     btn_cart.setBackground(getResources().getDrawable(R.drawable.button_cart_click_color));
                     check4=false;
+                    kakaoMapAPIDetail.MartMarker();
                 }
                 else{//체크 해제
                     btn_cart.setBackground(getResources().getDrawable(R.drawable.button_cart_color));
                     check4=true;
+                    kakaoMapAPIDetail.deleteMartMarker();
                 }
             }
         });
@@ -134,13 +152,17 @@ public class HomeDetailActivity extends AppCompatActivity {
         // 전세인 경우
         if (rentType == 1) {
             detailMoneyTitle.setText("전세금");
+            detailMoney.setText(home.getWarFee());
         } else {
             detailMoneyTitle.setText("보증금/월세");
+            detailMoney.setText(home.getWarFee()+"/"+home.getRenFee());
         }
 
         // 받은 정보 setText로 입력
-
-
+        detailCategory.setText(Integer.toString(home.gethCate()));
+        detailYear.setText(Integer.toString(home.gethYear()));
+        detailArea.setText(Double.toString(home.gethArea()) + "/" + Double.toString(home.gethFloor()));
+        detailAddress.setText(home.getResident().get_placeDetailAddress());
 
         //------------------------------------------------------------------------------------------
         // 직장과의 거리
