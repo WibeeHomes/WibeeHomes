@@ -11,4 +11,17 @@
     <string name="condition_none_loan">대출 한도를 같이 조회할까요?</string>
     <string name="condition_add_jeonse">전세 대출을 추가로 조회할까요?</string>
     <string name="condition_edit">대출 조회 정보를 수정하실래요?</string>
+
+    <string name="loan1_1">예상가능보증서금액 : </string>
+    <string name="loan1_2">예상가능보증비율 : </string>
+    <string name="loan1_3">예상가능보증료율 : </string>
+    <string name="loan1_4">예상가능보증료 : </string>
+
+    <string name="loan2_1">여신결정금리 : </string>
+    <string name="loan2_2">적용가산금리 : </string>
+
+    <string name="loan3_1">여신결정금리 : </string>
+    <string name="loan3_2">적용가산금리 : </string>
+    <string name="loan3_3">대상고객우대금리 : </string>
+    <string name="loan3_4">우리통장보유우대금리 : </string>
 </resources>

@@ -39,6 +39,10 @@ public class HomeDetailActivity extends AppCompatActivity {
     private Button loanConditionButton, workSettingButton;
     private SearchDialog dialog;
 
+    private TextView loan1Money_1_TextView, loan1Money_2_TextView, loan1Money_3_TextView, loan1Money_4_TextView,
+                    loan2Money_1_TextView, loan2Money_2_TextView,
+                    loan3Money_1_TextView, loan3Money_2_TextView, loan3Money_3_TextView, loan3Money_4_TextView;
+
     // 받아올 값
     private int rentType = 0;
     private int money1 = -1, money2 = -1, money3 = -1; // 1. 전세자금  2. 직장인 3.  비상금
@@ -212,8 +216,21 @@ public class HomeDetailActivity extends AppCompatActivity {
         loanNoneLinearLayout = findViewById(R.id.home_detail_ll_loan_none);     // 대출 조회 정보 없는 경우 -> visible
 
         loan1MoneyTextView = findViewById(R.id.home_detail_tv_loan1);
+        loan1Money_1_TextView = findViewById(R.id.home_detail_tv_loan1_1);
+        loan1Money_2_TextView = findViewById(R.id.home_detail_tv_loan1_2);
+        loan1Money_3_TextView = findViewById(R.id.home_detail_tv_loan1_3);
+        loan1Money_4_TextView = findViewById(R.id.home_detail_tv_loan1_4);
+
         loan2MoneyTextView = findViewById(R.id.home_detail_tv_loan2);
+        loan2Money_1_TextView = findViewById(R.id.home_detail_tv_loan2_1);
+        loan2Money_2_TextView = findViewById(R.id.home_detail_tv_loan2_2);
+
         loan3MoneyTextView = findViewById(R.id.home_detail_tv_loan3);
+        loan3Money_1_TextView = findViewById(R.id.home_detail_tv_loan3_1);
+        loan3Money_2_TextView = findViewById(R.id.home_detail_tv_loan3_2);
+        loan3Money_3_TextView = findViewById(R.id.home_detail_tv_loan3_3);
+        loan3Money_4_TextView = findViewById(R.id.home_detail_tv_loan3_4);
+
 
         // 대출 조회 정보 입력 버튼
         loanConditionButton = findViewById(R.id.home_detail_btn_loan_condition);

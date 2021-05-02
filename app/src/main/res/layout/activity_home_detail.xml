@@ -367,12 +367,44 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/colorMainBlue"/>
-                <TextView
-                    android:id="@+id/home_detail_tv_loan1"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/CON_SUB_TITLE_TEXTVIEW"
-                    android:text="000만원 가능"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_TITLE_TEXTVIEW"
+                        android:layout_marginBottom="5dp"
+                        android:text="000만원 가능"/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan1_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="예상가능보증서금액 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan1_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="예상가능보증비율 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan1_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="예상가능보증료율 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan1_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="예상가능보증료 : "/>
+
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/home_detail_ll_loan2"
@@ -396,12 +428,33 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/colorMainBlue"/>
-                <TextView
-                    android:id="@+id/home_detail_tv_loan2"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/CON_SUB_TITLE_TEXTVIEW"
-                    android:text="000만원 가능"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_TITLE_TEXTVIEW"
+                        android:text="000만원 가능"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan2_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="여신결정금리 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan2_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="적용가산금리 : "/>
+
+
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/home_detail_ll_loan3"
@@ -425,12 +478,44 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/colorMainBlue"/>
-                <TextView
-                    android:id="@+id/home_detail_tv_loan3"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/CON_SUB_TITLE_TEXTVIEW"
-                    android:text="000만원 가능"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_TITLE_TEXTVIEW"
+                        android:layout_marginBottom="5dp"
+                        android:text="000만원 가능"/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan3_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="여신결정금리 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan3_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="적용가산금리 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan3_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="대상고객우대금리 : "/>
+                    <TextView
+                        android:id="@+id/home_detail_tv_loan3_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CON_SUB_TITLE_TEXTVIEW"
+                        android:text="우리통장보유우대금리 : "/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

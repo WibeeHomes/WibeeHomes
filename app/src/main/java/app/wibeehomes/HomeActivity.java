@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
 
 import app.wibeehomes.Map.KakaoMapAPI;
 
@@ -39,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     private KakaoMapAPI kakaoMapAPI = null;
     private ArrayList<ResidentialFacilities> residentialFacilities = new ArrayList<ResidentialFacilities>();
+
 
     // 조건
     int bigLocal, smallLocal;
@@ -144,6 +148,8 @@ public class HomeActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+
+
 
                         // 집 리스트
                         Intent conditionIntent = getIntent();
