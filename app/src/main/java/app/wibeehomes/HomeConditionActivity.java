@@ -17,10 +17,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -298,43 +300,45 @@ public class HomeConditionActivity extends AppCompatActivity {
                     String localCodeName = bigArray[bigLocal]+" "+smallArray[smallLocal]; // DTO 시티 네임
 
                     ArrayList<CityCode> cityCodes = DTO.getCityArr();
-                    for(int i =0; i <cityCodes.size();i++){
-                        if(cityCodes.get(i).equals(localCodeName)) {
-                            RequestBody body =new FormBody.Builder().add("localCode","11110").build();
+                    for(int i =0; i <cityCodes.size();i++) {
+                        if (cityCodes.get(i).getName().equals(localCodeName)) {
+                            RequestBody body = new FormBody.Builder().add("localCode", "11110").build();
                             Request request = new Request.Builder().url(OkhttpUrl).method("POST", body).build();
                             // 서버에 법정동 코드 넘겨준다.
                             final CountDownLatch countDownLatch = new CountDownLatch(1);
                             client.newCall(request).enqueue(new Callback() {
                                 @Override
                                 public void onFailure(Call call, IOException e) {
-                                    Log.d("연결 실패", "error Connect Server error is"+e.toString());
+                                    Log.d("연결 실패", "error Connect Server error is" + e.toString());
                                     e.printStackTrace();
                                     countDownLatch.countDown();
                                 }
 
                                 @Override
-                                public void onResponse(Call call, Response response) throws IOException {
+                                public void onResponse(Call call, Response response) {
                                     if (response.isSuccessful()) {
                                         try {
-                                            jsonArray = new JSONArray(response.body().toString());
-                                        } catch (JSONException e) {
+                                            String responseData = response.body().string();
+                                            jsonArray = new JSONArray(responseData);
+                                        } catch (JSONException | IOException e) {
                                             e.printStackTrace();
                                         }
                                         countDownLatch.countDown();
                                     }
                                 }
                             });
-
                             try {
                                 countDownLatch.await();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            break;
                         }
                     }
+
                     for(int i =0; i < jsonArray.length();i++){
                         try {
-                            JsonObject object = (JsonObject)jsonArray.get(i);
+                            JSONObject object = (JSONObject)jsonArray.get(i);
                             String address = String.valueOf(object.get("adddong"))+String.valueOf(object.get("addjibun"));
                             Place temp = new Place(String.valueOf(object.get("hname")),address,Double.parseDouble(String.valueOf(object.get("pointx"))),
                                     Double.parseDouble(String.valueOf(object.get("pointy"))));
