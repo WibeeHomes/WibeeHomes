@@ -363,18 +363,21 @@ public class HomeConditionActivity extends AppCompatActivity {
                         try {
                             objt = (JSONObject)jsonArray.get(i);
                         } catch (JSONException e) {
-
                         }
                         try {
                             JSONObject loan1 =  objt.getJSONObject("loan1");
                             bisangloan = new bisangLoan( Double.toString(loan1.getDouble("LON_DCS_IR")),
-                                    Double.toString(loan1.getDouble("APL_ADN_IR")),String.valueOf(loan1.get("PRC_STCD")),
+                                    Double.toString(loan1.getDouble("APL_ADN_IR")),
                                     String.valueOf(loan1.get("TGT_CUS_PRME_IR")),String.valueOf(loan1.get("WOORI_PBOK_HLDG_PRME_IR")),
-                                    Double.toString(loan1.getDouble("APV_AM")));
+                                    Double.toString(loan1.getDouble("APV_AM")),String.valueOf(loan1.get("PRC_STCD")));
+
                             JSONObject loan2 = objt.getJSONObject("loan2");
-                            workerLoan = new WorkerLoan(Double.toString(loan2.getDouble("LON_DCS_IR")),Double.toString(loan2.getDouble("APL_ADN_IR")),
-                                    String.valueOf(loan2.get("PRC_STCD")), String.valueOf(loan2.get("LNAPV_RQ_NO")),
+                            workerLoan = new WorkerLoan(Double.toString(loan2.getDouble("LON_DCS_IR")),
+                                    Double.toString(loan2.getDouble("APL_ADN_IR")),
+                                    String.valueOf(loan2.get("PRC_STCD")),
+                                    String.valueOf(loan2.get("LNAPV_RQ_NO")),
                                     Double.toString(loan2.getDouble("APV_AM")));
+
                             home = objt.getJSONObject("home");
                             String address = String.valueOf(home.get("adddong"))+String.valueOf(home.get("addjibun"));
                             temp = new Place(String.valueOf(home.get("hname")),address,Double.parseDouble(String.valueOf(home.get("pointx"))),
