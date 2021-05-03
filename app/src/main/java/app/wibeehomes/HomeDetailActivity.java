@@ -168,7 +168,15 @@ public class HomeDetailActivity extends AppCompatActivity {
         }
 
         // 받은 정보 setText로 입력
-        detailCategory.setText(Integer.toString(home.gethCate()));
+        int cate = home.gethCate();
+        if (cate == 0) {
+            detailCategory.setText("아파트");
+        } else if(cate == 1) {
+            detailCategory.setText("오피스텔");
+        } else {
+            detailCategory.setText("연립주택");
+        }
+
         detailYear.setText(Integer.toString(home.gethYear()));
         detailArea.setText(Double.toString(home.gethArea()) + "/" + Double.toString(home.gethFloor()));
         detailAddress.setText(home.getResident().get_placeDetailAddress());
@@ -253,11 +261,13 @@ public class HomeDetailActivity extends AppCompatActivity {
             distance = Double.toString(minVdis) ;    // distance + Integer.toString(계산한 거리) + km
             time = Integer.toString(minV);          // time + Integer.toString(계산한 시간) + 분
 
+            // 받은 정보 setText로 입력
+            detailDistanceFromCompany.setText(distance);
+            detailTimeFromCompany.setText(time);
+
         }
 
-        // 받은 정보 setText로 입력
-        detailDistanceFromCompany.setText(distance);
-        detailTimeFromCompany.setText(time);
+
 
         //------------------------------------------------------------------------------------------
         // 대출 조회

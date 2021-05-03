@@ -100,8 +100,20 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onHomeListItemClick(View v, int pos) {
                 // 집 선택 시, HomeDetailActivity
+                Log.d("선택", "true");
                 Intent homeDetailIntent = new Intent(HomeActivity.this, HomeDetailActivity.class);
                 homeDetailIntent.putExtra("selectedHome", residentialFacilities.get(pos));
+                startActivity(homeDetailIntent);
+            }
+        });
+
+
+        Button dummybtn = findViewById(R.id.home_dummy_button);
+        dummybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent homeDetailIntent = new Intent(HomeActivity.this, HomeDetailActivity.class);
+                homeDetailIntent.putExtra("selectedHome", residentialFacilities.get(0));
                 startActivity(homeDetailIntent);
             }
         });

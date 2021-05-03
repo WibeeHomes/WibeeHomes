@@ -104,6 +104,15 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/home_dummy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintTop_toBottomOf="@id/home_ll_condition"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_rv_list"
         android:layout_width="match_parent"

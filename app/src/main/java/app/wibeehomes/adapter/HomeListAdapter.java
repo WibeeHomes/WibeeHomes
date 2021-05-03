@@ -23,14 +23,14 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeVi
     public interface OnHomeListClickListener {
         void onHomeListItemClick(View v, int pos);
     }
-    private HomeListAdapter.OnHomeListClickListener homeListClickListener = null;
-    public void setHomeListClickListener(HomeListAdapter.OnHomeListClickListener listener) {
+    private OnHomeListClickListener homeListClickListener = null;
+    public void setHomeListClickListener(OnHomeListClickListener listener) {
         this.homeListClickListener = listener;
     }
 
     public HomeListAdapter(ArrayList<ResidentialFacilities> datalist) {
         this.datalist = datalist;
-        Log.d("부동산 리스트", Integer.toString(datalist.size()));
+        Log.d("부동산 리스트", Integer.toString(this.datalist.size()));
     }
 
     public class HomeViewHolder extends RecyclerView.ViewHolder{
@@ -47,7 +47,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeVi
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if (homeListClickListener != null) {
+                            Log.d("클릭리스너",Integer.toString(pos));
                             homeListClickListener.onHomeListItemClick(view, pos);
+
                         }
                     }
                 }
