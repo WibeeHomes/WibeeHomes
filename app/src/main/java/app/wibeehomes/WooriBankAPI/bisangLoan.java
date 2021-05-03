@@ -10,8 +10,56 @@ public class bisangLoan implements Serializable {
     private String APVAM; // 승인 금액
     private String PRC;// 처리 상태 코드
 
-    public bisangLoan(String LONDCS, String APLIR,String TGTCUS,
-                      String WooriPBOK,String APVAM,String PRC){
+    public String getLONDCS() {
+        return LONDCS;
+    }
+
+    public void setLONDCS(String LONDCS) {
+        this.LONDCS = LONDCS;
+    }
+
+    public String getAPLIR() {
+        return APLIR;
+    }
+
+    public void setAPLIR(String APLIR) {
+        this.APLIR = APLIR;
+    }
+
+    public String getTGTCUS() {
+        return TGTCUS;
+    }
+
+    public void setTGTCUS(String TGTCUS) {
+        this.TGTCUS = TGTCUS;
+    }
+
+    public String getWooriPBOK() {
+        return WooriPBOK;
+    }
+
+    public void setWooriPBOK(String wooriPBOK) {
+        WooriPBOK = wooriPBOK;
+    }
+
+    public String getAPVAM() {
+        return APVAM;
+    }
+
+    public void setAPVAM(String APVAM) {
+        this.APVAM = APVAM;
+    }
+
+    public String getPRC() {
+        return PRC;
+    }
+
+    public void setPRC(String PRC) {
+        this.PRC = PRC;
+    }
+
+    public bisangLoan(String LONDCS, String APLIR, String TGTCUS,
+                      String WooriPBOK, String APVAM, String PRC){
         this.APLIR =APLIR;
         this.APVAM = APVAM;
         this.LONDCS = LONDCS;

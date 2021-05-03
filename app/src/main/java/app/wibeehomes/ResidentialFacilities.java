@@ -62,6 +62,9 @@ public class ResidentialFacilities implements Serializable {
     public String getWarFee() {
         return warFee;
     }
+    public WarFeeLoan getWarFeeLoan() { return warFeeLoan; }
+    public bisangLoan getBisangLoan() { return bisangLoan; }
+    public WorkerLoan getWorkerLoan() { return workerLoan; }
 
     public void setAddJibun(String addJibun) {
         this.addJibun = addJibun;
