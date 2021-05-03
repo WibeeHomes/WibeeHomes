@@ -204,6 +204,28 @@ public class HomeDetailActivity extends AppCompatActivity {
                         PreferenceManager.setString(getApplicationContext(), "company_name", company.get_placeAddress());
                         PreferenceManager.setString(getApplicationContext(), "company_x", Double.toString(company.get_placeX()));
                         PreferenceManager.setString(getApplicationContext(), "company_y", Double.toString(company.get_placeY()));
+
+                        kakaoMapAPIDetail.workMarker(place);
+                        ArrayList<ExtendNode> sortArr = new ArrayList<ExtendNode>();
+
+                        int minV = 999999; double minVdis = 999999;
+                        try {
+                            CalRoute calRoute = new CalRoute(getBaseContext(),home.getResident(),place);
+                            for(int i =0;i< calRoute.calRoute1().getResultPath().size();i++){
+                                sortArr.add(calRoute.calRoute1().getResultPath().get(i).getInfo());
+                                if(minV > calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalTime()){
+                                    minV = calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalTime();
+                                    minVdis =  calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalDistance();
+                                }
+                                else if(minV == calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalTime()){
+                                    if(minVdis > calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalDistance()){
+                                        minVdis =  calRoute.calRoute1().getResultPath().get(i).getInfo().getTotalDistance();
+                                    }
+                                }
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 

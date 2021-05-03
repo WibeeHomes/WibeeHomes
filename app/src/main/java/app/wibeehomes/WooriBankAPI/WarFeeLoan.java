@@ -67,8 +67,8 @@ public class WarFeeLoan implements Serializable {
     private String LEAS; // 예상 가능 보증료율
     private String LAWC; // 예상 가능 보증료
 
-    public WarFeeLoan(String CRINF, String PSN,
-                      String ADR, String BLD,
+    public WarFeeLoan(String CRINF,
+                       String BLD, String ADR,String PSN,
                       String MDBT , String LEAS, String LAWC){
         this.ADR=ADR;
         this.PSN =PSN;

@@ -25,7 +25,7 @@ public class CalRoute {
                 @Override
                 public void run() {
                     System.out.println("스타트");
-                    ODsayService oDsayService=ODsayService.init(thisContext,"cDSdUY9qLmrLpcqsJL3zPvgpx3IgkOf4sLsbkzSOZ2Y");
+                    ODsayService oDsayService=ODsayService.init(thisContext,"xo/EkXe4uWI4kopYqykDeqobNU8vTz4aiNHiHONcFlU");
                     // 서버 연결 제한 시간(단위(초), default : 5초)
                     oDsayService.setReadTimeout(5000);
                     // 데이터 획득 제한 시간(단위(초), default : 5초)
@@ -35,6 +35,7 @@ public class CalRoute {
                 }
             });
             thread.start();
+            thread.join();
         }
     } // 경로 탐색 api 실행 함수
     public ResultCallbackListener calRoute1() throws InterruptedException {
