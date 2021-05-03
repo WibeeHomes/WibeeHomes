@@ -31,7 +31,7 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity(introintent);
                 finish();
             }
-        }, 1500);
+        }, 3000);
 
         //앱 시작시 preferencemanager에서 대출 정보(name,businessnum,businessdate,year_money,isSetting_Loan) 초기화
         PreferenceManager.clear(this);

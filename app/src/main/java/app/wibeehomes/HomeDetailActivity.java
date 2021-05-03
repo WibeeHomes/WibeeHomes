@@ -226,6 +226,9 @@ public class HomeDetailActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+                        detailDistanceFromCompany.setText("총 거리 : 12km");
+                        detailTimeFromCompany.setText("대중교통으로 이동한 시간 : 1시간 56분");
                     }
                 });
 
@@ -283,11 +286,16 @@ public class HomeDetailActivity extends AppCompatActivity {
             distance = Double.toString(minVdis) ;    // distance + Integer.toString(계산한 거리) + km
             time = Integer.toString(minV);          // time + Integer.toString(계산한 시간) + 분
 
+
             // 받은 정보 setText로 입력
-            detailDistanceFromCompany.setText(distance);
+            detailDistanceFromCompany.setText("직장까지의 거리 : 12km");
             detailTimeFromCompany.setText(time);
 
         }
+
+        // 받은 정보 setText로 입력
+        detailDistanceFromCompany.setText(distance);
+        detailTimeFromCompany.setText(time);
 
 
 
@@ -331,22 +339,22 @@ public class HomeDetailActivity extends AppCompatActivity {
         loanNoneLinearLayout.setVisibility(View.GONE);
         loan1LinearLayout.setVisibility(View.VISIBLE);
         loan1MoneyTextView.setText(home.getWarFeeLoan().getADR()+ " 가능");
-        loan1Money_1_TextView.setText(R.string.loan1_1 + home.getWarFeeLoan().getBLD());
-        loan1Money_2_TextView.setText(R.string.loan1_2 + home.getWarFeeLoan().getMDBT());
-        loan1Money_3_TextView.setText(R.string.loan1_3 + home.getWarFeeLoan().getLEAS());
-        loan1Money_4_TextView.setText(R.string.loan1_4 + home.getWarFeeLoan().getLAWC());
+        loan1Money_1_TextView.setText(getString(R.string.loan1_1) + home.getWarFeeLoan().getBLD());
+        loan1Money_2_TextView.setText(getString(R.string.loan1_2) + home.getWarFeeLoan().getMDBT());
+        loan1Money_3_TextView.setText(getString(R.string.loan1_3) + home.getWarFeeLoan().getLEAS());
+        loan1Money_4_TextView.setText(getString(R.string.loan1_4) + home.getWarFeeLoan().getLAWC());
 
         loan2LinearLayout.setVisibility(View.VISIBLE);
         loan1MoneyTextView.setText(home.getWorkerLoan().getRQAM() + " 가능");
-        loan2Money_1_TextView.setText(R.string.loan2_1 + home.getWorkerLoan().getENCY());
-        loan2Money_2_TextView.setText(R.string.loan2_2 + home.getWorkerLoan().getName());
+        loan2Money_1_TextView.setText(getString(R.string.loan2_1) + home.getWorkerLoan().getENCY());
+        loan2Money_2_TextView.setText(getString(R.string.loan2_2) + home.getWorkerLoan().getName());
 
         loan3LinearLayout.setVisibility(View.VISIBLE);
         loan1MoneyTextView.setText(home.getBisangLoan().getAPVAM() + " 가능");
-        loan3Money_1_TextView.setText(R.string.loan3_1 + home.getBisangLoan().getLONDCS());
-        loan3Money_2_TextView.setText(R.string.loan3_2 + home.getBisangLoan().getAPLIR());
-        loan3Money_3_TextView.setText(R.string.loan3_3 + home.getBisangLoan().getTGTCUS());
-        loan3Money_4_TextView.setText(R.string.loan3_4 + home.getBisangLoan().getPRC());
+        loan3Money_1_TextView.setText(getString(R.string.loan3_1) + home.getBisangLoan().getLONDCS());
+        loan3Money_2_TextView.setText(getString(R.string.loan3_2) + home.getBisangLoan().getAPLIR());
+        loan3Money_3_TextView.setText(getString(R.string.loan3_3) + home.getBisangLoan().getTGTCUS());
+        loan3Money_4_TextView.setText(getString(R.string.loan3_4) + home.getBisangLoan().getWooriPBOK());
 
 //        if (PreferenceManager.getBoolean(this, "isSetting_loan") != true) {
 //            // 대출 조회 정보가 없는 경우
